@@ -1,7 +1,10 @@
 import DashTable from "./DashTable";
-import { userFields as popUpFields, userFields } from "../popUpFields";
+import { userFields } from "../fields";
+import { userFields as popUpFields } from "../popUpFields";
+import { useTranslation } from "react-i18next";
 
 const Users = () => {
+  const { t } = useTranslation();
   const users = [
     {
       id: 1,
@@ -76,8 +79,8 @@ const Users = () => {
   ];
   return (
     <DashTable
-      title={"المستخدمون"}
-      search={"مستخدم"}
+      title={t("user.title")}
+      search={t("user.search")}
       fields={userFields}
       data={users}
       popUpFields={popUpFields}

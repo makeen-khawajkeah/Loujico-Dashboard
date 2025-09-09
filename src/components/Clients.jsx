@@ -1,8 +1,10 @@
 import DashTable from "./DashTable";
 import { clientFields as popUpFields } from "../popUpFields";
 import { clientFields } from "../fields";
+import { useTranslation } from "react-i18next";
 
 const Clients = () => {
+  const { t } = useTranslation();
   const clients = [
     {
       id: 1,
@@ -93,8 +95,8 @@ const Clients = () => {
 
   return (
     <DashTable
-      title={"العملاء"}
-      search={"عميل"}
+      title={t("customer.title")}
+      search={t("customer.search")}
       fields={clientFields}
       data={clients}
       popUpFields={popUpFields}

@@ -1,8 +1,11 @@
 import DashTable from "./DashTable";
 import { invoiceFields as popUpFields } from "../popUpFields";
 import { invoiceFields } from "../fields";
+import { useTranslation } from "react-i18next";
 
 const Invoices = () => {
+  const { t } = useTranslation();
+
   const invoices = [
     {
       id: "1",
@@ -83,8 +86,8 @@ const Invoices = () => {
 
   return (
     <DashTable
-      title={"الفواتير"}
-      search={"فاتورة"}
+      title={t("invoice.title")}
+      search={t("invoice.search")}
       fields={invoiceFields}
       data={invoices}
       popUpFields={popUpFields}

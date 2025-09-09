@@ -1,8 +1,11 @@
 import DashTable from "./DashTable";
 import { projectFields as popUpFields } from "../popUpFields";
 import { projectFields } from "../fields";
+import { useTranslation } from "react-i18next";
 
 const Projects = () => {
+  const { t } = useTranslation();
+
   const projects = [
     {
       id: 1,
@@ -136,8 +139,8 @@ const Projects = () => {
 
   return (
     <DashTable
-      title={"المشاريع"}
-      search={"مشروع"}
+      title={t("project.title")}
+      search={t("project.search")}
       fields={projectFields}
       data={projects}
       popUpFields={popUpFields}

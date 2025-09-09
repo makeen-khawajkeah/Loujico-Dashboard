@@ -1,9 +1,12 @@
 import DashTable from "./DashTable";
-import { recordFields as popUpFields } from "../popUpFields";
+import {recordFields as popUpFields } from "../popUpFields";
 import { recordFields } from "../fields";
+import { useTranslation } from "react-i18next";
 
-const Records = () => {
-  const records = [
+const Logs = () => {
+  const { t } = useTranslation();
+
+  const logs = [
     {
       id: 1,
       action_type: "إنشاء",
@@ -80,13 +83,13 @@ const Records = () => {
 
   return (
     <DashTable
-      title={"السجلات"}
-      search={"سجل"}
+      title={t("log.title")}
+      search={t("log.search")}
       fields={recordFields}
-      data={records}
+      data={logs}
       popUpFields={popUpFields}
     />
   );
 };
 
-export default Records;
+export default Logs;

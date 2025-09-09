@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { FaTimes } from "react-icons/fa";
 
 const PopUp = ({
@@ -10,9 +11,13 @@ const PopUp = ({
   onClose,
   onSubmit,
 }) => {
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
-  const [touched, setTouched] = useState({}); // تتبع الحقول التي تم لمسها
+  const [touched, setTouched] = useState({}); // Track touched fields
 
   useEffect(() => {
     if (initialData) {
@@ -32,83 +37,94 @@ const PopUp = ({
       });
       setFormData(initialFormData);
     }
-    // إعادة تعيين الحقول الملموسة عند فتح النافذة
+    // Reset touched fields when opening the popup
     setTouched({});
     setErrors({});
   }, [initialData, fields, isOpen]);
 
   if (!isOpen) return null;
 
-  // دالة التحقق من صحة الحقل
+  // Field validation function
   const validateField = (name, value) => {
-    const field = fields.find(f => f.name === name);
+    const field = fields.find((f) => f.name === name);
     if (!field) return "";
 
     let error = "";
 
-    // التحقق إذا كان الحقل مطلوباً
+    // Check if field is required
     if (field.required && (!value || value.toString().trim() === "")) {
-      error = `${field.title} مطلوب`;
+      error = t("popup.validation.required", { field: t(field.title) });
     }
-    // التحقق من صيغة البريد الإلكتروني
+    // Email format validation
     else if (field.type === "email" && value) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(value)) {
-        error = "صيغة البريد الإلكتروني غير صحيحة";
+        error = t("popup.validation.invalidEmail");
       }
     }
-    // التحقق من رقم الهاتف
+    // Phone number validation
     else if (field.type === "tel" && value) {
       const phoneRegex = /^[\+]?[0-9\s\-\(\)]{8,}$/;
-      if (!phoneRegex.test(value.replace(/\s/g, ''))) {
-        error = "رقم الهاتف غير صحيح";
+      if (!phoneRegex.test(value.replace(/\s/g, ""))) {
+        error = t("popup.validation.invalidPhone");
       }
     }
-    // التحقق من الأرقام
+    // Number validation
     else if (field.type === "number" && value !== undefined && value !== null) {
       const numValue = Number(value);
       if (isNaN(numValue)) {
-        error = "يجب إدخال رقم صحيح";
+        error = t("popup.validation.invalidNumber");
       } else if (field.min !== undefined && numValue < field.min) {
-        error = `القيمة يجب أن تكون ${field.min} على الأقل`;
+        error = t("popup.validation.minValue", { min: field.min });
       } else if (field.max !== undefined && numValue > field.max) {
-        error = `القيمة يجب أن تكون ${field.max} على الأكثر`;
+        error = t("popup.validation.maxValue", { max: field.max });
       }
     }
-    // التحقق من التاريخ
+    // Date validation
     else if ((field.type === "date" || field.type === "datetime") && value) {
       const dateValue = new Date(value);
       if (isNaN(dateValue.getTime())) {
-        error = "تاريخ غير صحيح";
+        error = t("popup.validation.invalidDate");
       } else if (field.minDate && new Date(value) < new Date(field.minDate)) {
-        error = `التاريخ يجب أن يكون بعد ${new Date(field.minDate).toLocaleDateString()}`;
+        error = t("popup.validation.dateAfter", {
+          date: new Date(field.minDate).toLocaleDateString(),
+        });
       } else if (field.maxDate && new Date(value) > new Date(field.maxDate)) {
-        error = `التاريخ يجب أن يكون قبل ${new Date(field.maxDate).toLocaleDateString()}`;
+        error = t("popup.validation.dateBefore", {
+          date: new Date(field.maxDate).toLocaleDateString(),
+        });
       }
     }
-    // التحقق من طول النص
+    // Text length validation
     else if (field.type === "text" || field.type === "textarea") {
       if (field.minLength && value.length < field.minLength) {
-        error = `يجب أن يحتوي على ${field.minLength} أحرف على الأقل`;
+        error = t("popup.validation.minLength", { minLength: field.minLength });
       } else if (field.maxLength && value.length > field.maxLength) {
-        error = `يجب أن يحتوي على ${field.maxLength} أحرف على الأكثر`;
+        error = t("popup.validation.maxLength", { maxLength: field.maxLength });
       }
     }
-    // التحقق من الملفات
+    // File validation
     else if (field.type === "file" && value) {
-      if (field.accept && !field.accept.split(',').some(ext => 
-        value.name.toLowerCase().endsWith(ext.trim().toLowerCase())
-      )) {
-        error = `نوع الملف غير مسموح. المسموح: ${field.accept}`;
+      if (
+        field.accept &&
+        !field.accept
+          .split(",")
+          .some((ext) =>
+            value.name.toLowerCase().endsWith(ext.trim().toLowerCase())
+          )
+      ) {
+        error = t("popup.validation.invalidFileType", { accept: field.accept });
       } else if (field.maxSize && value.size > field.maxSize) {
-        error = `حجم الملف كبير جداً. الحد الأقصى: ${field.maxSize / 1024 / 1024}MB`;
+        error = t("popup.validation.fileTooLarge", {
+          maxSize: field.maxSize / 1024 / 1024,
+        });
       }
     }
 
     return error;
   };
 
-  // التحقق من كل الحقول
+  // Validate all fields
   const validateForm = () => {
     const newErrors = {};
     fields.forEach((field) => {
@@ -141,7 +157,7 @@ const PopUp = ({
       [name]: newValue,
     }));
 
-    // التحقق فورياً عند التغيير إذا كان الحقل قد تم لمسه مسبقاً
+    // Validate immediately if field was touched before
     if (touched[name]) {
       const error = validateField(name, newValue);
       setErrors((prev) => ({
@@ -150,7 +166,7 @@ const PopUp = ({
       }));
     }
 
-    //标记 الحقل كملموس
+    // Mark field as touched
     setTouched((prev) => ({
       ...prev,
       [name]: true,
@@ -159,13 +175,13 @@ const PopUp = ({
 
   const handleBlur = (e) => {
     const { name } = e.target;
-    //标记 الحقل كملموس عند الخروج منه
+    // Mark field as touched on blur
     setTouched((prev) => ({
       ...prev,
       [name]: true,
     }));
 
-    // التحقق من الحقل عند الخروج
+    // Validate field on blur
     const error = validateField(name, formData[name]);
     setErrors((prev) => ({
       ...prev,
@@ -176,21 +192,21 @@ const PopUp = ({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    //标记 جميع الحقول كملموسة عند Submit
+    // Mark all fields as touched on Submit
     const allTouched = {};
-    fields.forEach(field => {
+    fields.forEach((field) => {
       if (field.type !== "hidden") {
         allTouched[field.name] = true;
       }
     });
     setTouched(allTouched);
 
-    // التحقق من كل الحقول
+    // Validate all fields
     const newErrors = validateForm();
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length > 0) {
-      return; // لا تستمر إذا كان هناك أخطاء
+      return; // Don't continue if there are errors
     }
 
     onSubmit(formData);
@@ -214,7 +230,11 @@ const PopUp = ({
       onChange: handleInputChange,
       onBlur: handleBlur,
       className: `px-3 py-2 bg-gray-200 rounded-md transition-colors hover:bg-gray-100 focus:bg-white focus-visible:outline-[var(--main-color)] max-lg:w-full ${
-        errors[field.name] ? "border-2 border-red-500" : touched[field.name] ? "border border-green-500" : ""
+        errors[field.name]
+          ? "border-2 border-red-500"
+          : touched[field.name]
+          ? "border border-green-500"
+          : ""
       }`,
     };
 
@@ -222,7 +242,9 @@ const PopUp = ({
       case "select":
         return (
           <select {...commonProps}>
-            <option value="">اختر {field.title}</option>
+            <option value="">
+              {t("popup.selectPlaceholder", { field: t(field.title) })}
+            </option>
             {field.options?.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
@@ -266,7 +288,7 @@ const PopUp = ({
             />
             {formData[field.name]?.name && (
               <p className="text-sm text-gray-600 mt-1">
-                الملف المحدد: {formData[field.name].name}
+                {t("popup.selectedFile")}: {formData[field.name].name}
               </p>
             )}
           </div>
@@ -285,11 +307,15 @@ const PopUp = ({
   }
 
   return (
-    <div className="fixed inset-0 bg-[rgb(0,0,0,0.5)] flex justify-center items-center z-50 p-4 max-sm:p-2 text-[var(--main-color)] text-right">
+    <div
+      className={`fixed inset-0 bg-[rgb(0,0,0,0.5)] flex justify-center items-center z-50 p-4 max-sm:p-2 text-[var(--main-color)] ${
+        language === "ar" ? "text-right" : ""
+      }`}
+    >
       <div className="bg-gray-300 p-6 max-sm:p-4 rounded-md w-full max-w-2xl shadow-xl max-h-[90vh] overflow-y-auto duration-300 hover:scale-105">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold">
-            {isAdd ? "إضافة" : "تعديل"} {title}
+            {isAdd ? t("popup.add") : t("popup.edit")} {title}
           </h2>
           <button
             onClick={onClose}
@@ -305,14 +331,16 @@ const PopUp = ({
               {row.map((field) => (
                 <div key={field.name} className="flex flex-col gap-2 flex-1">
                   <label htmlFor={field.name} className="text-sm font-medium">
-                    {field.title}
+                    {t(field.title)}
                     {field.required && (
                       <span className="text-red-500 mr-1">*</span>
                     )}
                   </label>
                   {renderField(field)}
                   {errors[field.name] && (
-                    <p className="text-red-500 text-xs mt-1">{errors[field.name]}</p>
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors[field.name]}
+                    </p>
                   )}
                   {!errors[field.name] && touched[field.name] && (
                     <p className="text-green-500 text-xs mt-1">✓</p>
@@ -328,13 +356,13 @@ const PopUp = ({
               onClick={onClose}
               className="px-4 py-2 cursor-pointer text-[var(--main-color)] bg-gray-300 rounded-md hover:bg-gray-400 transition-colors"
             >
-              إلغاء
+              {t("popup.cancel")}
             </button>
             <button
               type="submit"
               className="px-4 py-2 text-white bg-[var(--main-color)] rounded-md hover:bg-[var(--main-color-darker)] cursor-pointer transition-colors"
             >
-              {isAdd ? "إضافة" : "تعديل"}
+              {isAdd ? t("popup.add") : t("popup.edit")}
             </button>
           </div>
         </form>

@@ -1,14 +1,61 @@
 import { useState } from "react";
 import { FaAngleRight, FaAngleLeft, FaTrash } from "react-icons/fa";
 import PopUp from "./PopUp";
+import axios from "axios";
+import { url } from "zod";
+import { useTranslation } from "react-i18next";
 
 const DashTable = ({ title, search, fields, data, popUpFields = [] }) => {
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
   const [numberToShow, setNumberToShow] = useState(10);
   const [pageNumber, setPageNumber] = useState(1);
   const [lastNumber, setLastNumber] = useState(1);
   const [checkedFields, setCheckedFields] = useState([]);
   const [openPopUp, setOpenPopUp] = useState(false);
   const [isAdd, setIsAdd] = useState(true);
+  const [initialData, setInitialData] = useState([]);
+
+  const getData = async (id) => {
+    const data = axios.get(url);
+  };
+
+  const handleAdd = async (body) => {
+    try {
+      const response = await axios.post(url, body, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error(t("dashTable.errors.addFailed", { item: search }), error);
+      throw error;
+    }
+  };
+
+  const handleUpdate = async (body) => {
+    try {
+      const response = await axios.patch(url, body, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error(
+        t("dashTable.errors.updateFailed", { item: search }),
+        error
+      );
+      throw error;
+    }
+  };
 
   return (
     <div className="p-6 bg-gray-300 max-lg:text-center h-[100%]">
@@ -17,7 +64,7 @@ const DashTable = ({ title, search, fields, data, popUpFields = [] }) => {
         <div className="flex justify-between max-lg:justify-center items-center flex-wrap gap-3 mt-8 mb-5">
           <input
             type="text"
-            placeholder={`ابحث عن ${search}`}
+            placeholder={`${t("dashTable.searchPlaceholder")} ${search}`}
             className="px-5 py-2 bg-gray-300 rounded-md w-96 transition-colors hover:bg-gray-200 focus-visible:outline-black"
           />
           <div className="flex flex-wrap gap-3 max-lg:justify-center">
@@ -31,36 +78,37 @@ const DashTable = ({ title, search, fields, data, popUpFields = [] }) => {
 
                     setOpenPopUp(true);
                   }}
-                  className="px-2 w-24 sm:px-5 sm:w-32 py-2 bg-gray-300 cursor-pointer rounded-md transition-colors hover:from-[var(--main-color-lighter)]  hover:to-[var(--main-color)] bg-gradient-to-br from-[var(--main-color)] to-[var(--main-color-lighter)] text-white font-bold duration-300"
+                  className="px-2 w-24 sm:px-5 sm:w-32 py-2 cursor-pointer rounded-md transition-colors hover:from-[var(--main-color-lighter)]  hover:to-[var(--main-color)] bg-gradient-to-br from-[var(--main-color)] to-[var(--main-color-lighter)] text-white font-bold duration-300"
                 >
-                  اضافة
+                  {t("dashTable.buttons.add")}
                 </button>
                 <button
                   onClick={() => {
-                    if (checkedFields.length) {
+                    if (checkedFields.length === 1) {
                       if (isAdd) {
                         setIsAdd(false);
                       }
 
+                      getData(checkedFields[0]);
                       setOpenPopUp(true);
                     }
                   }}
-                  className={`px-2 w-24 sm:px-5 sm:w-32 py-2 bg-gray-300 rounded-md transition-colors hover:from-[var(--sub-color-lighter)]  hover:to-[var(--sub-color)] bg-gradient-to-br from-[var(--sub-color)] to-[var(--sub-color-lighter)] text-white font-bold duration-300 ${
+                  className={`px-2 w-24 sm:px-5 sm:w-32 py-2 rounded-md transition-colors hover:from-[var(--sub-color-lighter)]  hover:to-[var(--sub-color)] bg-gradient-to-br from-[var(--sub-color)] to-[var(--sub-color-lighter)] text-white font-bold duration-300 ${
                     checkedFields.length === 1
                       ? "cursor-pointer"
                       : "cursor-no-drop"
                   }`}
                 >
-                  تعديل
+                  {t("dashTable.buttons.edit")}
                 </button>
               </>
             ) : null}
             <button
-              className={`px-2 w-24 sm:px-5 sm:w-32 py-2 bg-gray-300 rounded-md transition-colors hover:from-[var(--third-color)]  hover:to-[var(--third-color-darker)] bg-gradient-to-br from-[var(--third-color-darker)] to-[var(--third-color)] text-white font-bold  duration-300 ${
+              className={`px-2 w-24 sm:px-5 sm:w-32 py-2 rounded-md transition-colors hover:from-[var(--third-color)]  hover:to-[var(--third-color-darker)] bg-gradient-to-br from-[var(--third-color-darker)] to-[var(--third-color)] text-white font-bold  duration-300 ${
                 checkedFields.length ? "cursor-pointer" : "cursor-no-drop"
               }`}
             >
-              حذف
+              {t("dashTable.buttons.delete")}
             </button>
           </div>
         </div>
@@ -77,7 +125,7 @@ const DashTable = ({ title, search, fields, data, popUpFields = [] }) => {
                       minWidth: `${field.width}px`,
                     }}
                   >
-                    {field.title}
+                    {t(field.title)}
                   </th>
                 ))}
                 <th
@@ -104,20 +152,20 @@ const DashTable = ({ title, search, fields, data, popUpFields = [] }) => {
                     >
                       {field.name === "is_present" ? (
                         dataItem[field.name] ? (
-                          "حاضر"
+                          t("dashTable.status.present")
                         ) : (
-                          "غائب"
+                          t("dashTable.status.absent")
                         )
                       ) : field.name === "is_deleted" ? (
                         dataItem[field.name] ? (
-                          "محذوف"
+                          t("dashTable.status.deleted")
                         ) : (
-                          "نشط"
+                          t("dashTable.status.active")
                         )
                       ) : field.name === "profile_image" ? (
                         <img
                           src={dataItem[field.name]}
-                          alt="صورة الموظف"
+                          alt={t("dashTable.alt.employeeImage")}
                           className="w-10 h-10 rounded-full object-cover"
                         />
                       ) : (
@@ -151,7 +199,9 @@ const DashTable = ({ title, search, fields, data, popUpFields = [] }) => {
         </div>
         <div className="flex justify-center lg:justify-end items-center flex-wrap gap-3 sm:gap-5 mt-5">
           <div className="flex items-center gap-2">
-            <span className="whitespace-nowrap">عدد السطور في الصفحة : </span>
+            <span className="whitespace-nowrap">
+              {t("dashTable.rowsPerPage")} :{" "}
+            </span>
             <select
               onChange={(e) => {
                 setNumberToShow(e.target.value);
@@ -168,24 +218,42 @@ const DashTable = ({ title, search, fields, data, popUpFields = [] }) => {
             <span>
               {lastNumber}-{numberToShow * pageNumber}
             </span>
-            <span>of</span>
+            <span>{t("dashTable.of")}</span>
             <span>100</span>
           </div>
-          <div className="flex gap-2 items-center">
+          <div
+            className={`flex gap-2 items-center ${
+              language === "en" ? "flex-row-reverse" : ""
+            }`}
+          >
             <FaAngleRight
               onClick={() => {
-                if (pageNumber > 1) {
-                  setPageNumber(pageNumber - 1);
-                  setLastNumber(lastNumber - numberToShow);
+                if (language === "ar") {
+                  if (pageNumber > 1) {
+                    setPageNumber(pageNumber - 1);
+                    setLastNumber(lastNumber - numberToShow);
+                  }
+                } else {
+                  if (pageNumber < 5) {
+                    setPageNumber(pageNumber + 1);
+                    setLastNumber(lastNumber + numberToShow);
+                  }
                 }
               }}
               className="cursor-pointer"
             />
             <FaAngleLeft
               onClick={() => {
-                if (pageNumber < 5) {
-                  setPageNumber(pageNumber + 1);
-                  setLastNumber(lastNumber + numberToShow);
+                if (language === "ar") {
+                  if (pageNumber < 5) {
+                    setPageNumber(pageNumber + 1);
+                    setLastNumber(lastNumber + numberToShow);
+                  }
+                } else {
+                  if (pageNumber > 1) {
+                    setPageNumber(pageNumber - 1);
+                    setLastNumber(lastNumber - numberToShow);
+                  }
                 }
               }}
               className="cursor-pointer"
@@ -200,6 +268,8 @@ const DashTable = ({ title, search, fields, data, popUpFields = [] }) => {
           title={search}
           fields={popUpFields}
           onClose={() => setOpenPopUp(false)}
+          onSubmit={() => {}}
+          initialData={!isAdd ? initialData : []}
         />
       ) : null}
     </div>
