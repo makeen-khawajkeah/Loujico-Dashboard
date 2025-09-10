@@ -1,7 +1,7 @@
 @import "tailwindcss";
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  direction: rtl;
   --main-color: #1F476F;
   --main-color-darker: #132B43;
   --main-color-lighter: #7899B2;
@@ -12,10 +12,12 @@
   --text-color: #4a4a4a;
   --text-color-dark: #2E2E2E;
 }
+
 input[type="checkbox"] {
   accent-color: var(--main-color);
   cursor: pointer;
 }
+
 *::-webkit-scrollbar {
   display: none;
 }
@@ -23,9 +25,15 @@ input[type="checkbox"] {
 .dir-ltr {
   direction: ltr;
 }
-html{
-    direction: ltr;
+
+.dir-rtl {
+  direction: rtl;
 }
+
+html {
+  direction: ltr;
+}
+
 .parent {
-    width: calc(100% - 260px);
+  width: calc(100% - 260px);
 }

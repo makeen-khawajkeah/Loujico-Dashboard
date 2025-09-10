@@ -1,13 +1,13 @@
 import DashTable from "./DashTable";
-import { clientFields as popUpFields } from "../popUpFields";
-import { clientFields } from "../fields";
+import { logFields as popUpFields } from "../popUpFields";
+import { logFields } from "../fields";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const Clients = () => {
+const Logs = () => {
   const { t } = useTranslation();
-  const [clients, setClients] = useState([]);
+  const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refresh,setRefresh] = useState(false)
 
@@ -22,18 +22,15 @@ const Clients = () => {
         }
 
         const response = await axios
-          .get(
-            "http://192.168.43.103:7176/api/Customer/GetAll?Page=1&Count=10",
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-              },
-            }
-          )
+          .get("http://192.168.43.103:7176/api/Logs/GetAll?Page=1&Count=10", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          })
           .then((res) => res.data);
 
-        setClients(response.data);
+        setLogs(response.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       } finally {
@@ -58,11 +55,11 @@ const Clients = () => {
 
   return (
     <DashTable
-      title={t("customer.title")}
-      search={t("customer.search")}
-      url="/Customer"
-      fields={clientFields}
-      data={clients}
+      title={t("log.title")}
+      search={t("log.search")}
+      url="/Logs"
+      fields={logFields}
+      data={logs}
       popUpFields={popUpFields}
       isrefresh={refresh}
       setRefresh={setRefresh}
@@ -70,4 +67,4 @@ const Clients = () => {
   );
 };
 
-export default Clients;
+export default Logs;

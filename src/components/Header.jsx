@@ -18,11 +18,11 @@ const Header = ({ onToggleSidebar }) => {
   // }
 
   return (
-    <nav className="bg-white p-4 px-4 lg:px-12 flex justify-between lg:justify-end items-center w-full">
+    <nav className={`bg-white p-4 px-4 lg:px-12 flex items-center justify-between lg:justify-end w-full `}>
       {/* زر القائمة للشاشات الصغيرة */}
       <button
         onClick={onToggleSidebar}
-        className="lg:hidden p-2 text-gray-600 hover:text-gray-900 focus:outline-none"
+        className="lg:hidden p-2 text-gray-600 hover:text-gray-900 focus:outline-none cursor-pointer"
       >
         <FaBars size={24} />
       </button>

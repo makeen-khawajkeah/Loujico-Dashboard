@@ -2,95 +2,70 @@ import DashTable from "./DashTable";
 import { invoiceFields as popUpFields } from "../popUpFields";
 import { invoiceFields } from "../fields";
 import { useTranslation } from "react-i18next";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Invoices = () => {
   const { t } = useTranslation();
+  const [invoices, setInvoices] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [refresh,setRefresh] = useState(false)
 
-  const invoices = [
-    {
-      id: "1",
-      client_id: "47",
-      project_id: "241",
-      amount: 12500,
-      issue_date: "2024-08-01",
-      due_date: "2024-08-30",
-      status: "مدفوعه",
-      created_at: "2024-07-28T10:30:00Z",
-      updated_at: "2024-08-15T14:20:00Z",
-      last_viewed: "2024-08-20T09:15:00Z",
-      is_deleted: false,
-      created_by: 101,
-      updated_by: 101,
-    },
-    {
-      id: "2",
-      client_id: "29",
-      project_id: "193",
-      amount: 8500,
-      issue_date: "2024-08-05",
-      due_date: "2024-09-04",
-      status: "قيد الانتظار",
-      created_at: "2024-08-01T11:45:00Z",
-      updated_at: "2024-08-10T16:30:00Z",
-      last_viewed: "2024-08-25T11:20:00Z",
-      is_deleted: false,
-      created_by: 102,
-      updated_by: 101,
-    },
-    {
-      id: "3",
-      client_id: "36",
-      project_id: "182",
-      amount: 15000,
-      issue_date: "2024-08-10",
-      due_date: "2024-09-09",
-      status: "متأخرة",
-      created_at: "2024-08-05T09:15:00Z",
-      updated_at: "2024-09-10T10:40:00Z",
-      last_viewed: "2024-09-12T14:50:00Z",
-      is_deleted: false,
-      created_by: 101,
-      updated_by: 102,
-    },
-    {
-      id: "4",
-      client_id: "18",
-      project_id: "35",
-      amount: 7000,
-      issue_date: "2024-08-15",
-      due_date: "2024-09-14",
-      status: "مدفوعه",
-      created_at: "2024-08-10T14:20:00Z",
-      updated_at: "2024-09-05T12:30:00Z",
-      last_viewed: "2024-09-08T15:45:00Z",
-      is_deleted: false,
-      created_by: 102,
-      updated_by: 102,
-    },
-    {
-      id: "5",
-      client_id: "9",
-      project_id: "56",
-      amount: 10000,
-      issue_date: "2024-08-20",
-      due_date: "2024-09-19",
-      status: "قيد الانتظار",
-      created_at: "2024-08-15T16:40:00Z",
-      updated_at: "2024-08-28T13:15:00Z",
-      last_viewed: "2024-09-03T10:25:00Z",
-      is_deleted: false,
-      created_by: 101,
-      updated_by: 101,
-    },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const token = localStorage.getItem("authToken");
+
+        if (!token) {
+          return;
+        }
+
+        const response = await axios
+          .get(
+            "http://192.168.43.103:7176/api/Invoices/GetAll?Page=1&Count=10",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          )
+          .then((res) => res.data);
+
+        setInvoices(response.data);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [t]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center bg-gray-300 h-full">
+        <div className="flex space-x-2">
+          <div className="w-4 h-4 rounded-xs bg-[var(--main-color)] animate-bounce [animation-delay:-0.3s]"></div>
+          <div className="w-4 h-4 rounded-xs bg-[var(--main-color)] animate-bounce [animation-delay:-0.15s]"></div>
+          <div className="w-4 h-4 rounded-xs bg-[var(--main-color)] animate-bounce"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <DashTable
       title={t("invoice.title")}
       search={t("invoice.search")}
+      url="/Invoices"
       fields={invoiceFields}
       data={invoices}
       popUpFields={popUpFields}
+      isrefresh={refresh}
+      setRefresh={setRefresh}
     />
   );
 };

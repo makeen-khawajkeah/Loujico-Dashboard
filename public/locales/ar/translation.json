@@ -59,7 +59,7 @@
     "add": "إضافة",
     "edit": "تعديل",
     "cancel": "إلغاء",
-    "selectPlaceholder": "اختر {field}",
+    "selectPlaceholder": "اختر {{field}}",
     "selectedFile": "الملف المحدد",
     "validation": {
       "required": "{field} مطلوب",
@@ -110,7 +110,8 @@
       "companyDescription": "وصف الشركة",
       "industry": "نوع الصناعة",
       "serviceProvided": "الخدمة المقدمة",
-      "inquiry": "نص الاستفسار"
+      "inquiry": "نص الاستفسار",
+      "workDate": "تاريخ العمل"
     },
     "project": {
       "id": "المعرف",
@@ -156,7 +157,10 @@
       "id": "المعرف",
       "name": "الاسم",
       "email": "البريد الإلكتروني",
-      "role": "الدور"
+      "role": "الدور",
+      "firstName": "الأسم الأول",
+      "lastName": "الأسم الأخير"
+
     },
     "product": {
       "id": "المعرف",
@@ -169,6 +173,7 @@
   },
   "dashTable": {
     "searchPlaceholder": "ابحث عن",
+    "noData": "لا يوجد بيانات",
     "buttons": {
       "add": "إضافة",
       "edit": "تعديل",

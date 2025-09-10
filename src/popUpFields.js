@@ -1,567 +1,392 @@
 export const employeeFields = [
     {
         name: "id",
-        title: "المعرف",
-        type: "hidden" // Usually not editable in forms
+        title: "popupFields.employee.id",
+        type: "hidden"
     },
     {
-        name: "first_name",
-        title: "الاسم الأول",
+        name: "firstName",
+        title: "popupFields.employee.firstName",
         type: "text",
         required: true
     },
     {
-        name: "last_name",
-        title: "الاسم الأخير",
+        name: "lastName",
+        title: "popupFields.employee.lastName",
         type: "text",
         required: true
     },
     {
         name: "age",
-        title: "العمر",
+        title: "popupFields.employee.age",
         type: "number",
         min: 18,
-        max: 100
+        max: 100,
+        required: true
     },
     {
         name: "phone",
-        title: "رقم الهاتف",
+        title: "popupFields.employee.phone",
         type: "tel",
         required: true
     },
     {
         name: "email",
-        title: "البريد الإلكتروني",
+        title: "popupFields.employee.email",
         type: "email"
     },
     {
         name: "position",
-        title: "المنصب",
+        title: "popupFields.employee.position",
         type: "select",
         options: [
-            { value: "manager", label: "مدير" },
-            { value: "developer", label: "مطور" },
-            { value: "designer", label: "مصمم" },
-            { value: "analyst", label: "محلل" }
+            { value: "manager", label: "popupFields.options.position.manager" },
+            { value: "developer", label: "popupFields.options.position.developer" },
+            { value: "designer", label: "popupFields.options.position.designer" },
+            { value: "analyst", label: "popupFields.options.position.analyst" }
         ]
     },
     {
-        name: "service_duration",
-        title: "مدة الخدمة",
+        name: "serviceDuration",
+        title: "popupFields.employee.serviceDuration",
         type: "number",
-        suffix: "سنوات"
+        suffix: "popupFields.suffix.years"
     },
     {
         name: "salary",
-        title: "الراتب",
+        title: "popupFields.employee.salary",
         type: "number",
         prefix: "$"
     },
     {
         name: "address",
-        title: "العنوان",
+        title: "popupFields.employee.address",
         type: "textarea"
     },
     {
         name: "description",
-        title: "الوصف",
+        title: "popupFields.employee.description",
         type: "textarea"
     },
     {
-        name: "profile_image",
-        title: "الصورة الشخصية",
+        name: "profileImage",
+        title: "popupFields.employee.profileImage",
         type: "file",
         accept: "image/*"
     },
     {
-        name: "is_present",
-        title: "حالة التواجد",
+        name: "isPresent",
+        title: "popupFields.employee.isPresent",
         type: "checkbox",
         default: true
     },
-    // {
-    //     name: "created_at",
-    //     title: "تاريخ الإنشاء",
-    //     type: "date",
-    //     readOnly: true // Usually auto-generated
-    // },
-    // {
-    //     name: "updated_at",
-    //     title: "تاريخ التحديث",
-    //     type: "date",
-    //     readOnly: true // Usually auto-generated
-    // },
-    // {
-    //     name: "last_visit",
-    //     title: "آخر زيارة",
-    //     type: "datetime"
-    // },
-    // {
-    //     name: "is_deleted",
-    //     title: "حالة الحذف",
-    //     type: "checkbox"
-    // },
-    // {
-    //     name: "created_by",
-    //     title: "تم الإنشاء بواسطة",
-    //     type: "text",
-    //     readOnly: true // Usually auto-filled
-    // },
-    // {
-    //     name: "updated_by",
-    //     title: "تم التحديث بواسطة",
-    //     type: "text",
-    //     readOnly: true // Usually auto-filled
-    // }
 ];
 
 export const clientFields = [
     {
         name: "id",
-        title: "المعرف",
+        title: "popupFields.client.id",
         type: "hidden"
     },
     {
-        name: "name",
-        title: "اسم العميل",
+        name: "customerName",
+        title: "popupFields.client.name",
         type: "text",
         required: true
     },
     {
         name: "phone",
-        title: "رقم الهاتف",
+        title: "popupFields.client.phone",
         type: "tel",
         required: true
     },
     {
         name: "email",
-        title: "البريد الإلكتروني",
+        title: "popupFields.client.email",
         type: "email",
-        required: true
     },
     {
         name: "industry",
-        title: "نوع الصناعة",
+        title: "popupFields.client.industry",
         type: "select",
         options: [
-            { value: "technology", label: "تكنولوجيا" },
-            { value: "healthcare", label: "رعاية صحية" },
-            { value: "finance", label: "مالية" },
-            { value: "education", label: "تعليم" }
+            { value: "technology", label: "popupFields.options.industry.technology" },
+            { value: "healthcare", label: "popupFields.options.industry.healthcare" },
+            { value: "finance", label: "popupFields.options.industry.finance" },
+            { value: "education", label: "popupFields.options.industry.education" }
         ],
-        required: true
     },
     {
-        name: "address",
-        title: "العنوان",
+        name: "customerAddress",
+        title: "popupFields.client.address",
         type: "textarea",
         required: true
     },
     {
-        name: "company_description",
-        title: "وصف الشركة",
+        name: "companyDescription",
+        title: "popupFields.client.companyDescription",
         type: "textarea",
         required: true
     },
-    // {
-    //     name: "is_deleted",
-    //     title: "حالة الحذف",
-    //     type: "checkbox"
-    // },
     {
-        name: "service_provided",
-        title: "الخدمة المقدمة",
+        name: "serviceProvided",
+        title: "popupFields.client.serviceProvided",
         type: "text"
     },
     {
-        name: "service_provided",
-        title: "الخدمة المقدمة من قبل الشركة",
+        name: "serviceProvidedCompany",
+        title: "popupFields.client.serviceProvidedCompany",
         type: "text"
     },
     {
-        name: "start duration",
-        title: "مدة العمل",
+        name: "startDuration",
+        title: "popupFields.client.startDuration",
         type: "text"
     },
     {
-        name: "end duration",
-        title: "تاريخ الانتهاء",
+        name: "endDuration",
+        title: "popupFields.client.endDuration",
         type: "text"
     },
-    // {
-    //     name: "created_at",
-    //     title: "تاريخ الإنشاء",
-    //     type: "date",
-    //     readOnly: true
-    // },
-    // {
-    //     name: "updated_at",
-    //     title: "تاريخ التحديث",
-    //     type: "date",
-    //     readOnly: true
-    // },
-    // {
-    //     name: "last_visit",
-    //     title: "آخر زيارة",
-    //     type: "datetime"
-    // },
-    // {
-    //     name: "created_by",
-    //     title: "تم الإنشاء بواسطة",
-    //     type: "text",
-    //     readOnly: true
-    // },
-    // {
-    //     name: "updated_by",
-    //     title: "تم التحديث بواسطة",
-    //     type: "text",
-    //     readOnly: true
-    // }
 ];
 
 export const projectFields = [
     {
         name: "id",
-        title: "المعرف",
+        title: "popupFields.project.id",
         type: "hidden"
     },
     {
         name: "title",
-        title: "عنوان المشروع",
+        title: "popupFields.project.title",
         type: "text",
         required: true
     },
     {
         name: "description",
-        title: "وصف المشروع",
+        title: "popupFields.project.description",
         type: "textarea"
     },
     {
-        name: "client_id",
-        title: "العميل المرتبط",
+        name: "clientId",
+        title: "popupFields.project.clientId",
         type: "select",
-        // You would need to fetch clients for options
-        options: [1, 2, 3] // Will be populated dynamically
+        options: [1, 2, 3]
     },
     {
-        name: "start_date",
-        title: "تاريخ البدء",
+        name: "startDate",
+        title: "popupFields.project.startDate",
         type: "date",
         required: true
     },
     {
-        name: "end_date",
-        title: "تاريخ الانتهاء",
+        name: "endDate",
+        title: "popupFields.project.endDate",
         type: "date",
         required: true
     },
     {
         name: "status",
-        title: "حالة المشروع",
+        title: "popupFields.project.status",
         type: "select",
         options: [
-            { value: "planned", label: "مخطط" },
-            { value: "in_progress", label: "قيد التنفيذ" },
-            { value: "completed", label: "مكتمل" },
-            { value: "cancelled", label: "ملغي" }
+            { value: "planned", label: "popupFields.options.status.planned" },
+            { value: "inProgress", label: "popupFields.options.status.inProgress" },
+            { value: "completed", label: "popupFields.options.status.completed" },
+            { value: "cancelled", label: "popupFields.options.status.cancelled" }
         ]
     },
     {
         name: "price",
-        title: "سعر المشروع",
+        title: "popupFields.project.price",
         type: "text",
-    },
-    // {
-    //     name: "created_at",
-    //     title: "تاريخ الإنشاء",
-    //     type: "date",
-    //     readOnly: true
-    // },
-    // {
-    //     name: "updated_at",
-    //     title: "تاريخ التحديث",
-    //     type: "date",
-    //     readOnly: true
-    // },
-    // {
-    //     name: "last_visit",
-    //     title: "آخر زيارة",
-    //     type: "datetime"
-    // },
-    // {
-    //     name: "is_deleted",
-    //     title: "حالة الحذف",
-    //     type: "checkbox"
-    // },
-    // {
-    //     name: "created_by",
-    //     title: "تم الإنشاء بواسطة",
-    //     type: "text",
-    //     readOnly: true
-    // },
-    // {
-    //     name: "updated_by",
-    //     title: "تم التحديث بواسطة",
-    //     type: "text",
-    //     readOnly: true
-    // },
-    {
-        name: "file_name",
-        title: "اسم الملف",
-        type: "text",
-        // readOnly: true // Usually auto-generated from file upload
     },
     {
-        name: "file_path",
-        title: "مسار الملف",
+        name: "fileName",
+        title: "popupFields.project.fileName",
         type: "text",
-        // readOnly: true // Usually auto-generated from file upload
     },
     {
-        name: "file_type",
-        title: "نوع الملف",
+        name: "filePath",
+        title: "popupFields.project.filePath",
         type: "text",
-        // readOnly: true // Usually auto-generated from file upload
     },
-    // {
-    //     name: "uploaded_at",
-    //     title: "تاريخ الرفع",
-    //     type: "date",
-    //     readOnly: true
-    // },
-    // {
-    //     name: "uploaded_by",
-    //     title: "تم الرفع بواسطة",
-    //     type: "text",
-    //     readOnly: true
-    // }
+    {
+        name: "fileType",
+        title: "popupFields.project.fileType",
+        type: "text",
+    },
 ];
 
-export const recordFields = [
+export const logFields = [
     {
         name: "id",
-        title: "المعرف",
+        title: "popupFields.log.id",
         type: "hidden"
     },
     {
-        name: "action_type",
-        title: "نوع الإجراء",
+        name: "actionType",
+        title: "popupFields.log.actionType",
         type: "select",
         options: [
-            { value: "create", label: "إنشاء" },
-            { value: "update", label: "تحديث" },
-            { value: "delete", label: "حذف" },
-            { value: "view", label: "عرض" }
+            { value: "create", label: "popupFields.options.actionType.create" },
+            { value: "update", label: "popupFields.options.actionType.update" },
+            { value: "delete", label: "popupFields.options.actionType.delete" },
+            { value: "view", label: "popupFields.options.actionType.view" }
         ]
     },
     {
-        name: "target_table",
-        title: "الجدول المستهدف",
+        name: "targetTable",
+        title: "popupFields.log.targetTable",
         type: "select",
         options: [
-            { value: "employees", label: "الموظفين" },
-            { value: "clients", label: "العملاء" },
-            { value: "projects", label: "المشاريع" },
-            { value: "products", label: "المنتجات" }
+            { value: "employees", label: "popupFields.options.targetTable.employees" },
+            { value: "clients", label: "popupFields.options.targetTable.clients" },
+            { value: "projects", label: "popupFields.options.targetTable.projects" },
+            { value: "products", label: "popupFields.options.targetTable.products" }
         ]
     },
     {
-        name: "target_id",
-        title: "معرف السجل المستهدف",
+        name: "targetId",
+        title: "popupFields.log.targetId",
         type: "number"
     },
     {
-        name: "user_id",
-        title: "معرف المستخدم",
+        name: "userId",
+        title: "popupFields.log.userId",
         type: "number"
     },
     {
-        name: "action_description",
-        title: "وصف الإجراء",
+        name: "actionDescription",
+        title: "popupFields.log.actionDescription",
         type: "textarea"
     },
-    // {
-    //     name: "timestamp",
-    //     title: "تاريخ ووقت الإجراء",
-    //     type: "datetime",
-    //     readOnly: true
-    // }
 ];
 
 export const productFields = [
     {
         name: "id",
-        title: "المعرف",
+        title: "popupFields.product.id",
         type: "hidden"
     },
     {
-        name: "name",
-        title: "اسم المنتج",
+        name: "productName",
+        title: "popupFields.product.name",
         type: "text",
         required: true
     },
     {
         name: "price",
-        title: "السعر",
+        title: "popupFields.product.price",
         type: "number",
         prefix: "$",
         step: 0.01
     },
     {
-        name: "is_active",
-        title: "الحالة",
+        name: "isActive",
+        title: "popupFields.product.isActive",
         type: "checkbox",
         default: true
     },
     {
         name: "monthlysubscription",
-        title: "الاشتراك الشهري",
+        title: "popupFields.product.monthlySubscription",
         type: "number",
         prefix: "$",
         step: 0.01
     },
     {
-        name: "description",
-        title: "الوصف",
+        name: "productDescription",
+        title: "popupFields.product.description",
         type: "textarea",
         required: true
     },
-    // {
-    //     name: "created_at",
-    //     title: "تاريخ الإنشاء",
-    //     type: "date",
-    //     readOnly: true
-    // },
-    // {
-    //     name: "updated_at",
-    //     title: "تاريخ التحديث",
-    //     type: "date",
-    //     readOnly: true
-    // }
 ];
 
 export const invoiceFields = [
     {
         name: "id",
-        title: "رقم الفاتورة",
+        title: "popupFields.invoice.id",
         type: "hidden",
-        readOnly: true // Usually auto-generated
+        readOnly: true
     },
     {
-        name: "client_id",
-        title: "معرف العميل",
+        name: "clientId",
+        title: "popupFields.invoice.clientId",
         type: "select",
-        // You would need to fetch clients for options
         options: []
     },
     {
-        name: "project_id",
-        title: "معرف المشروع",
+        name: "projectId",
+        title: "popupFields.invoice.projectId",
         type: "select",
-        // You would need to fetch projects for options
         options: []
     },
     {
         name: "amount",
-        title: "المبلغ",
+        title: "popupFields.invoice.amount",
         type: "number",
         prefix: "$",
         step: 0.01,
         required: true
     },
     {
-        name: "issue_date",
-        title: "تاريخ الإصدار",
+        name: "issueDate",
+        title: "popupFields.invoice.issueDate",
         type: "date",
         required: true
     },
     {
-        name: "due_date",
-        title: "تاريخ الاستحقاق",
+        name: "dueDate",
+        title: "popupFields.invoice.dueDate",
         type: "date",
         required: true
     },
     {
         name: "status",
-        title: "الحالة",
+        title: "popupFields.invoice.status",
         type: "select",
         options: [
-            { value: "draft", label: "مسودة" },
-            { value: "sent", label: "مرسلة" },
-            { value: "paid", label: "مدفوعة" },
-            { value: "overdue", label: "متأخرة" }
+            { value: "draft", label: "popupFields.options.invoiceStatus.draft" },
+            { value: "sent", label: "popupFields.options.invoiceStatus.sent" },
+            { value: "paid", label: "popupFields.options.invoiceStatus.paid" },
+            { value: "overdue", label: "popupFields.options.invoiceStatus.overdue" }
         ]
     },
-    // {
-    //     name: "created_at",
-    //     title: "تاريخ الإنشاء",
-    //     type: "date",
-    //     readOnly: true
-    // },
-    // {
-    //     name: "updated_at",
-    //     title: "تاريخ التحديث",
-    //     type: "date",
-    //     readOnly: true
-    // },
-    // {
-    //     name: "last_viewed",
-    //     title: "آخر زيارة",
-    //     type: "datetime"
-    // },
-    // {
-    //     name: "is_deleted",
-    //     title: "حالة الحذف",
-    //     type: "checkbox"
-    // },
-    // {
-    //     name: "created_by",
-    //     title: "تم الإنشاء بواسطة",
-    //     type: "text",
-    //     readOnly: true
-    // },
-    // {
-    //     name: "updated_by",
-    //     title: "تم التحديث بواسطة",
-    //     type: "text",
-    //     readOnly: true
-    // }
 ];
 
 export const relationFields = [
     {
         name: "id",
-        title: "المعرف",
+        title: "popupFields.relation.id",
         type: "hidden"
     },
     {
-        name: "project_id",
-        title: "معرف المشروع",
+        name: "projectId",
+        title: "popupFields.relation.projectId",
         type: "select",
-        // You would need to fetch projects for options
         options: []
     },
     {
-        name: "employee_id",
-        title: "معرف الموظف",
+        name: "employeeId",
+        title: "popupFields.relation.employeeId",
         type: "select",
-        // You would need to fetch employees for options
         options: []
     },
     {
-        name: "role_on_project",
-        title: "الدور في المشروع",
+        name: "roleOnProject",
+        title: "popupFields.relation.roleOnProject",
         type: "select",
         options: [
-            { value: "manager", label: "مدير" },
-            { value: "developer", label: "مطور" },
-            { value: "designer", label: "مصمم" },
-            { value: "tester", label: "مختبر" }
+            { value: "manager", label: "popupFields.options.role.manager" },
+            { value: "developer", label: "popupFields.options.role.developer" },
+            { value: "designer", label: "popupFields.options.role.designer" },
+            { value: "tester", label: "popupFields.options.role.tester" }
         ]
     },
     {
-        name: "joined_at",
-        title: "تاريخ الانضمام",
+        name: "joinedAt",
+        title: "popupFields.relation.joinedAt",
         type: "date"
     }
 ];
@@ -569,59 +394,30 @@ export const relationFields = [
 export const userFields = [
     {
         name: "id",
-        title: "المعرف",
+        title: "popupFields.user.id",
         type: "hidden"
     },
     {
         name: "name",
-        title: "الاسم",
+        title: "popupFields.user.name",
         type: "text",
         required: true
     },
     {
         name: "email",
-        title: "البريد الإلكتروني",
+        title: "popupFields.user.email",
         type: "email",
         required: true
     },
     {
         name: "role",
-        title: "الدور",
+        title: "popupFields.user.role",
         type: "select",
         options: [
-            { value: "admin", label: "مدير النظام" },
-            { value: "user", label: "مستخدم" },
-            { value: "viewer", label: "مشاهد" }
+            { value: "admin", label: "popupFields.options.userRole.admin" },
+            { value: "user", label: "popupFields.options.userRole.user" },
+            { value: "viewer", label: "popupFields.options.userRole.viewer" }
         ],
         required: true
     },
-    // {
-    //     name: "created_at",
-    //     title: "تاريخ الإنشاء",
-    //     type: "date",
-    //     readOnly: true
-    // },
-    // {
-    //     name: "updated_at",
-    //     title: "تاريخ التحديث",
-    //     type: "date",
-    //     readOnly: true
-    // },
-    // {
-    //     name: "last_visit",
-    //     title: "آخر زيارة",
-    //     type: "datetime"
-    // },
-    // {
-    //     name: "created_by",
-    //     title: "تم الإنشاء بواسطة",
-    //     type: "text",
-    //     readOnly: true
-    // },
-    // {
-    //     name: "updated_by",
-    //     title: "تم التحديث بواسطة",
-    //     type: "text",
-    //     readOnly: true
-    // }
 ];

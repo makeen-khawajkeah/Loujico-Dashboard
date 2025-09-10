@@ -46,22 +46,27 @@ const SideBar = ({ isOpen, onClose }) => {
   // if (!user) {
   //     return null;
   // }
+  
+  // تحديد اتجاه السايد بار بناءً على اللغة
+  const isRTL = language === "ar";
+  
   return (
     <div
       className={`
-            side-bar w-[260px]  min-h-screen flex flex-col items-center
-            bg-white transform transition-transform duration-300 ease-in-out
-            fixed top-0 right-0 z-50 lg:relative lg:translate-x-0 shrink-0
-            ${isOpen ? "translate-x-0" : "translate-x-full"}
-        `}
+        side-bar w-[260px] min-h-screen flex flex-col items-center
+        bg-white transform transition-transform duration-300 ease-in-out
+        fixed top-0 z-50 lg:relative lg:translate-x-0 shrink-0
+        ${isRTL ? 'right-0' : 'left-0'}
+        ${isOpen ? "translate-x-0" : isRTL ? "translate-x-full" : "-translate-x-full"}
+      `}
     >
-      <div className="flex justify-between items-center w-full  pt-10 lg:hidden gap-10 px-5">
+      <div className={`flex justify-between items-center w-full pt-10 lg:hidden gap-10 px-5 ${isRTL ? '' : 'flex-row-reverse'}`}>
         <img
           src="/public/assets/image/logo.png"
           alt={t("logoAlt")}
           className="w-[150px]"
         />
-        <button onClick={onClose} className="text-gray-600 hover:text-gray-900">
+        <button onClick={onClose} className="text-gray-600 hover:text-gray-900 cursor-pointer">
           <IoClose size={24} />
         </button>
       </div>
@@ -85,9 +90,20 @@ const SideBar = ({ isOpen, onClose }) => {
                   : "bg-white text-[var(--text-color)]"
               }
             >
-              <li className="flex items-center py-[18px] justify-between hover:bg-gray-200 w-full px-10 duration-300 font-bold">
-                {item.name}
-                <div className="">{item.icon}</div>
+              {/* التصحيح هنا: عكس ترتيب flex-row-reverse */}
+              <li className={`flex items-center py-[18px] hover:bg-gray-200 w-full px-10 duration-300 font-bold justify-between ${isRTL ? 'flex-row' : 'flex-row-reverse'}`}>
+                {/* التصحيح هنا: تغيير ترتيب العناصر */}
+                {isRTL ? (
+                  <>
+                    <span>{item.name}</span>
+                    <div>{item.icon}</div>
+                  </>
+                ) : (
+                  <>
+                    <div>{item.icon}</div>
+                    <span>{item.name}</span>
+                  </>
+                )}
               </li>
             </NavLink>
           );

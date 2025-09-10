@@ -1,99 +1,104 @@
 export const employeeFields = [
-    { name: "id", title: "المعرف", width: 80 },
-    { name: "first_name", title: "الاسم الأول", width: 120 },
-    { name: "last_name", title: "الاسم الأخير", width: 120 },
-    { name: "age", title: "العمر", width: 80 },
-    { name: "address", title: "العنوان", width: 200 },
-    { name: "phone", title: "رقم الهاتف", width: 140 },
-    { name: "email", title: "البريد الإلكتروني", width: 180 },
-    { name: "position", title: "المنصب", width: 150 },
-    { name: "service_duration", title: "مدة الخدمة", width: 120 },
-    { name: "salary", title: "الراتب", width: 120 },
-    { name: "description", title: "الوصف", width: 200 },
-    { name: "profile_image", title: "الصورة الشخصية", width: 150 },
-    { name: "is_present", title: "حالة التواجد", width: 120 },
-    { name: "created_at", title: "تاريخ الإنشاء", width: 150 },
-    { name: "updated_at", title: "تاريخ التحديث", width: 150 },
-    { name: "last_visit", title: "آخر زيارة", width: 150 },
-    { name: "is_deleted", title: "حالة الحذف", width: 120 },
-    { name: "created_by", title: "تم الإنشاء بواسطة", width: 150 },
-    { name: "updated_by", title: "تم التحديث بواسطة", width: 150 },
+    { name: "id", title: "fields.employee.id", width: 80 },
+    { name: "firstName", title: "fields.employee.firstName", width: 120 },
+    { name: "lastName", title: "fields.employee.lastName", width: 120 },
+    { name: "phone", title: "fields.employee.phone", width: 140 },
+    { name: "email", title: "fields.employee.email", width: 180 },
+    { name: "employeesAddress", title: "fields.employee.address", width: 200 },
+    { name: "position", title: "fields.employee.position", width: 150 },
+    { name: "age", title: "fields.employee.age", width: 80 },
+    { name: "profileImage", title: "fields.employee.profileImage", width: 150 },
+    { name: "isPresent", title: "fields.employee.isPresent", width: 120 },
+    { name: "employeesDescription", title: "fields.employee.description", width: 200 },
+    { name: "serviceDuration", title: "fields.employee.serviceDuration", width: 120 },
+    { name: "salary", title: "fields.employee.salary", width: 120 },
+    { name: "createdAt", title: "fields.common.createdAt", width: 150 },
+    { name: "updatedAt", title: "fields.common.updatedAt", width: 150 },
+    { name: "lastVisit", title: "fields.common.lastVisit", width: 150 },
+    { name: "isDeleted", title: "fields.common.isDeleted", width: 120 },
+    { name: "createdBy", title: "fields.common.createdBy", width: 150 },
+    { name: "updatedBy", title: "fields.common.updatedBy", width: 150 },
 ];
 
 export const clientFields = [
     {
         name: "id",
-        title: "المعرف",
+        title: "fields.client.id",
         width: 80,
     },
     {
         name: "name",
-        title: "اسم العميل",
+        title: "fields.client.name",
         width: 150,
     },
     {
         name: "phone",
-        title: "رقم الهاتف",
+        title: "fields.client.phone",
         width: 130,
     },
     {
         name: "email",
-        title: "البريد الإلكتروني",
+        title: "fields.client.email",
         width: 180,
     },
     {
         name: "address",
-        title: "العنوان",
+        title: "fields.client.address",
         width: 200,
     },
     {
-        name: "company_description",
-        title: "وصف الشركة",
+        name: "companyDescription",
+        title: "fields.client.companyDescription",
         width: 200,
     },
     {
         name: "industry",
-        title: "نوع الصناعة",
+        title: "fields.client.industry",
         width: 150,
     },
     {
-        name: "service_provided",
-        title: "الخدمة المقدمة",
+        name: "serviceprovided",
+        title: "fields.client.serviceProvided",
         width: 150,
     },
     {
         name: "inquiry",
-        title: "نص الاستفسار",
+        title: "fields.client.inquiry",
         width: 200,
     },
     {
-        name: "created_at",
-        title: "تاريخ الإنشاء",
+        name: "workDate",
+        title: "fields.client.workDate",
+        width: 120
+    },
+    {
+        name: "createdAt",
+        title: "fields.common.createdAt",
         width: 140,
     },
     {
-        name: "updated_at",
-        title: "تاريخ التحديث",
+        name: "updatedAt",
+        title: "fields.common.updatedAt",
         width: 140,
     },
     {
-        name: "last_visit",
-        title: "آخر زيارة",
+        name: "lastVisit",
+        title: "fields.common.lastVisit",
         width: 140,
     },
     {
-        name: "is_deleted",
-        title: "حالة السجل",
+        name: "isDeleted",
+        title: "fields.common.isDeleted",
         width: 120,
     },
     {
-        name: "created_by",
-        title: "تم الإنشاء بواسطة",
+        name: "createdBy",
+        title: "fields.common.createdBy",
         width: 150,
     },
     {
-        name: "updated_by",
-        title: "تم التحديث بواسطة",
+        name: "updatedBy",
+        title: "fields.common.updatedBy",
         width: 150,
     },
 ];
@@ -101,130 +106,130 @@ export const clientFields = [
 export const projectFields = [
     {
         name: "id",
-        title: "المعرف",
+        title: "fields.project.id",
         width: 80
     },
     {
         name: "title",
-        title: "عنوان المشروع",
+        title: "fields.project.title",
         width: 180
     },
     {
         name: "description",
-        title: "وصف المشروع",
+        title: "fields.project.description",
         width: 250
     },
     {
-        name: "client_id",
-        title: "العميل المرتبط",
+        name: "clientId",
+        title: "fields.project.clientId",
         width: 150
     },
     {
-        name: "start_date",
-        title: "تاريخ البدء",
+        name: "startDate",
+        title: "fields.project.startDate",
         width: 120
     },
     {
-        name: "end_date",
-        title: "تاريخ الانتهاء",
+        name: "endDate",
+        title: "fields.project.endDate",
         width: 120
     },
     {
         name: "status",
-        title: "حالة المشروع",
+        title: "fields.project.status",
         width: 130
     },
     {
-        name: "created_at",
-        title: "تاريخ الإنشاء",
+        name: "createdAt",
+        title: "fields.common.createdAt",
         width: 140
     },
     {
-        name: "updated_at",
-        title: "تاريخ التحديث",
+        name: "updatedAt",
+        title: "fields.common.updatedAt",
         width: 140
     },
     {
-        name: "last_visit",
-        title: "آخر زيارة",
+        name: "lastVisit",
+        title: "fields.common.lastVisit",
         width: 140
     },
     {
-        name: "is_deleted",
-        title: "حالة الحذف",
+        name: "isDeleted",
+        title: "fields.common.isDeleted",
         width: 120
     },
     {
-        name: "created_by",
-        title: "تم الإنشاء بواسطة",
+        name: "createdBy",
+        title: "fields.common.createdBy",
         width: 150
     },
     {
-        name: "updated_by",
-        title: "تم التحديث بواسطة",
+        name: "updatedBy",
+        title: "fields.common.updatedBy",
         width: 150
     },
     {
-        name: "file_name",
-        title: "اسم الملف",
+        name: "fileName",
+        title: "fields.project.fileName",
         width: 180
     },
     {
-        name: "file_path",
-        title: "مسار الملف",
+        name: "filepath",
+        title: "fields.project.filePath",
         width: 200
     },
     {
-        name: "file_type",
-        title: "نوع الملف",
+        name: "fileType",
+        title: "fields.project.fileType",
         width: 120
     },
     {
-        name: "uploaded_at",
-        title: "تاريخ الرفع",
+        name: "uploadedAt",
+        title: "fields.project.uploadedAt",
         width: 140
     },
     {
-        name: "uploaded_by",
-        title: "تم الرفع بواسطة",
+        name: "uploadedBy",
+        title: "fields.project.uploadedBy",
         width: 150
     }
 ];
 
-export const recordFields = [
+export const logFields = [
     {
         name: "id",
-        title: "المعرف",
+        title: "fields.log.id",
         width: 80
     },
     {
-        name: "action_type",
-        title: "نوع الإجراء",
+        name: "actionType",
+        title: "fields.log.actionType",
         width: 120
     },
     {
-        name: "action_description",
-        title: "وصف الإجراء",
+        name: "actionDescription",
+        title: "fields.log.actionDescription",
         width: 200
     },
     {
-        name: "target_table",
-        title: "الجدول المستهدف",
+        name: "targetTable",
+        title: "fields.log.targetTable",
         width: 150
     },
     {
-        name: "target_id",
-        title: "معرف السجل المستهدف",
+        name: "targetId",
+        title: "fields.log.targetId",
         width: 150
     },
     {
-        name: "user_id",
-        title: "معرف المستخدم",
+        name: "userId",
+        title: "fields.log.userId",
         width: 120
     },
     {
         name: "timestamp",
-        title: "تاريخ ووقت الإجراء",
+        title: "fields.log.timestamp",
         width: 160
     }
 ];
@@ -232,67 +237,67 @@ export const recordFields = [
 export const invoiceFields = [
     {
         name: "id",
-        title: "رقم الفاتورة",
+        title: "fields.invoice.id",
         width: 100
     },
     {
-        name: "client_id",
-        title: "معرف العميل",
+        name: "clientId",
+        title: "fields.invoice.clientId",
         width: 150
     },
     {
-        name: "project_id",
-        title: "معرف المشروع",
+        name: "projectId",
+        title: "fields.invoice.projectId",
         width: 180
     },
     {
         name: "amount",
-        title: "المبلغ",
+        title: "fields.invoice.amount",
         width: 120
     },
     {
-        name: "issue_date",
-        title: "تاريخ الإصدار",
+        name: "issueDate",
+        title: "fields.invoice.issueDate",
         width: 120
     },
     {
-        name: "due_date",
-        title: "تاريخ الاستحقاق",
+        name: "dueDate",
+        title: "fields.invoice.dueDate",
         width: 120
     },
     {
         name: "status",
-        title: "الحالة",
+        title: "fields.invoice.status",
         width: 120
     },
     {
-        name: "created_at",
-        title: "تاريخ الإنشاء",
+        name: "createdAt",
+        title: "fields.common.createdAt",
         width: 120
     },
     {
-        name: "updated_at",
-        title: "تاريخ التحديث",
+        name: "updatedAt",
+        title: "fields.common.updatedAt",
         width: 120
     },
     {
-        name: "last_viewed",
-        title: "آخر زيارة",
+        name: "lastViewed",
+        title: "fields.invoice.lastViewed",
         width: 120
     },
     {
-        name: "is_deleted",
-        title: "حالة الحذف",
+        name: "isDeleted",
+        title: "fields.common.isDeleted",
         width: 100
     },
     {
-        name: "created_by",
-        title: "تم الإنشاء بواسطة",
+        name: "createdBy",
+        title: "fields.common.createdBy",
         width: 150
     },
     {
-        name: "updated_by",
-        title: "تم التحديث بواسطة",
+        name: "updatedBy",
+        title: "fields.common.updatedBy",
         width: 150
     }
 ];
@@ -300,27 +305,27 @@ export const invoiceFields = [
 export const relationFields = [
     {
         name: "id",
-        title: "المعرف",
+        title: "fields.relation.id",
         width: 80
     },
     {
-        name: "project_id",
-        title: "معرف المشروع",
+        name: "projectId",
+        title: "fields.relation.projectId",
         width: 120
     },
     {
-        name: "employee_id",
-        title: "معرف الموظف",
+        name: "employeeId",
+        title: "fields.relation.employeeId",
         width: 120
     },
     {
-        name: "role_on_project",
-        title: "الدور في المشروع",
+        name: "roleOnproject",
+        title: "fields.relation.roleOnProject",
         width: 150
     },
     {
-        name: "joined_at",
-        title: "تاريخ الانضمام",
+        name: "joinedAt",
+        title: "fields.relation.joinedAt",
         width: 120
     }
 ];
@@ -328,94 +333,115 @@ export const relationFields = [
 export const userFields = [
     {
         name: "id",
-        title: "المعرف",
+        title: "fields.user.id",
+        width: 80
+    },
+    {
+        name: "first name",
+        title: "fields.user.firstName",
+        width: 80
+    },
+    {
+        name: "last name",
+        title: "fields.user.lastName",
         width: 80
     },
     {
         name: "name",
-        title: "الاسم",
+        title: "fields.user.name",
         width: 150
     },
     {
         name: "email",
-        title: "البريد الإلكتروني",
+        title: "fields.user.email",
         width: 180
     },
     {
         name: "role",
-        title: "الدور",
+        title: "fields.user.role",
         width: 120
     },
-    {
-        name: "created_at",
-        title: "تاريخ الإنشاء",
-        width: 140
-    },
-    {
-        name: "updated_at",
-        title: "تاريخ التحديث",
-        width: 140
-    },
-    {
-        name: "last_visit",
-        title: "آخر زيارة",
-        width: 140
-    },
-    {
-        name: "is_deleted",
-        title: "حالة الحذف",
-        width: 120
-    },
-    {
-        name: "created_by",
-        title: "تم الإنشاء بواسطة",
-        width: 150
-    },
-    {
-        name: "updated_by",
-        title: "تم التحديث بواسطة",
-        width: 150
-    }
+    // {
+    //     name: "createdAt",
+    //     title: "fields.common.createdAt",
+    //     width: 140
+    // },
+    // {
+    //     name: "updatedAt",
+    //     title: "fields.common.updatedAt",
+    //     width: 140
+    // },
+    // {
+    //     name: "lastVisit",
+    //     title: "fields.common.lastVisit",
+    //     width: 140
+    // },
+    // {
+    //     name: "isDeleted",
+    //     title: "fields.common.isDeleted",
+    //     width: 120
+    // },
+    // {
+    //     name: "createdBy",
+    //     title: "fields.common.createdBy",
+    //     width: 150
+    // },
+    // {
+    //     name: "updatedBy",
+    //     title: "fields.common.updatedBy",
+    //     width: 150
+    // }
 ];
+
 export const productFields = [
     {
         name: "id",
-        title: "المعرف",
+        title: "fields.product.id",
         width: 80
     },
     {
         name: "name",
-        title: "اسم المنتج",
+        title: "fields.product.name",
         width: 150
     },
     {
         name: "description",
-        title: "الوصف",
+        title: "fields.product.description",
         width: 200
     },
     {
         name: "price",
-        title: "السعر",
+        title: "fields.product.price",
         width: 120
     },
     {
         name: "monthlysubscription",
-        title: "الاشتراك الشهري",
+        title: "fields.product.monthlySubscription",
         width: 150
     },
     {
-        name: "is_active",
-        title: "الحالة",
+        name: "isActive",
+        title: "fields.product.isActive",
         width: 100
     },
     {
-        name: "created_at",
-        title: "تاريخ الإنشاء",
+        name: "createdAt",
+        title: "fields.common.createdAt",
         width: 140
     },
     {
-        name: "updated_at",
-        title: "تاريخ التحديث",
+        name: "updatedAt",
+        title: "fields.common.updatedAt",
         width: 140
+    },
+    {
+        name: "createdBy",
+        title: "fields.common.createdBy",
+        width: 150
+    },
+    {
+        name: "updatedBy",
+        title: "fields.common.updatedBy",
+        width: 150
     }
 ];

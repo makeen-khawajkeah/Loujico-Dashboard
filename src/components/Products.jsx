@@ -2,80 +2,70 @@ import DashTable from "./DashTable";
 import { productFields as popUpFields } from "../popUpFields";
 import { productFields } from "../fields";
 import { useTranslation } from "react-i18next";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Products = () => {
   const { t } = useTranslation();
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [refresh,setRefresh] = useState(false)
 
-  const products = [
-    {
-      id: 1,
-      name: "باقة الأساسية",
-      description: "باقة تشمل خدمات أساسية من الصيانة والدعم",
-      price: 199.99,
-      monthlysubscription: "نعم",
-      is_active: true,
-      created_at: "2024-01-15T08:30:00Z",
-      updated_at: "2024-06-10T11:45:00Z",
-    },
-    {
-      id: 2,
-      name: "باقة المتقدمة",
-      description: "باقة تشمل خدمات متقدمة مع دعم فني 24/7",
-      price: 399.99,
-      monthlysubscription: "نعم",
-      is_active: true,
-      created_at: "2024-01-20T10:15:00Z",
-      updated_at: "2024-07-15T14:20:00Z",
-    },
-    {
-      id: 3,
-      name: "باقة المؤسسات",
-      description: "باقة مخصصة للمؤسسات الكبيرة مع خصائص متقدمة",
-      price: 799.99,
-      monthlysubscription: "نعم",
-      is_active: true,
-      created_at: "2024-02-05T09:45:00Z",
-      updated_at: "2024-08-20T16:30:00Z",
-    },
-    {
-      id: 4,
-      name: "ترخيص دائم - أساسي",
-      description: "ترخيص دائم للباقة الأساسية بدون اشتراك شهري",
-      price: 1999.99,
-      monthlysubscription: "لا",
-      is_active: true,
-      created_at: "2024-02-15T11:20:00Z",
-      updated_at: "2024-05-22T13:10:00Z",
-    },
-    {
-      id: 5,
-      name: "ترخيص دائم - متقدم",
-      description: "ترخيص دائم للباقة المتقدمة بدون اشتراك شهري",
-      price: 3499.99,
-      monthlysubscription: "لا",
-      is_active: true,
-      created_at: "2024-03-01T14:40:00Z",
-      updated_at: "2024-06-18T15:25:00Z",
-    },
-    {
-      id: 6,
-      name: "باقة التجريبية",
-      description: "باقة تجريبية لمدة 14 يوم مع مميزات محدودة",
-      price: 0.0,
-      monthlysubscription: "لا",
-      is_active: false,
-      created_at: "2024-03-10T16:50:00Z",
-      updated_at: "2024-09-01T10:15:00Z",
-    },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const token = localStorage.getItem("authToken");
+
+        if (!token) {
+          return;
+        }
+
+        const response = await axios
+          .get(
+            "http://192.168.43.103:7176/api/Product/GetAll?Page=1&Count=10",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          )
+          .then((res) => res.data);
+
+        setProducts(response.data);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [t]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center bg-gray-300 h-full">
+        <div className="flex space-x-2">
+          <div className="w-4 h-4 rounded-xs bg-[var(--main-color)] animate-bounce [animation-delay:-0.3s]"></div>
+          <div className="w-4 h-4 rounded-xs bg-[var(--main-color)] animate-bounce [animation-delay:-0.15s]"></div>
+          <div className="w-4 h-4 rounded-xs bg-[var(--main-color)] animate-bounce"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <DashTable
       title={t("product.title")}
       search={t("product.search")}
+      url="/Product"
       fields={productFields}
       data={products}
       popUpFields={popUpFields}
+      isrefresh={refresh}
+      setRefresh={setRefresh}
     />
   );
 };

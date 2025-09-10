@@ -71,7 +71,8 @@ const Home = () => {
   }
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
+    <div className="p-6 bg-gray-300 min-h-[calc(100vh-80px)]">
+      <div className="p-8 rounded-md bg-white">
       <h1 className="text-3xl font-bold mb-6 text-gray-800">
         {t("home.dashboard")}
       </h1>
@@ -96,6 +97,7 @@ const Home = () => {
           value={metrics.presentEmployees}
           color="bg-[var(--sub-color-lighter)] text-white"
         />
+      </div>
       </div>
     </div>
   );

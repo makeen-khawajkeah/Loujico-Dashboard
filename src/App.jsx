@@ -13,7 +13,8 @@ import Projects from "./components/Projects";
 import Invoices from "./components/Invoices";
 import SideBar from "./components/SideBar";
 import Products from "./components/Products";
-import Records from "./components/Records"
+import Logs from "./components/Logs";
+
 const App = () => {
   const location = useLocation();
   const isAuthPage =
@@ -41,7 +42,7 @@ const App = () => {
             <Route path="/projects" element={<Projects />} />
             <Route path="/invoices" element={<Invoices />} />
             <Route path="/products" element={<Products />} />
-            <Route path="/logs" element={<Records/>} />
+            <Route path="/logs" element={<Logs />} />
           </Routes>
         </div>
       </main>

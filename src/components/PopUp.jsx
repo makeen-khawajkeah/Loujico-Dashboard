@@ -9,7 +9,8 @@ const PopUp = ({
   fields,
   initialData = null,
   onClose,
-  onSubmit,
+  handleAdd,
+  handleUpdate,
 }) => {
   const {
     t,
@@ -209,7 +210,12 @@ const PopUp = ({
       return; // Don't continue if there are errors
     }
 
-    onSubmit(formData);
+    if (isAdd) {
+      handleAdd(formData);
+    } else {
+      handleUpdate(formData);
+    }
+
     onClose();
   };
 
@@ -247,7 +253,7 @@ const PopUp = ({
             </option>
             {field.options?.map((option) => (
               <option key={option.value} value={option.value}>
-                {option.label}
+                {t(option.label)}
               </option>
             ))}
           </select>
@@ -295,7 +301,13 @@ const PopUp = ({
         );
 
       default:
-        return <input type="text" {...commonProps} />;
+        return (
+          <input
+            type="text"
+            defaultValue={formData[field.name]}
+            {...commonProps}
+          />
+        );
     }
   };
 

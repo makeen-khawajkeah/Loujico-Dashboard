@@ -17,7 +17,7 @@ i18n
         },
         fallbackLng: 'en',   // الافتراضي إنكليزي لو ما لقى لغة
         lng: 'en',           // نجبر البداية إنكليزي
-        debug: true,
+        debug: false,
         interpolation: { escapeValue: false },
         detection: {
             order: ['localStorage', 'cookie'], // ما يقرأ من لغة المتصفح

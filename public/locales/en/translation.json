@@ -59,7 +59,7 @@
     "add": "Add",
     "edit": "Edit",
     "cancel": "Cancel",
-    "selectPlaceholder": "Select {field}",
+    "selectPlaceholder": "Select {{field}}",
     "selectedFile": "Selected file",
     "validation": {
       "required": "{field} is required",
@@ -110,7 +110,8 @@
       "companyDescription": "Company Description",
       "industry": "Industry Type",
       "serviceProvided": "Service Provided",
-      "inquiry": "Inquiry Text"
+      "inquiry": "Inquiry Text",
+      "workDate": "Work Date"
     },
     "project": {
       "id": "ID",
@@ -156,7 +157,9 @@
       "id": "ID",
       "name": "Name",
       "email": "Email",
-      "role": "Role"
+      "role": "Role",
+      "firstName":"First Name",
+      "lastName":"Last Name"
     },
     "product": {
       "id": "ID",
@@ -169,6 +172,7 @@
   },
   "dashTable": {
     "searchPlaceholder": "Search for",
+    "noData": "No Data",
     "buttons": {
       "add": "Add",
       "edit": "Edit",
