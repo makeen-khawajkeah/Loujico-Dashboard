@@ -55,6 +55,19 @@
     "title": "السجلات",
     "search": "سجل"
   },
+  "todoFile": {
+    "associatedFiles": "الملفات المرتبطة",
+    "chooseFile": "اختر ملف :",
+    "noFileChosen": "لم يتم اختيار ملف",
+    "descriptionPlaceholder": "الوصف",
+    "addButton": "إضافة"
+  },
+  "todoEmp": {
+    "associatedEmployees": "الموظفون المرتبطون",
+    "chooseEmployee": "اختر موظف",
+    "rolePlaceholder": "الدور",
+    "addButton": "إضافة"
+  },
   "popup": {
     "add": "إضافة",
     "edit": "تعديل",
@@ -120,6 +133,8 @@
       "clientId": "العميل المرتبط",
       "startDate": "تاريخ البدء",
       "endDate": "تاريخ الانتهاء",
+      "price": "السعر",
+      "progress": "التقدم",
       "status": "حالة المشروع",
       "fileName": "اسم الملف",
       "filePath": "مسار الملف",
@@ -168,7 +183,8 @@
       "description": "الوصف",
       "price": "السعر",
       "monthlySubscription": "الاشتراك الشهري",
-      "isActive": "الحالة"
+      "isActive": "الحالة",
+      "billingCycle": "دورة الفوترة"
     }
   },
   "dashTable": {
@@ -251,7 +267,8 @@
       "price": "السعر",
       "isActive": "الحالة",
       "monthlySubscription": "الاشتراك الشهري",
-      "description": "الوصف"
+      "description": "الوصف",
+      "billingCycle":"دورة الفوترة"
     },
     "invoice": {
       "id": "رقم الفاتورة",
@@ -287,6 +304,12 @@
         "healthcare": "رعاية صحية",
         "finance": "مالية",
         "education": "تعليم"
+      },
+      "billingCycle": {
+        "monthly": "شهري",
+        "quarterly": "ربع سنوي",
+        "yearly": "سنوي",
+        "oneTime": "مرة واحدة"
       },
       "status": {
         "planned": "مخطط",
@@ -327,5 +350,22 @@
     "suffix": {
       "years": "سنوات"
     }
+  },
+  "detailView": {
+    "title": {
+      "Emp": "تفاصيل الموظف",
+      "Customer": "تفاصيل العميل",
+      "Product": "تفاصيل المنتج",
+      "Project": "تفاصيل المشروع",
+      "Invoice": "تفاصيل الفاتورة"
+    },
+    "fetchError": "فشل تحميل التفاصيل",
+    "loading": "جاري تحميل التفاصيل...",
+    "close": "إغلاق",
+    "noData": "لا توجد بيانات متاحة",
+    "yes": "نعم",
+    "no": "لا",
+    "profileImage": "صورة الملف الشخصي"
   }
 }
+

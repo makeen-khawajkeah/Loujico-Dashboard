@@ -27,7 +27,7 @@ export const clientFields = [
         width: 80,
     },
     {
-        name: "name",
+        name: "customerName",
         title: "fields.client.name",
         width: 150,
     },
@@ -42,7 +42,7 @@ export const clientFields = [
         width: 180,
     },
     {
-        name: "address",
+        name: "customerAddress",
         title: "fields.client.address",
         width: 200,
     },
@@ -57,7 +57,7 @@ export const clientFields = [
         width: 150,
     },
     {
-        name: "serviceprovided",
+        name: "serviceProvided",
         title: "fields.client.serviceProvided",
         width: 150,
     },
@@ -81,11 +81,11 @@ export const clientFields = [
         title: "fields.common.updatedAt",
         width: 140,
     },
-    {
-        name: "lastVisit",
-        title: "fields.common.lastVisit",
-        width: 140,
-    },
+    // {
+    //     name: "lastVisit",
+    //     title: "fields.common.lastVisit",
+    //     width: 140,
+    // },
     {
         name: "isDeleted",
         title: "fields.common.isDeleted",
@@ -114,16 +114,16 @@ export const projectFields = [
         title: "fields.project.title",
         width: 180
     },
-    {
-        name: "description",
-        title: "fields.project.description",
-        width: 250
-    },
-    {
-        name: "clientId",
-        title: "fields.project.clientId",
-        width: 150
-    },
+    // {
+    //     name: "description",
+    //     title: "fields.project.description",
+    //     width: 250
+    // },
+    // {
+    //     name: "clientId",
+    //     title: "fields.project.clientId",
+    //     width: 150
+    // },
     {
         name: "startDate",
         title: "fields.project.startDate",
@@ -135,65 +135,75 @@ export const projectFields = [
         width: 120
     },
     {
-        name: "status",
-        title: "fields.project.status",
-        width: 130
-    },
-    {
-        name: "createdAt",
-        title: "fields.common.createdAt",
-        width: 140
-    },
-    {
-        name: "updatedAt",
-        title: "fields.common.updatedAt",
-        width: 140
-    },
-    {
-        name: "lastVisit",
-        title: "fields.common.lastVisit",
-        width: 140
-    },
-    {
-        name: "isDeleted",
-        title: "fields.common.isDeleted",
+        name: "progress",
+        title: "fields.project.progress",
         width: 120
     },
     {
-        name: "createdBy",
-        title: "fields.common.createdBy",
-        width: 150
-    },
-    {
-        name: "updatedBy",
-        title: "fields.common.updatedBy",
-        width: 150
-    },
-    {
-        name: "fileName",
-        title: "fields.project.fileName",
-        width: 180
-    },
-    {
-        name: "filepath",
-        title: "fields.project.filePath",
-        width: 200
-    },
-    {
-        name: "fileType",
-        title: "fields.project.fileType",
+        name: "price",
+        title: "fields.project.price",
         width: 120
     },
-    {
-        name: "uploadedAt",
-        title: "fields.project.uploadedAt",
-        width: 140
-    },
-    {
-        name: "uploadedBy",
-        title: "fields.project.uploadedBy",
-        width: 150
-    }
+    // {
+    //     name: "status",
+    //     title: "fields.project.status",
+    //     width: 130
+    // },
+    // {
+    //     name: "createdAt",
+    //     title: "fields.common.createdAt",
+    //     width: 140
+    // },
+    // {
+    //     name: "updatedAt",
+    //     title: "fields.common.updatedAt",
+    //     width: 140
+    // },
+    // {
+    //     name: "lastVisit",
+    //     title: "fields.common.lastVisit",
+    //     width: 140
+    // },
+    // // {
+    // //     name: "isDeleted",
+    // //     title: "fields.common.isDeleted",
+    // //     width: 120
+    // // },
+    // // {
+    // //     name: "createdBy",
+    // //     title: "fields.common.createdBy",
+    // //     width: 150
+    // // },
+    // // {
+    // //     name: "updatedBy",
+    // //     title: "fields.common.updatedBy",
+    // //     width: 150
+    // // },
+    // // {
+    // //     name: "fileName",
+    // //     title: "fields.project.fileName",
+    // //     width: 180
+    // // },
+    // // {
+    // //     name: "filepath",
+    // //     title: "fields.project.filePath",
+    // //     width: 200
+    // // },
+    // // {
+    // //     name: "fileType",
+    // //     title: "fields.project.fileType",
+    // //     width: 120
+    // // },
+    // // {
+    // //     name: "uploadedAt",
+    // //     title: "fields.project.uploadedAt",
+    // //     width: 140
+    // // },
+    // // {
+    // //     name: "uploadedBy",
+    // //     title: "fields.project.uploadedBy",
+    // //     width: 150
+    // // }
 ];
 
 export const logFields = [
@@ -241,7 +251,7 @@ export const invoiceFields = [
         width: 100
     },
     {
-        name: "clientId",
+        name: "customerId", // Changed from clientId
         title: "fields.invoice.clientId",
         width: 150
     },
@@ -256,7 +266,7 @@ export const invoiceFields = [
         width: 120
     },
     {
-        name: "issueDate",
+        name: "invoicesDate", // Changed from issueDate
         title: "fields.invoice.issueDate",
         width: 120
     },
@@ -266,7 +276,7 @@ export const invoiceFields = [
         width: 120
     },
     {
-        name: "status",
+        name: "invoiceStatus", // Changed from status
         title: "fields.invoice.status",
         width: 120
     },
@@ -281,7 +291,7 @@ export const invoiceFields = [
         width: 120
     },
     {
-        name: "lastViewed",
+        name: "lastVisit", // Changed from lastViewed
         title: "fields.invoice.lastViewed",
         width: 120
     },
@@ -332,22 +342,12 @@ export const relationFields = [
 
 export const userFields = [
     {
-        name: "id",
+        name: "userid",
         title: "fields.user.id",
         width: 80
     },
     {
-        name: "first name",
-        title: "fields.user.firstName",
-        width: 80
-    },
-    {
-        name: "last name",
-        title: "fields.user.lastName",
-        width: 80
-    },
-    {
-        name: "name",
+        name: "username",
         title: "fields.user.name",
         width: 150
     },
@@ -357,40 +357,10 @@ export const userFields = [
         width: 180
     },
     {
-        name: "role",
+        name: "roles",
         title: "fields.user.role",
         width: 120
     },
-    // {
-    //     name: "createdAt",
-    //     title: "fields.common.createdAt",
-    //     width: 140
-    // },
-    // {
-    //     name: "updatedAt",
-    //     title: "fields.common.updatedAt",
-    //     width: 140
-    // },
-    // {
-    //     name: "lastVisit",
-    //     title: "fields.common.lastVisit",
-    //     width: 140
-    // },
-    // {
-    //     name: "isDeleted",
-    //     title: "fields.common.isDeleted",
-    //     width: 120
-    // },
-    // {
-    //     name: "createdBy",
-    //     title: "fields.common.createdBy",
-    //     width: 150
-    // },
-    // {
-    //     name: "updatedBy",
-    //     title: "fields.common.updatedBy",
-    //     width: 150
-    // }
 ];
 
 export const productFields = [
@@ -400,12 +370,12 @@ export const productFields = [
         width: 80
     },
     {
-        name: "name",
+        name: "productName",
         title: "fields.product.name",
         width: 150
     },
     {
-        name: "description",
+        name: "productDescription",
         title: "fields.product.description",
         width: 200
     },
@@ -415,8 +385,8 @@ export const productFields = [
         width: 120
     },
     {
-        name: "monthlysubscription",
-        title: "fields.product.monthlySubscription",
+        name: "billingCycle",
+        title: "fields.product.billingCycle",
         width: 150
     },
     {

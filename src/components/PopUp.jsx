@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FaTimes } from "react-icons/fa";
+import ToDoEmp from "./ToDoEmp";
+import ToDoFile from "./ToDoFile";
+import Select from "./Select";
 
 const PopUp = ({
   isOpen,
@@ -22,6 +25,9 @@ const PopUp = ({
 
   useEffect(() => {
     if (initialData) {
+      if (initialData.roles) {
+        initialData.roles = initialData.roles[0];
+      }
       setFormData(initialData);
     } else {
       // Initialize form with default values
@@ -247,16 +253,12 @@ const PopUp = ({
     switch (field.type) {
       case "select":
         return (
-          <select {...commonProps}>
-            <option value="">
-              {t("popup.selectPlaceholder", { field: t(field.title) })}
-            </option>
-            {field.options?.map((option) => (
-              <option key={option.value} value={option.value}>
-                {t(option.label)}
-              </option>
-            ))}
-          </select>
+          <Select
+            field={field}
+            formData={formData}
+            setFormData={setFormData}
+            errors={errors}
+          />
         );
 
       case "textarea":
@@ -331,7 +333,7 @@ const PopUp = ({
           </h2>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700"
+            className="text-gray-500 hover:text-gray-700 cursor-pointer"
           >
             <FaTimes size={24} />
           </button>
@@ -361,6 +363,14 @@ const PopUp = ({
               ))}
             </div>
           ))}
+
+          {["project", "مشروع"].includes(title) ? (
+            <>
+              <ToDoEmp formData={formData} setFormData={setFormData} />
+            </>
+          ) : null}
+
+          <ToDoFile />
 
           <div className="flex justify-end gap-3 pt-4">
             <button

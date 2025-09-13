@@ -53,7 +53,20 @@
   },
   "log": {
     "title": "Logs",
-    "search": "Log"
+    "search": "log"
+  },
+  "todoFile": {
+    "associatedFiles": "Associated Files",
+    "chooseFile": "Choose File :",
+    "noFileChosen": "No file chosen",
+    "descriptionPlaceholder": "Description",
+    "addButton": "Add"
+  },
+  "todoEmp": {
+    "associatedEmployees": "Associated Employees",
+    "chooseEmployee": "choose employee",
+    "rolePlaceholder": "role",
+    "addButton": "Add"
   },
   "popup": {
     "add": "Add",
@@ -120,6 +133,8 @@
       "clientId": "Associated Client",
       "startDate": "Start Date",
       "endDate": "End Date",
+      "price": "Price",
+      "progress": "Progress",
       "status": "Project Status",
       "fileName": "File Name",
       "filePath": "File Path",
@@ -167,7 +182,8 @@
       "description": "Description",
       "price": "Price",
       "monthlySubscription": "Monthly Subscription",
-      "isActive": "Status"
+      "isActive": "Status",
+      "billingCycle":"Billing Cycle"
     }
   },
   "dashTable": {
@@ -250,7 +266,8 @@
       "price": "Price",
       "isActive": "Status",
       "monthlySubscription": "Monthly Subscription",
-      "description": "Description"
+      "description": "Description",
+      "billingCycle":"Billing Cycle"
     },
     "invoice": {
       "id": "Invoice Number",
@@ -286,6 +303,12 @@
         "healthcare": "Healthcare",
         "finance": "Finance",
         "education": "Education"
+      },
+      "billingCycle": {
+        "monthly": "Monthly",
+        "quarterly": "Quarterly",
+        "yearly": "Yearly",
+        "oneTime": "OneTime"
       },
       "status": {
         "planned": "Planned",
@@ -326,5 +349,21 @@
     "suffix": {
       "years": "years"
     }
+  },
+  "detailView": {
+    "title": {
+      "Emp": "Employee Details",
+      "Customer": "Customer Details",
+      "Product": "Product Details",
+      "Project": "Project Details",
+      "Invoice": "Invoice Details"
+    },
+    "fetchError": "Failed to load details",
+    "loading": "Loading details...",
+    "close": "Close",
+    "noData": "No data available",
+    "yes": "Yes",
+    "no": "No",
+    "profileImage": "Profile image"
   }
 }

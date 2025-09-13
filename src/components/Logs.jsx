@@ -1,5 +1,4 @@
 import DashTable from "./DashTable";
-import { logFields as popUpFields } from "../popUpFields";
 import { logFields } from "../fields";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
@@ -9,60 +8,83 @@ const Logs = () => {
   const { t } = useTranslation();
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [refresh,setRefresh] = useState(false)
+  const [error, setError] = useState(null);
+  const [refresh, setRefresh] = useState(false);
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(10);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
+        setError(null);
         const token = localStorage.getItem("authToken");
 
         if (!token) {
+          setError("Authentication token not found");
           return;
         }
 
-        const response = await axios
-          .get("http://192.168.43.103:7176/api/Logs/GetAll?Page=1&Count=10", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          })
-          .then((res) => res.data);
+        if (search) {
+          const response = await axios
+            .get(
+              `http://192.168.43.85:7176/api/Logs/Search?page=${page}&count=${count}&name=${search}`,
+              {
+                //timeout: 5000,
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "application/json",
+                },
+              }
+            )
+            .then((res) => res.data);
 
-        setLogs(response.data);
+          setLogs(response.data || []);
+        } else {
+          const response = await axios
+            .get(
+              `http://192.168.43.85:7176/api/Logs/GetAll?page=${page}&count=${count}`,
+              {
+                //timeout: 5000,
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "application/json",
+                },
+              }
+            )
+            .then((res) => res.data);
+
+          setLogs(response.data || []);
+        }
       } catch (err) {
         console.error("Error fetching data:", err);
+        setError(err.response?.data?.message || "Failed to fetch log data");
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [t]);
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center bg-gray-300 h-full">
-        <div className="flex space-x-2">
-          <div className="w-4 h-4 rounded-xs bg-[var(--main-color)] animate-bounce [animation-delay:-0.3s]"></div>
-          <div className="w-4 h-4 rounded-xs bg-[var(--main-color)] animate-bounce [animation-delay:-0.15s]"></div>
-          <div className="w-4 h-4 rounded-xs bg-[var(--main-color)] animate-bounce"></div>
-        </div>
-      </div>
-    );
-  }
+  }, [refresh, page, count, search]);
 
   return (
     <DashTable
       title={t("log.title")}
-      search={t("log.search")}
+      searchPlaceHolder={t("log.search")}
       url="/Logs"
       fields={logFields}
       data={logs}
-      popUpFields={popUpFields}
-      isrefresh={refresh}
+      popUpFields={[]}
+      loading={loading}
       setRefresh={setRefresh}
+      page={page}
+      count={count}
+      search={search}
+      setPage={setPage}
+      setCount={setCount}
+      setSearch={setSearch}
+      error={error}
     />
   );
 };

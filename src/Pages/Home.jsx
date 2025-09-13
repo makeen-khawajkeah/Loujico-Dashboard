@@ -5,8 +5,10 @@ import { useTranslation } from "react-i18next";
 
 // Component for a single metric card
 const MetricCard = ({ title, value, unit, color }) => (
-  <div className={`p-6 rounded-lg shadow-md flex-1 ${color}`}>
-    <h3 className="text-xl font-bold text-white">{title}</h3>
+  <div
+    className={`flex items-center flex-col justify-center p-6 rounded-lg shadow-md flex-1 ${color}`}
+  >
+    <h3 className="text-xl font-bold text-white whitespace-nowrap">{title}</h3>
     <p className="mt-2 text-3xl font-bold">
       {value} <span className="text-xl font-normal">{unit}</span>
     </p>
@@ -15,44 +17,51 @@ const MetricCard = ({ title, value, unit, color }) => (
 
 const Home = () => {
   const { t } = useTranslation();
-  const [metrics, setMetrics] = useState({
-    activeCustomers: "...",
-    activeProjects: "...",
-    overdueInvoices: "...",
-    presentEmployees: "...",
+  const [
+    { activeProjects, countActiveUsers, customer, overDueInvoices },
+    setData,
+  ] = useState({
+    activeProjects: 0,
+    countActiveUsers: 0,
+    customer: 0,
+    overDueInvoices: 0,
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchDashboardData = async () => {
+    const fetchDta = async () => {
       try {
-        // Replace these with your actual API endpoints
-        const [customersRes, projectsRes, invoicesRes, employeesRes] =
-          await Promise.all([
-            axios.get("home.YOUR_API_ENDPOINT/customers/active"),
-            axios.get("home.YOUR_API_ENDPOINT/projects/status"),
-            axios.get("home.YOUR_API_ENDPOINT/invoices/overdue"),
-            axios.get("home.YOUR_API_ENDPOINT/employees/present"),
-          ]);
+        setLoading(true);
+        setError(null);
+        const token = localStorage.getItem("authToken");
 
-        setMetrics({
-          activeCustomers: customersRes.data.count,
-          activeProjects: projectsRes.data.count, // You may need to modify this if the API returns project details instead of direct count
-          overdueInvoices: invoicesRes.data.count, // You may need to modify this if the API returns invoice details
-          presentEmployees: employeesRes.data.count,
-        });
+        if (!token) {
+          setError("Authentication token not found");
+          return;
+        }
 
-        setLoading(false);
+        const response = await axios
+          .get("http://192.168.43.85:7176/api/Dashbourd/GetDashboard", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          })
+          .then((res) => res.data);
+
+        setData(response.data);
       } catch (err) {
         console.error("Failed to fetch dashboard data:", err);
         setError(t("home.dashboardError"));
         setLoading(false);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchDashboardData();
-  }, [t]);
+    fetchDta();
+  }, []);
 
   if (loading) {
     return (
@@ -73,31 +82,31 @@ const Home = () => {
   return (
     <div className="p-6 bg-gray-300 min-h-[calc(100vh-80px)]">
       <div className="p-8 rounded-md bg-white">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">
-        {t("home.dashboard")}
-      </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <MetricCard
-          title={t("home.activeCustomers")}
-          value={metrics.activeCustomers}
-          color="bg-[var(--main-color-lighter)] text-white"
-        />
-        <MetricCard
-          title={t("home.activeProjects")}
-          value={metrics.activeProjects}
-          color="bg-[var(--sub-color-lighter)] text-white"
-        />
-        <MetricCard
-          title={t("home.overdueInvoices")}
-          value={metrics.overdueInvoices}
-          color="bg-[var(--main-color-lighter)] text-white"
-        />
-        <MetricCard
-          title={t("home.presentEmployees")}
-          value={metrics.presentEmployees}
-          color="bg-[var(--sub-color-lighter)] text-white"
-        />
-      </div>
+        <h1 className="text-3xl font-bold mb-6 text-gray-800">
+          {t("home.dashboard")}
+        </h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <MetricCard
+            title={t("home.activeCustomers")}
+            value={customer}
+            color="bg-[var(--main-color-lighter)] text-white"
+          />
+          <MetricCard
+            title={t("home.activeProjects")}
+            value={activeProjects}
+            color="bg-[var(--sub-color-lighter)] text-white"
+          />
+          <MetricCard
+            title={t("home.overdueInvoices")}
+            value={overDueInvoices}
+            color="bg-[var(--main-color-lighter)] text-white"
+          />
+          <MetricCard
+            title={t("home.presentEmployees")}
+            value={countActiveUsers}
+            color="bg-[var(--sub-color-lighter)] text-white"
+          />
+        </div>
       </div>
     </div>
   );

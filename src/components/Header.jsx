@@ -3,14 +3,9 @@
 import React, { useContext } from "react";
 import { FaBell, FaEnvelope, FaSearch, FaBars } from "react-icons/fa";
 import { AuthContext } from "../Context/AuthContext";
-import { useTranslation } from "react-i18next";
-import { FaChevronDown } from "react-icons/fa";
 
 // تمت إضافة prop جديدة `onToggleSidebar`
 const Header = ({ onToggleSidebar }) => {
-  const {
-    i18n: { language, changeLanguage },
-  } = useTranslation();
   // const { user } = useContext(AuthContext);
 
   // if (!user) {
@@ -18,7 +13,9 @@ const Header = ({ onToggleSidebar }) => {
   // }
 
   return (
-    <nav className={`bg-white p-4 px-4 lg:px-12 flex items-center justify-between lg:justify-end w-full `}>
+    <nav
+      className={`h-20 bg-white p-4 px-4 lg:px-12 flex items-center justify-between lg:justify-end w-full `}
+    >
       {/* زر القائمة للشاشات الصغيرة */}
       <button
         onClick={onToggleSidebar}
@@ -62,28 +59,6 @@ const Header = ({ onToggleSidebar }) => {
               مكين خواجكيه
             </span>
             <span className="text-[14px]">مدير</span>
-          </div>
-          <div className="group relative">
-            <div className="font-medium text-lg hover:text-[#B88647] transition duration-300 flex items-center cursor-pointer">
-              <span>{language === "en" ? "English" : "العربية"}</span>
-              <FaChevronDown className="ml-1 text-sm group-hover:rotate-180 transition-transform duration-300" />
-            </div>
-            <div
-              className="absolute top-full left-1/2 -translate-x-1/2
-              bg-white shadow-lg rounded-md cursor-pointer
-              opacity-0 group-hover:opacity-100
-              group-hover:visible invisible
-              transition-opacity duration-300 transform scale-95 group-hover:scale-100"
-            >
-              <span
-                onClick={() => {
-                  changeLanguage(language === "ar" ? "en" : "ar");
-                }}
-                className="block px-6 py-3 whitespace-nowrap text-gray-800 hover:bg-[#7899B2] hover:text-white transition duration-300 last:hover:rounded-b-md"
-              >
-                {language === "ar" ? "الانجليزية" : "Arabic"}
-              </span>
-            </div>
           </div>
         </div>
       </div>
