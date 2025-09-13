@@ -166,7 +166,7 @@ export const projectFields = [
     name: "customerId",
     title: "popupFields.project.clientId",
     type: "select",
-    api: "http://192.168.43.85:7176/api/Customer/GetAllId",
+    api: "http://192.168.1.107:7176/api/Customer/GetAllId",
   },
   {
     name: "startDate",
@@ -261,13 +261,13 @@ export const invoiceFields = [
     name: "clientId",
     title: "popupFields.invoice.clientId",
     type: "select",
-    api: "http://192.168.43.85:7176/api/Customer/GetAllId",
+    api: "http://192.168.1.107:7176/api/Customer/GetAllId",
   },
   {
     name: "projectId",
     title: "popupFields.invoice.projectId",
     type: "select",
-    api: "http://192.168.43.85:7176/api/Project/GetAllId",
+    api: "http://192.168.1.107:7176/api/Project/GetAllId",
   },
   {
     name: "amount",

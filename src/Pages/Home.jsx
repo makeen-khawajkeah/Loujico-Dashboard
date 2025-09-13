@@ -18,11 +18,11 @@ const MetricCard = ({ title, value, unit, color }) => (
 const Home = () => {
   const { t } = useTranslation();
   const [
-    { activeProjects, countActiveUsers, customer, overDueInvoices },
+    { activeProjects, countActiveEmployee, customer, overDueInvoices },
     setData,
   ] = useState({
     activeProjects: 0,
-    countActiveUsers: 0,
+    countActiveEmployee: 0,
     customer: 0,
     overDueInvoices: 0,
   });
@@ -42,14 +42,14 @@ const Home = () => {
         }
 
         const response = await axios
-          .get("http://192.168.43.85:7176/api/Dashbourd/GetDashboard", {
+          .get("http://192.168.1.107:7176/api/Dashbourd/GetDashboard", {
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
           })
           .then((res) => res.data);
-
+        console.log(response.data);
         setData(response.data);
       } catch (err) {
         console.error("Failed to fetch dashboard data:", err);
@@ -65,8 +65,16 @@ const Home = () => {
 
   if (loading) {
     return (
-      <div className="p-6 text-center text-gray-500">
-        {t("home.loadingDashboard")}
+      <div className="p-6 bg-gray-300 min-h-screen">
+        <div className="p-8 rounded-md bg-white">
+          <div className="flex justify-center items-center h-64">
+            <div className="flex space-x-2">
+              <div className="w-4 h-4 rounded-xs bg-[var(--main-color)] animate-bounce [animation-delay:-0.3s]"></div>
+              <div className="w-4 h-4 rounded-xs bg-[var(--main-color)] animate-bounce [animation-delay:-0.15s]"></div>
+              <div className="w-4 h-4 rounded-xs bg-[var(--main-color)] animate-bounce"></div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -103,7 +111,7 @@ const Home = () => {
           />
           <MetricCard
             title={t("home.presentEmployees")}
-            value={countActiveUsers}
+            value={countActiveEmployee}
             color="bg-[var(--sub-color-lighter)] text-white"
           />
         </div>

@@ -26,7 +26,7 @@ const ToDoEmp = (formData, setFormData) => {
         }
 
         const response = await axios
-          .get("http://192.168.43.85:7176/api/Emp/GetAllId", {
+          .get("http://192.168.1.107:7176/api/Emp/GetAllId", {
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",

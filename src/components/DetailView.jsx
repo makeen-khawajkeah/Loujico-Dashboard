@@ -11,7 +11,7 @@ const DetailView = ({ id, fallBack, type, onClose }) => {
   const { t } = useTranslation();
 
   const fields = getDetailFields(type);
-  const dataToShow = data || fallBack;
+  const dataToShow = data;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,7 +25,7 @@ const DetailView = ({ id, fallBack, type, onClose }) => {
         }
 
         const response = await axios.get(
-          `http://192.168.43.85:7176/api/${type}/GetById/${id}`,
+          `http://192.168.1.107:7176/api/${type}/GetById/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -77,7 +77,12 @@ const DetailView = ({ id, fallBack, type, onClose }) => {
       }
     };
 
-    if (id) fetchData();
+    if (id && type !== "Account") {
+      fetchData();
+    } else {
+      setData(fallBack);
+      setLoading(false);
+    }
   }, [id, type, t]);
 
   if (loading) {

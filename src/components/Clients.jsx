@@ -29,7 +29,7 @@ const Clients = () => {
 
         if (search) {
           const response = await axios.get(
-            `http://192.168.43.85:7176/api/Customer/Search?page=${page}&count=${count}&name=${search}`,
+            `http://192.168.1.107:7176/api/Customer/Search?page=${page}&count=${count}&name=${search}`,
             {
               //timeout: 5000,
               headers: {
@@ -42,7 +42,7 @@ const Clients = () => {
           setClients(response.data.data || response.data);
         } else {
           const response = await axios.get(
-            `http://192.168.43.85:7176/api/Customer/GetAll?page=${page}&count=${count}`,
+            `http://192.168.1.107:7176/api/Customer/GetAll?page=${page}&count=${count}`,
             {
               //timeout: 5000,
               headers: {

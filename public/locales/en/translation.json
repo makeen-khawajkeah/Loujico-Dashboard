@@ -173,8 +173,8 @@
       "name": "Name",
       "email": "Email",
       "role": "Role",
-      "firstName":"First Name",
-      "lastName":"Last Name"
+      "firstName": "First Name",
+      "lastName": "Last Name"
     },
     "product": {
       "id": "ID",
@@ -183,7 +183,7 @@
       "price": "Price",
       "monthlySubscription": "Monthly Subscription",
       "isActive": "Status",
-      "billingCycle":"Billing Cycle"
+      "billingCycle": "Billing Cycle"
     }
   },
   "dashTable": {
@@ -267,7 +267,7 @@
       "isActive": "Status",
       "monthlySubscription": "Monthly Subscription",
       "description": "Description",
-      "billingCycle":"Billing Cycle"
+      "billingCycle": "Billing Cycle"
     },
     "invoice": {
       "id": "Invoice Number",
@@ -289,7 +289,8 @@
       "id": "ID",
       "name": "Name",
       "email": "Email",
-      "role": "Role"
+      "role": "Role",
+      "passWord": "Password"
     },
     "options": {
       "position": {
@@ -356,7 +357,8 @@
       "Customer": "Customer Details",
       "Product": "Product Details",
       "Project": "Project Details",
-      "Invoice": "Invoice Details"
+      "Invoice": "Invoice Details",
+      "Account": "User Details"
     },
     "fetchError": "Failed to load details",
     "loading": "Loading details...",

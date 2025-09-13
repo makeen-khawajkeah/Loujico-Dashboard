@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import DetailView from "./DetailView";
 
 // API base URL should be configured globally, not hardcoded
-const API_BASE_URL = "http://192.168.43.85:7176";
+const API_BASE_URL = "http://192.168.1.107:7176";
 
 const DashTable = ({
   title,
@@ -78,7 +78,9 @@ const DashTable = ({
       }
     };
 
-    fetchCount();
+    if (!["user", "مستخدم"].includes(searchPlaceHolder)) {
+      fetchCount();
+    }
   }, []);
 
   // Reset to first page when items per page changes
@@ -121,6 +123,8 @@ const DashTable = ({
       setIsLoading(false);
     }
   };
+
+  console.log(total);
 
   const handleAdd = async (body) => {
     setIsLoading(true);
@@ -215,7 +219,11 @@ const DashTable = ({
   const handleEditClick = () => {
     if (checkedFields.length === 1) {
       if (isAdd) setIsAdd(false);
-      handleGetOne();
+      if (!["user", "مستخدم"].includes(searchPlaceHolder)) {
+        handleGetOne();
+      } else {
+        setInitialData(data.find((e) => e.userid === checkedFields[0]));
+      }
       setOpenPopUp(true);
     }
   };
@@ -258,7 +266,9 @@ const DashTable = ({
         // نزيل تمرير fields لـ DetailView لأنه بياخدها من detailFields.js
         <DetailView
           id={selectedId}
-          fallBackData={data[selectedId]}
+          fallBack={data.find(
+            (e) => e.userid === selectedId || e.id === selectedId
+          )}
           type={url.replace("/", "")}
           onClose={() => setShowDetail(false)}
         />
@@ -378,7 +388,7 @@ const DashTable = ({
                   ) : (
                     <>
                       {currentData.length > 0 ? (
-                        currentData.map((dataItem, i) => (
+                        currentData.map((dataItem) => (
                           <tr
                             key={dataItem.id}
                             className="transition-colors hover:bg-gray-200"

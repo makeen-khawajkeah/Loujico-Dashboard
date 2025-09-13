@@ -2,75 +2,108 @@
 
 // حقول تفاصيل الموظف - بناءً على الـ API Response
 export const employeeDetailFields = [
-  { name: "id", title: "fields.employee.id", type: "text" },
-  { name: "firstName", title: "fields.employee.firstName", type: "text" },
-  { name: "lastName", title: "fields.employee.lastName", type: "text" },
-  { name: "phone", title: "fields.employee.phone", type: "tel" },
-  { name: "email", title: "fields.employee.email", type: "email" },
-  { name: "employeesAddress", title: "fields.employee.address", type: "textarea" },
-  { name: "position", title: "fields.employee.position", type: "text" },
-  { name: "age", title: "fields.employee.age", type: "number" },
-  { name: "profileImage", title: "fields.employee.profileImage", type: "image" },
-  { name: "isPresent", title: "fields.employee.isPresent", type: "boolean" },
-  { name: "employeesDescription", title: "fields.employee.description", type: "textarea" },
-  { name: "serviceDuration", title: "fields.employee.serviceDuration", type: "number" },
-  { name: "salary", title: "fields.employee.salary", type: "number" },
-  { name: "createdAt", title: "fields.common.createdAt", type: "date" },
-  { name: "updatedAt", title: "fields.common.updatedAt", type: "date" }
+  { name: "id", title: "fields.employee.id" },
+  { name: "firstName", title: "fields.employee.firstName" },
+  { name: "lastName", title: "fields.employee.lastName" },
+  { name: "phone", title: "fields.employee.phone" },
+  { name: "email", title: "fields.employee.email" },
+  {
+    name: "employeesAddress",
+    title: "fields.employee.address",
+  },
+  { name: "position", title: "fields.employee.position" },
+  { name: "age", title: "fields.employee.age" },
+  {
+    name: "profileImage",
+    title: "fields.employee.profileImage",
+  },
+  { name: "isPresent", title: "fields.employee.isPresent" },
+  {
+    name: "employeesDescription",
+    title: "fields.employee.description",
+  },
+  {
+    name: "serviceDuration",
+    title: "fields.employee.serviceDuration",
+  },
+  { name: "salary", title: "fields.employee.salary" },
+  { name: "createdAt", title: "fields.common.createdAt" },
+  { name: "updatedAt", title: "fields.common.updatedAt" },
 ];
 
 // حقول تفاصيل العملاء - بناءً على الـ API Response الجديد
 export const clientDetailFields = [
-  { name: "id", title: "fields.client.id", type: "text" },
-  { name: "customerName", title: "fields.client.name", type: "text" },
-  { name: "phone", title: "fields.client.phone", type: "tel" },
-  { name: "email", title: "fields.client.email", type: "email" },
-  { name: "customerAddress", title: "fields.client.address", type: "textarea" },
-  { name: "companyDescription", title: "fields.client.companyDescription", type: "textarea" },
-  { name: "industry", title: "fields.client.industry", type: "text" },
-  { name: "serviceProvided", title: "fields.client.serviceProvided", type: "text" },
-  { name: "inquiry", title: "fields.client.inquiry", type: "text" },
-  { name: "workDate", title: "fields.client.workDate", type: "date" },
-  { name: "workDuration", title: "fields.client.workDuration", type: "text" },
-  { name: "createdAt", title: "fields.common.createdAt", type: "date" },
-  { name: "updatedAt", title: "fields.common.updatedAt", type: "date" },
-  { name: "lastVisit", title: "fields.common.lastVisit", type: "date" },
-  { name: "isDeleted", title: "fields.common.isDeleted", type: "boolean" }
+  { name: "id", title: "fields.client.id" },
+  { name: "customerName", title: "fields.client.name" },
+  { name: "phone", title: "fields.client.phone" },
+  { name: "email", title: "fields.client.email" },
+  { name: "customerAddress", title: "fields.client.address" },
+  {
+    name: "companyDescription",
+    title: "fields.client.companyDescription",
+  },
+  { name: "industry", title: "fields.client.industry" },
+  {
+    name: "serviceProvided",
+    title: "fields.client.serviceProvided",
+  },
+  { name: "inquiry", title: "fields.client.inquiry" },
+  { name: "workDate", title: "fields.client.workDate" },
+  { name: "workDuration", title: "fields.client.workDuration" },
+  { name: "createdAt", title: "fields.common.createdAt" },
+  { name: "updatedAt", title: "fields.common.updatedAt" },
+  { name: "lastVisit", title: "fields.common.lastVisit" },
+  { name: "isDeleted", title: "fields.common.isDeleted" },
 ];
 export const projectDetailFields = [
-  { name: "id", title: "fields.project.id", type: "text" },
-  { name: "title", title: "fields.project.title", type: "text" },
-  { name: "startDate", title: "fields.project.startDate", type: "date" },
-  { name: "endDate", title: "fields.project.endDate", type: "date" },
-  { name: "progress", title: "fields.project.progress", type: "number" },
-  { name: "price", title: "fields.project.price", type: "number" },
-  { name: "status", title: "fields.project.status", type: "text" }
+  { name: "id", title: "fields.project.id" },
+  { name: "title", title: "fields.project.title" },
+  { name: "startDate", title: "fields.project.startDate" },
+  { name: "endDate", title: "fields.project.endDate" },
+  { name: "progress", title: "fields.project.progress" },
+  { name: "price", title: "fields.project.price" },
+  { name: "status", title: "fields.project.status" },
 ];
 export const productDetailFields = [
-  { name: "id", title: "fields.product.id", type: "text" },
-  { name: "productName", title: "fields.product.name", type: "text" },
-  { name: "productDescription", title: "fields.product.description", type: "textarea" },
-  { name: "price", title: "fields.product.price", type: "number" },
-  { name: "billingCycle", title: "fields.product.billingCycle", type: "text" },
-  { name: "isActive", title: "fields.product.isActive", type: "boolean" },
-  { name: "isDeleted", title: "fields.common.isDeleted", type: "boolean" },
-  { name: "createdAt", title: "fields.common.createdAt", type: "date" },
-  { name: "updatedAt", title: "fields.common.updatedAt", type: "date" },
-  { name: "createdBy", title: "fields.common.createdBy", type: "text" },
-  { name: "updatedBy", title: "fields.common.updatedBy", type: "text" }
+  { name: "id", title: "fields.product.id" },
+  { name: "productName", title: "fields.product.name" },
+  {
+    name: "productDescription",
+    title: "fields.product.description",
+  },
+  { name: "price", title: "fields.product.price" },
+  { name: "billingCycle", title: "fields.product.billingCycle" },
+  { name: "isActive", title: "fields.product.isActive" },
+  { name: "isDeleted", title: "fields.common.isDeleted" },
+  { name: "createdAt", title: "fields.common.createdAt" },
+  { name: "updatedAt", title: "fields.common.updatedAt" },
+  { name: "createdBy", title: "fields.common.createdBy" },
+  { name: "updatedBy", title: "fields.common.updatedBy" },
 ];
 export const invoiceDetailFields = [
-  { name: "id", title: "fields.invoice.id", type: "text" },
-  { name: "customerId", title: "fields.invoice.clientId", type: "text" },
-  { name: "projectId", title: "fields.invoice.projectId", type: "text" },
-  { name: "amount", title: "fields.invoice.amount", type: "number" },
-  { name: "invoiceStatus", title: "fields.invoice.status", type: "text" },
-  { name: "isDeleted", title: "fields.common.isDeleted", type: "boolean" },
-  { name: "createdAt", title: "fields.common.createdAt", type: "date" },
-  { name: "updatedAt", title: "fields.common.updatedAt", type: "date" },
-  { name: "lastVisit", title: "fields.invoice.lastViewed", type: "date" },
-  { name: "createdBy", title: "fields.common.createdBy", type: "text" },
-  { name: "updatedBy", title: "fields.common.updatedBy", type: "text" }
+  { name: "id", title: "fields.invoice.id" },
+  { name: "customerId", title: "fields.invoice.clientId" },
+  { name: "projectId", title: "fields.invoice.projectId" },
+  { name: "amount", title: "fields.invoice.amount" },
+  { name: "invoiceStatus", title: "fields.invoice.status" },
+  { name: "isDeleted", title: "fields.common.isDeleted" },
+  { name: "createdAt", title: "fields.common.createdAt" },
+  { name: "updatedAt", title: "fields.common.updatedAt" },
+  { name: "lastVisit", title: "fields.invoice.lastViewed" },
+  { name: "createdBy", title: "fields.common.createdBy" },
+  { name: "updatedBy", title: "fields.common.updatedBy" },
+];
+export const userFields = [
+  { name: "userid", title: "fields.user.id" },
+  { name: "username", title: "fields.user.name" },
+  {
+    name: "email",
+    title: "fields.user.email",
+  },
+  {
+    name: "roles",
+    title: "fields.user.role",
+  },
 ];
 // دالة مساعدة للحصول على الحقول المناسبة
 export const getDetailFields = (type) => {
@@ -85,6 +118,8 @@ export const getDetailFields = (type) => {
       return invoiceDetailFields;
     case "Product":
       return productDetailFields;
+    case "Account":
+      return userFields;
     default:
       return [];
   }

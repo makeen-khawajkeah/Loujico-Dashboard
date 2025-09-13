@@ -105,6 +105,8 @@ const Select = ({ field, formData, setFormData, errors }) => {
     }`,
   };
 
+  console.log(formData);
+
   return (
     <select {...commonProps}>
       <option value="">
