@@ -4,9 +4,10 @@ import PopUp from "./PopUp";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import DetailView from "./DetailView";
+import { FaSearch } from "react-icons/fa";
 
 // API base URL should be configured globally, not hardcoded
-const API_BASE_URL = "http://192.168.1.107:7176";
+const API_BASE_URL = "http://192.168.1.111:7176";
 
 const DashTable = ({
   title,
@@ -17,6 +18,8 @@ const DashTable = ({
   data,
   popUpFields = [],
   setRefresh,
+  setRefreshTotal = () => {},
+  total = undefined,
   page,
   count,
   search,
@@ -36,7 +39,6 @@ const DashTable = ({
   const [error, setError] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
   const [showDetail, setShowDetail] = useState(false);
-  const [total, setTotal] = useState(0);
   const token = localStorage.getItem("authToken");
 
   // Calculate pagination values
@@ -46,47 +48,101 @@ const DashTable = ({
   const endIndex = Math.min(startIndex + count, totalItems);
   const currentData = data.slice(0, count);
 
-  // console.log(total);
-
-  useEffect(() => {
-    const fetchCount = async () => {
-      try {
-        const response = await axios
-          .get(`${API_BASE_URL}/api${url}/GetCount`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          })
-          .then((res) => res.data);
-
-        if (setRefresh) {
-          setRefresh((prev) => !prev);
-        }
-
-        setTotal(response.data);
-        return response.data;
-      } catch (err) {
-        console.error(
-          t("dashTable.errors.updateFailed", { item: searchPlaceHolder }),
-          err
-        );
-        // setError(
-        // t("dashTable.errors.updateFailed", { item: searchPlaceHolder })
-        // );
-        // throw err;
-      }
-    };
-
-    if (!["user", "مستخدم"].includes(searchPlaceHolder)) {
-      fetchCount();
-    }
-  }, []);
-
   // Reset to first page when items per page changes
   useEffect(() => {
     setPage(1);
   }, [count, setPage]);
+
+  const handleApiError = (err, defaultMessage) => {
+    if (err.response?.data?.errors) {
+      // Handle nested errors format: { errors: { field: ['error1', 'error2'], field2: ['error3'] } }
+      if (
+        typeof err.response.data.errors === "object" &&
+        !Array.isArray(err.response.data.errors)
+      ) {
+        // Extract all error messages from nested object
+        const errorMessages = [];
+        for (const field in err.response.data.errors) {
+          if (Array.isArray(err.response.data.errors[field])) {
+            errorMessages.push(...err.response.data.errors[field]);
+          } else {
+            errorMessages.push(err.response.data.errors[field]);
+          }
+        }
+        return errorMessages.join(", ");
+      }
+      // Handle array format: { errors: ['error1', 'error2'] }
+      else if (Array.isArray(err.response.data.errors)) {
+        return err.response.data.errors.join(", ");
+      }
+    } else if (err.response?.data?.message) {
+      return err.response.data.message;
+    } else if (err.response?.data) {
+      return typeof err.response.data === "string"
+        ? err.response.data
+        : JSON.stringify(err.response.data);
+    } else if (err.message) {
+      return err.message;
+    }
+    return defaultMessage;
+  };
+
+  // Helper function to convert object to FormData
+  const convertToFormData = (body) => {
+    const formData = new FormData();
+
+    // Add all simple fields first
+    Object.keys(body).forEach((key) => {
+      const value = body[key];
+
+      if (value === null || value === undefined) {
+        return;
+      }
+
+      // Skip arrays and objects for now (we'll handle them separately)
+      if (
+        Array.isArray(value) ||
+        (typeof value === "object" && !(value instanceof File))
+      ) {
+        return;
+      }
+
+      // Handle simple values and files
+      formData.append(key, value);
+    });
+
+    // Handle employees array - TWO OPTIONS:
+
+    // OPTION 1: As individual fields (recommended for ASP.NET model binding)
+    if (body.employees && Array.isArray(body.employees)) {
+      body.employees.forEach((employee, index) => {
+        formData.append(`Employees[${index}].EmployeeId`, employee.employeeId);
+        formData.append(
+          `Employees[${index}].RoleOnProject`,
+          employee.roleOnProject
+        );
+      });
+    }
+
+    // OPTION 2: As JSON string (if backend expects string)
+    // if (body.employees && Array.isArray(body.employees)) {
+    //   formData.append('Employees', JSON.stringify(body.employees));
+    // }
+
+    // Handle Data array
+    if (body.Data && Array.isArray(body.Data)) {
+      body.Data.forEach((item, index) => {
+        if (item.files && item.files instanceof File) {
+          formData.append(`Data[${index}].Files`, item.files);
+        }
+        if (item.fileType) {
+          formData.append(`Data[${index}].FileType`, item.fileType);
+        }
+      });
+    }
+
+    return formData;
+  };
 
   const handleGetOne = async () => {
     setIsLoading(true);
@@ -101,50 +157,58 @@ const DashTable = ({
         })
         .then((res) => res.data);
 
-      if (setRefresh) {
-        setRefresh((prev) => !prev);
-      }
-
-      if (["project", "مشروع"].includes(searchPlaceHolder)) {
-        setInitialData(response.data);
-      } else {
-        setInitialData(response.data[searchPlaceHolder]);
-      }
+      setInitialData({
+        Data: response.data.files,
+        ...response.data[searchPlaceHolder],
+      });
 
       return response.data;
     } catch (err) {
-      console.error(
-        t("dashTable.errors.updateFailed", { item: searchPlaceHolder }),
-        err
+      const errorMessage = handleApiError(
+        err,
+        t("dashTable.errors.updateFailed", { item: searchPlaceHolder })
       );
-      setError(t("dashTable.errors.updateFailed", { item: searchPlaceHolder }));
-      throw err;
+      console.error("Get one error:", errorMessage);
+      setError(errorMessage);
+      throw new Error(errorMessage);
     } finally {
       setIsLoading(false);
     }
   };
 
-  console.log(total);
-
   const handleAdd = async (body) => {
     setIsLoading(true);
     setError(null);
-    console.log(body);
+
     try {
-      const response = await axios.post(`${API_BASE_URL}/api${url}/Add`, body, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      console.log(body);
+      const formData = convertToFormData(body);
+
+      const response = await axios.post(
+        `${API_BASE_URL}/api${url}/Add`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            // Let browser set Content-Type with boundary for multipart/form-data
+          },
+        }
+      );
+
       if (setRefresh) {
         setRefresh((prev) => !prev);
       }
+
+      setRefreshTotal((prev) => !prev);
       return response.data;
     } catch (err) {
-      console.error(t("dashTable.errors.addFailed", { item: search }), err);
-      setError(t("dashTable.errors.addFailed", { item: searchPlaceHolder }));
-      throw err;
+      const errorMessage = handleApiError(
+        err,
+        t("dashTable.errors.addFailed", { item: searchPlaceHolder })
+      );
+      console.error("Add error:", errorMessage);
+      setError(errorMessage);
+      throw new Error(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -153,15 +217,20 @@ const DashTable = ({
   const handleUpdate = async (body) => {
     setIsLoading(true);
     setError(null);
+
     try {
+      if (body.Data) {
+        body.Data = body.Data.filter((e) => !e.id);
+      }
       console.log(body);
+      const formData = convertToFormData(body);
+
       const response = await axios.patch(
         `${API_BASE_URL}/api${url}/Edit`,
-        body,
+        formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
           },
         }
       );
@@ -173,12 +242,13 @@ const DashTable = ({
       setCheckedFields([]);
       return response.data;
     } catch (err) {
-      console.error(
-        t("dashTable.errors.updateFailed", { item: searchPlaceHolder }),
-        err
+      const errorMessage = handleApiError(
+        err,
+        t("dashTable.errors.updateFailed", { item: searchPlaceHolder })
       );
-      setError(t("dashTable.errors.updateFailed", { item: searchPlaceHolder }));
-      throw err;
+      console.error("Update error:", errorMessage);
+      setError(errorMessage);
+      throw new Error(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -204,13 +274,15 @@ const DashTable = ({
       }
       // Clear selection after deletion
       setCheckedFields([]);
+      setRefreshTotal((prev) => !prev);
     } catch (err) {
-      console.error(
-        t("dashTable.errors.deleteFailed", { item: searchPlaceHolder }),
-        err
+      const errorMessage = handleApiError(
+        err,
+        t("dashTable.errors.deleteFailed", { item: searchPlaceHolder })
       );
-      setError(t("dashTable.errors.deleteFailed", { item: searchPlaceHolder }));
-      throw err;
+      console.error("Delete error:", errorMessage);
+      setError(errorMessage);
+      throw new Error(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -263,12 +335,12 @@ const DashTable = ({
   return (
     <div className="p-6 bg-gray-300 h-[calc(100%-80px)]">
       {showDetail ? (
-        // نزيل تمرير fields لـ DetailView لأنه بياخدها من detailFields.js
         <DetailView
           id={selectedId}
           fallBack={data.find(
             (e) => e.userid === selectedId || e.id === selectedId
           )}
+          name={searchPlaceHolder}
           type={url.replace("/", "")}
           onClose={() => setShowDetail(false)}
         />
@@ -281,59 +353,92 @@ const DashTable = ({
 
             {error && (
               <div className="mt-4 p-3 bg-red-100 text-red-700 rounded-md">
-                {error}
+                <strong>{t("dashTable.errors.title")}:</strong>
+                <div className="mt-1 whitespace-pre-wrap">{error}</div>
+              </div>
+            )}
+
+            {isLoading && (
+              <div className="mt-4 p-3 bg-green-100 text-green-700 rounded-md">
+                <strong>{t("dashTable.loading")}</strong>
               </div>
             )}
 
             <div className="flex justify-between max-lg:justify-center items-center flex-wrap gap-3 mt-8 mb-5">
-              {["user", "مستخدم"].includes(searchPlaceHolder) ? null : (
-                <input
-                  type="text"
-                  placeholder={`${t(
-                    "dashTable.searchPlaceholder"
-                  )} ${searchPlaceHolder}`}
-                  className="px-5 py-2 bg-gray-300 rounded-md w-96 transition-colors hover:bg-gray-200 focus-visible:outline-[var(--main-color)]"
-                  aria-label={t("dashTable.searchPlaceholder")}
+              {["log", "سجل"].includes(searchPlaceHolder) ? (
+                <select
                   value={search}
-                  onChange={handleSearchChange}
-                />
-              )}
-              {["log", "سجل"].includes(searchPlaceHolder) ? null : (
-                <div className="flex flex-wrap gap-3 max-lg:justify-center">
-                  {popUpFields.length > 0 && (
-                    <>
-                      <button
-                        onClick={handleAddClick}
-                        className="px-2 w-24 sm:px-5 sm:w-32 py-2 cursor-pointer rounded-md transition-colors hover:from-[var(--main-color-lighter)] hover:to-[var(--main-color)] bg-gradient-to-br from-[var(--main-color)] to-[var(--main-color-lighter)] text-white font-bold duration-300"
-                      >
-                        {t("dashTable.buttons.add")}
-                      </button>
-                      <button
-                        onClick={handleEditClick}
-                        disabled={checkedFields.length !== 1 || isLoading}
-                        className={`px-2 w-24 sm:px-5 sm:w-32 py-2 rounded-md cursor-pointer transition-colors hover:from-[var(--sub-color-lighter)] hover:to-[var(--sub-color)] bg-gradient-to-br from-[var(--sub-color)] to-[var(--sub-color-lighter)] text-white font-bold duration-300 disabled:opacity-50 disabled:cursor-not-allowed`}
-                      >
-                        {t("dashTable.buttons.edit")}
-                      </button>
-                    </>
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="px-3 py-2.5 bg-gray-300 rounded-md w-96 transition-colors hover:bg-gray-200 focus-visible:outline-[var(--main-color)]"
+                >
+                  <option value="">Choose action type</option>
+                  <option value="error">Error</option>
+                  <option value="crud">Crud</option>
+                  <option value="logIn">LogIn</option>
+                </select>
+              ) : (
+                <>
+                  {["user", "مستخدم"].includes(searchPlaceHolder) ? null : (
+                    <div className="relative w-96">
+                      <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                      <input
+                        type="text"
+                        placeholder={`${t(
+                          "dashTable.searchPlaceholder"
+                        )} ${searchPlaceHolder}`}
+                        className={`pl-10 pr-5 py-2 bg-[#d9d9d9] rounded-md w-full transition-colors
+                                  hover:bg-gray-200 focus-visible:outline-[var(--main-color)] text-[#8a8a8a]
+                                    font-medium ${
+                                      title == t("history.title")
+                                        ? "hidden"
+                                        : "block"
+                                    }`}
+                        aria-label={t("dashTable.searchPlaceholder")}
+                        value={search}
+                        onChange={handleSearchChange}
+                      />
+                    </div>
                   )}
-                  <button
-                    onClick={() => handleDelete(checkedFields)}
-                    disabled={checkedFields.length === 0 || isLoading}
-                    className={`px-2 w-24 sm:px-5 sm:w-32 py-2 rounded-md cursor-pointer transition-colors hover:from-[var(--third-color)] hover:to-[var(--third-color-darker)] bg-gradient-to-br from-[var(--third-color-darker)] to-[var(--third-color)] text-white font-bold duration-300 disabled:opacity-50 disabled:cursor-not-allowed`}
+                  <div
+                    className={`flex flex-wrap gap-3 max-lg:justify-center ${
+                      title == t("history.title") ? "hidden" : "block"
+                    }`}
                   >
-                    {t("dashTable.buttons.delete")}
-                  </button>
-                </div>
+                    {popUpFields.length > 0 && (
+                      <>
+                        <button
+                          onClick={handleAddClick}
+                          className="px-2 w-24 sm:px-5 sm:w-32 py-2 cursor-pointer rounded-md bg-[var(--main-color)]  text-white font-bold duration-300"
+                        >
+                          {t("dashTable.buttons.add")}
+                        </button>
+                        <button
+                          onClick={handleEditClick}
+                          disabled={checkedFields.length !== 1 || isLoading}
+                          className={`px-2 w-24 sm:px-5 sm:w-32 py-2 rounded-md cursor-pointer bg-[var(--sub-color)] text-white font-bold duration-300 disabled:opacity-50 disabled:cursor-not-allowed`}
+                        >
+                          {t("dashTable.buttons.edit")}
+                        </button>
+                      </>
+                    )}
+                    <button
+                      onClick={() => handleDelete(checkedFields)}
+                      disabled={checkedFields.length === 0 || isLoading}
+                      className={`px-2 w-24 sm:px-5 sm:w-32 py-2 rounded-md cursor-pointer bg-[var(--third-color)] text-white font-bold duration-300 disabled:opacity-50 disabled:cursor-not-allowed`}
+                    >
+                      {t("dashTable.buttons.delete")}
+                    </button>
+                  </div>
+                </>
               )}
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full border-collapse text-center bg-gray-300 rounded-md">
+              <table className="w-full border-collapse text-center bg-[#eaecf0] rounded-md">
                 <thead>
                   <tr>
                     <th
-                      className={`h-12 bg-[var(--main-color-lighter)] text-[var(--main-color)] border-white font-semibold ${
+                      className={`h-12 bg-[var(--main-color)] text-[var(--main-color)] border-white font-semibold ${
                         language === "ar"
                           ? "rounded-tr-md border-l"
                           : "rounded-tl-md border-r"
@@ -354,7 +459,7 @@ const DashTable = ({
                     {fields.map((field) => (
                       <th
                         key={field.name}
-                        className={`h-12 bg-[var(--main-color-lighter)] text-[var(--main-color)]  border-white font-semibold ${
+                        className={`h-12 bg-[var(--main-color)] text-white border-white font-semibold ${
                           language === "ar"
                             ? "last:rounded-tl-md border-l last:border-0"
                             : "last:rounded-tr-md border-r last:border-0"
@@ -393,7 +498,6 @@ const DashTable = ({
                             key={dataItem.id}
                             className="transition-colors hover:bg-gray-200"
                             onClick={() => {
-                              // هنا سنفتح DetailView
                               setSelectedId(dataItem.id || dataItem.userid);
                               setShowDetail(true);
                             }}
@@ -442,8 +546,17 @@ const DashTable = ({
                                     alt={t("dashTable.alt.employeeImage")}
                                     className="w-10 h-10 rounded-full object-cover"
                                   />
+                                ) : dataItem[field.name]?.toString() ? (
+                                  dataItem[field.name].toString().length >
+                                  40 ? (
+                                    dataItem[field.name]
+                                      .toString()
+                                      .substring(0, 40) + "..."
+                                  ) : (
+                                    dataItem[field.name].toString()
+                                  )
                                 ) : (
-                                  dataItem[field.name]?.toString() || "-"
+                                  "-"
                                 )}
                               </td>
                             ))}
@@ -519,6 +632,7 @@ const DashTable = ({
 
           {popUpFields.length > 0 && (
             <PopUp
+              url={url}
               isOpen={openPopUp}
               isAdd={isAdd}
               title={searchPlaceHolder}

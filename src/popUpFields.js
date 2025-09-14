@@ -71,7 +71,7 @@ export const employeeFields = [
   {
     name: "profileImage",
     title: "popupFields.employee.profileImage",
-    type: "file",
+    type: "hidden",
     accept: "image/*",
   },
   {
@@ -166,7 +166,8 @@ export const projectFields = [
     name: "customerId",
     title: "popupFields.project.clientId",
     type: "select",
-    api: "http://192.168.1.107:7176/api/Customer/GetAllId",
+    api: "http://192.168.1.111:7176/api/Customer/GetAllId",
+    required: true,
   },
   {
     name: "startDate",
@@ -198,7 +199,7 @@ export const projectFields = [
   },
   {
     name: "progress",
-    title: "popupFields.project.price",
+    title: "popupFields.project.progress",
     type: "text",
   },
 ];
@@ -258,16 +259,21 @@ export const invoiceFields = [
     readOnly: true,
   },
   {
+    name: "title",
+    title: "popupFields.invoice.title",
+    type: "text"
+  },
+  {
     name: "clientId",
     title: "popupFields.invoice.clientId",
     type: "select",
-    api: "http://192.168.1.107:7176/api/Customer/GetAllId",
+    api: "http://192.168.1.111:7176/api/Customer/GetAllId",
   },
   {
     name: "projectId",
     title: "popupFields.invoice.projectId",
     type: "select",
-    api: "http://192.168.1.107:7176/api/Project/GetAllId",
+    api: "http://192.168.1.111:7176/api/Project/GetAllId",
   },
   {
     name: "amount",

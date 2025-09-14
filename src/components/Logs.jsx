@@ -10,9 +10,11 @@ const Logs = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [refresh, setRefresh] = useState(false);
+  const [refreshTotal, setRefreshTotal] = useState(false);
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(10);
   const [search, setSearch] = useState("");
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +31,7 @@ const Logs = () => {
         if (search) {
           const response = await axios
             .get(
-              `http://192.168.1.107:7176/api/Logs/Search?page=${page}&count=${count}&name=${search}`,
+              `http://192.168.1.111:7176/api/Logs/Search?page=${page}&count=${count}&name=${search}`,
               {
                 //timeout: 5000,
                 headers: {
@@ -44,7 +46,7 @@ const Logs = () => {
         } else {
           const response = await axios
             .get(
-              `http://192.168.1.107:7176/api/Logs/GetAll?page=${page}&count=${count}`,
+              `http://192.168.1.111:7176/api/Logs/GetAll?page=${page}&count=${count}`,
               {
                 //timeout: 5000,
                 headers: {
@@ -68,6 +70,38 @@ const Logs = () => {
     fetchData();
   }, [refresh, page, count, search]);
 
+  useEffect(() => {
+    const fetchCount = async () => {
+      try {
+        const token = localStorage.getItem("authToken");
+
+        if (!token) {
+          setError("Authentication token not found");
+          return;
+        }
+
+        const response = await axios
+          .get(`http://192.168.1.111:7176/api/Logs/GetCount`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          })
+          .then((res) => res.data);
+
+        setTotal(response.data);
+        return response.data;
+      } catch (err) {
+        console.error(
+          t("dashTable.errors.updateFailed", { item: t("log.search") }),
+          err
+        );
+      }
+    };
+
+    fetchCount();
+  }, [refreshTotal]);
+
   return (
     <DashTable
       title={t("log.title")}
@@ -78,6 +112,8 @@ const Logs = () => {
       popUpFields={[]}
       loading={loading}
       setRefresh={setRefresh}
+      setRefreshTotal={setRefreshTotal}
+      total={total}
       page={page}
       count={count}
       search={search}

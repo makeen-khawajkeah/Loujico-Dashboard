@@ -48,7 +48,7 @@ const SideBar = ({ isOpen, onClose }) => {
   // }
 
   // تحديد اتجاه السايد بار بناءً على اللغة
-  const isRTL = language === "ar";
+  const isRTL = language === "en";
 
   return (
     <div
@@ -74,7 +74,7 @@ const SideBar = ({ isOpen, onClose }) => {
         <img
           src="/public/assets/image/logo.png"
           alt={t("logoAlt")}
-          className="w-[150px]"
+          className="w-[150px] mt-2"
         />
         <button
           onClick={onClose}
@@ -87,7 +87,7 @@ const SideBar = ({ isOpen, onClose }) => {
       <img
         src="/public/assets/image/logo.png"
         alt={t("logoAlt")}
-        className="w-[200px] my-10 hidden lg:block"
+        className="w-[200px] my-2 mb-10 hidden lg:block"
       />
 
       <ul className="w-full">
@@ -99,7 +99,7 @@ const SideBar = ({ isOpen, onClose }) => {
               onClick={onClose}
               className={({ isActive }) =>
                 isActive
-                  ? "text-[var(--sub-color-lighter)]"
+                  ? "text-[var(--sub-color)]"
                   : "bg-white text-[var(--text-color)]"
               }
             >
@@ -125,35 +125,6 @@ const SideBar = ({ isOpen, onClose }) => {
             </NavLink>
           );
         })}
-        <li
-          onClick={onClose}
-          className={`group flex items-center py-[18px] hover:bg-gray-200 w-full px-10 duration-300 font-bold justify-between ${
-            isRTL ? "flex-row" : "flex-row-reverse"
-          }`}
-        >
-          <div className="relative text-[var(--text-color)] w-full">
-            <div className="text-lg transition duration-300 font-bold flex justify-between items-center cursor-pointer">
-              <span>{language === "en" ? "English" : "العربية"}</span>
-              <FaChevronDown className="ml-1 text-sm group-hover:rotate-180 transition-transform duration-300" />
-            </div>
-            <div
-              className="absolute w-full bottom-full left-1/2 -translate-x-1/2
-              bg-white shadow-lg rounded-md cursor-pointer
-              opacity-0 group-hover:opacity-100
-              group-hover:visible invisible
-              transition-opacity duration-300 transform scale-95 group-hover:scale-100"
-            >
-              <span
-                onClick={() => {
-                  changeLanguage(language === "ar" ? "en" : "ar");
-                }}
-                className="block px-6 py-3 whitespace-nowrap hover:bg-[#7899B2] hover:text-white transition duration-300 rounded-md"
-              >
-                {language === "ar" ? "الانجليزية" : "Arabic"}
-              </span>
-            </div>
-          </div>
-        </li>
       </ul>
     </div>
   );

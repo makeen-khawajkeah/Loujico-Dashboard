@@ -3,11 +3,12 @@ import { FaTrash } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 
-const ToDoEmp = (formData, setFormData) => {
+const ToDoEmp = ({ formData, setFormData }) => {
   const { t } = useTranslation();
-  const [todos, setTodos] = useState([]);
   const [data, setData] = useState({});
   const [employees, setEmployees] = useState([]);
+  const [empToShow, setEmpToShow] = useState([]);
+  const [name, setName] = useState("");
   const [error, setError] = useState("");
 
   const commonProps = {
@@ -26,7 +27,7 @@ const ToDoEmp = (formData, setFormData) => {
         }
 
         const response = await axios
-          .get("http://192.168.1.107:7176/api/Emp/GetAllId", {
+          .get("http://192.168.1.111:7176/api/Emp/GetAllId", {
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
@@ -53,10 +54,14 @@ const ToDoEmp = (formData, setFormData) => {
       <div className="flex justify-between items-center gap-4">
         <select
           {...commonProps}
-          value={data.employeeId + " " + data.name || ""}
+          value={data.employeeId + " " + name || ""}
           onChange={(e) => {
-            const [id, firstName, lastName] = e.target.value.split(" ");
-            setData({ ...data, id, name: `${firstName} ${lastName}` });
+            const [employeeId, firstName, lastName] = e.target.value.split(" ");
+            setData({
+              ...data,
+              employeeId,
+            });
+            setName(`${firstName} ${lastName}`);
           }}
         >
           <option value="">Choose employee</option>
@@ -90,9 +95,14 @@ const ToDoEmp = (formData, setFormData) => {
               c++;
             }
 
-            if (c === 3) {
-              setTodos([...todos, data]);
+            if (c === 2) {
+              setFormData({
+                ...formData,
+                employees: [...(formData.employees || []), data],
+              });
+              setEmpToShow([...empToShow, { ...data, name }]);
               setData({});
+              setName("");
             }
           }}
           className="px-4 py-2 text-white bg-[var(--main-color)] rounded-md hover:bg-[var(--main-color-darker)] cursor-pointer transition-colors"
@@ -101,19 +111,27 @@ const ToDoEmp = (formData, setFormData) => {
         </button>
       </div>
       <div className="flex flex-col gap-2 mt-2">
-        {todos.map((todo) => {
+        {empToShow.map((emp) => {
           return (
             <div
-              key={todo.id}
+              key={emp.employeeId}
               className="flex justify-between items-center bg-gray-200 p-2 rounded-md"
             >
               <span>
-                {todo.name} / {todo.roleOnProject}
+                {emp.name} / {emp.roleOnProject}
               </span>
               <FaTrash
                 className="cursor-pointer"
                 onClick={() => {
-                  setTodos(todos.filter((e) => e.id !== todo.id));
+                  setFormData({
+                    ...formData,
+                    employees: formData.employees.filter(
+                      (e) => e.employeeId !== emp.employeeId
+                    ),
+                  });
+                  setEmpToShow(
+                    empToShow.filter((e) => e.employeeId !== emp.employeeId)
+                  );
                 }}
               />
             </div>

@@ -161,6 +161,11 @@ export const invoiceFields = [
   //     width: 180
   // },
   {
+    name: "title",
+    title: "fields.invoice.title",
+    width: 120,
+  },
+  {
     name: "amount",
     title: "fields.invoice.amount",
     width: 120,
@@ -354,4 +359,47 @@ export const productFields = [
   //     title: "fields.common.updatedBy",
   //     width: 150
   // }
+];
+
+export const historyFields = [
+  {
+    name: "id",
+    title: "fields.history.id",
+    width: 80,
+  },
+  {
+    name: "tableName",
+    title: "fields.history.tableName",
+    width: 150,
+  },
+  {
+    name: "recordId",
+    title: "fields.history.recordId",
+    width: 100,
+  },
+  {
+    name: "columnName",
+    title: "fields.history.columnName",
+    width: 150,
+  },
+  {
+    name: "oldValue",
+    title: "fields.history.oldValue",
+    width: 180,
+  },
+  {
+    name: "newValue",
+    title: "fields.history.newValue",
+    width: 180,
+  },
+  {
+    name: "actionType",
+    title: "fields.history.actionType",
+    width: 120,
+  },
+  {
+    name: "actionTime",
+    title: "fields.history.actionTime",
+    width: 160,
+  },
 ];

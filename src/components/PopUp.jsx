@@ -6,6 +6,7 @@ import ToDoFile from "./ToDoFile";
 import Select from "./Select";
 
 const PopUp = ({
+  url,
   isOpen,
   isAdd,
   title,
@@ -114,7 +115,7 @@ const PopUp = ({
     else if (field.type === "file" && value) {
       if (
         field.accept &&
-        !field.accept
+        field.accept
           .split(",")
           .some((ext) =>
             value.name.toLowerCase().endsWith(ext.trim().toLowerCase())
@@ -255,9 +256,11 @@ const PopUp = ({
         return (
           <Select
             field={field}
+            fields={fields}
             formData={formData}
             setFormData={setFormData}
             errors={errors}
+            setErrors={setErrors}
           />
         );
 
@@ -364,13 +367,13 @@ const PopUp = ({
             </div>
           ))}
 
-          {["project", "مشروع"].includes(title) ? (
+          {["project", "مشروع", "product", "منتج"].includes(title) ? (
             <>
               <ToDoEmp formData={formData} setFormData={setFormData} />
             </>
           ) : null}
 
-          <ToDoFile />
+          <ToDoFile formData={formData} setFormData={setFormData} url={url} />
 
           <div className="flex justify-end gap-3 pt-4">
             <button

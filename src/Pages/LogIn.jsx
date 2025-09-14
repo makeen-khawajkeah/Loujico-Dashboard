@@ -31,7 +31,7 @@ const Login = () => {
       // 3. هنا يتم استدعاء الـ API
       // **هام:** استبدل 'YOUR_API_ENDPOINT/login' بمسار الـ API الحقيقي لتسجيل الدخول.
       const response = await axios.post(
-        "http://192.168.1.107:7176/api/Account/Login",
+        "http://192.168.1.111:7176/api/Account/Login",
         {
           Email,
           Password,

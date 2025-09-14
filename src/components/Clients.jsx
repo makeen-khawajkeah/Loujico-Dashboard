@@ -4,6 +4,7 @@ import { clientFields } from "../fields";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import History from "./History";
 
 const Clients = () => {
   const { t } = useTranslation();
@@ -11,9 +12,11 @@ const Clients = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [refresh, setRefresh] = useState(false);
+  const [refreshTotal, setRefreshTotal] = useState(false);
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(10);
   const [search, setSearch] = useState("");
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +32,7 @@ const Clients = () => {
 
         if (search) {
           const response = await axios.get(
-            `http://192.168.1.107:7176/api/Customer/Search?page=${page}&count=${count}&name=${search}`,
+            `http://192.168.1.111:7176/api/Customer/Search?page=${page}&count=${count}&name=${search}`,
             {
               //timeout: 5000,
               headers: {
@@ -42,7 +45,7 @@ const Clients = () => {
           setClients(response.data.data || response.data);
         } else {
           const response = await axios.get(
-            `http://192.168.1.107:7176/api/Customer/GetAll?page=${page}&count=${count}`,
+            `http://192.168.1.111:7176/api/Customer/GetAll?page=${page}&count=${count}`,
             {
               //timeout: 5000,
               headers: {
@@ -65,6 +68,38 @@ const Clients = () => {
     fetchData();
   }, [refresh, page, count, search]);
 
+  useEffect(() => {
+    const fetchCount = async () => {
+      try {
+        const token = localStorage.getItem("authToken");
+
+        if (!token) {
+          setError("Authentication token not found");
+          return;
+        }
+
+        const response = await axios
+          .get(`http://192.168.1.111:7176/api/Customer/GetCount`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          })
+          .then((res) => res.data);
+
+        setTotal(response.data);
+        return response.data;
+      } catch (err) {
+        console.error(
+          t("dashTable.errors.updateFailed", { item: t("customer.search") }),
+          err
+        );
+      }
+    };
+
+    fetchCount();
+  }, [refreshTotal]);
+
   return (
     <DashTable
       title={t("customer.title")}
@@ -75,6 +110,8 @@ const Clients = () => {
       popUpFields={popUpFields}
       loading={loading}
       setRefresh={setRefresh}
+      setRefreshTotal={setRefreshTotal}
+      total={total}
       page={page}
       count={count}
       search={search}

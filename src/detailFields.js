@@ -27,6 +27,7 @@ export const employeeDetailFields = [
     title: "fields.employee.serviceDuration",
   },
   { name: "salary", title: "fields.employee.salary" },
+  { name: "files", title: "fields.common.files" },
   { name: "createdAt", title: "fields.common.createdAt" },
   { name: "updatedAt", title: "fields.common.updatedAt" },
 ];
@@ -50,6 +51,7 @@ export const clientDetailFields = [
   { name: "inquiry", title: "fields.client.inquiry" },
   { name: "workDate", title: "fields.client.workDate" },
   { name: "workDuration", title: "fields.client.workDuration" },
+  { name: "files", title: "fields.common.files" },
   { name: "createdAt", title: "fields.common.createdAt" },
   { name: "updatedAt", title: "fields.common.updatedAt" },
   { name: "lastVisit", title: "fields.common.lastVisit" },
@@ -63,6 +65,9 @@ export const projectDetailFields = [
   { name: "progress", title: "fields.project.progress" },
   { name: "price", title: "fields.project.price" },
   { name: "status", title: "fields.project.status" },
+  { name: "customerId", title: "fields.project.customerId" },
+  { name: "employees", title: "fields.common.employees" },
+  { name: "files", title: "fields.common.files" },
 ];
 export const productDetailFields = [
   { name: "id", title: "fields.product.id" },
@@ -74,6 +79,8 @@ export const productDetailFields = [
   { name: "price", title: "fields.product.price" },
   { name: "billingCycle", title: "fields.product.billingCycle" },
   { name: "isActive", title: "fields.product.isActive" },
+  { name: "employees", title: "fields.common.employees" },
+  { name: "files", title: "fields.common.files" },
   { name: "isDeleted", title: "fields.common.isDeleted" },
   { name: "createdAt", title: "fields.common.createdAt" },
   { name: "updatedAt", title: "fields.common.updatedAt" },
@@ -82,16 +89,34 @@ export const productDetailFields = [
 ];
 export const invoiceDetailFields = [
   { name: "id", title: "fields.invoice.id" },
+  {
+    name: "title", title: "fields.invoice.title",
+  },
   { name: "customerId", title: "fields.invoice.clientId" },
   { name: "projectId", title: "fields.invoice.projectId" },
   { name: "amount", title: "fields.invoice.amount" },
   { name: "invoiceStatus", title: "fields.invoice.status" },
+  { name: "files", title: "fields.common.files" },
   { name: "isDeleted", title: "fields.common.isDeleted" },
   { name: "createdAt", title: "fields.common.createdAt" },
   { name: "updatedAt", title: "fields.common.updatedAt" },
   { name: "lastVisit", title: "fields.invoice.lastViewed" },
   { name: "createdBy", title: "fields.common.createdBy" },
   { name: "updatedBy", title: "fields.common.updatedBy" },
+];
+export const logFields = [
+  {
+    name: "id",
+    title: "fields.log.id",
+  },
+  {
+    name: "actionType",
+    title: "fields.log.actionType",
+  },
+  {
+    name: "action",
+    title: "fields.log.actionDescription",
+  },
 ];
 export const userFields = [
   { name: "userid", title: "fields.user.id" },
@@ -118,6 +143,8 @@ export const getDetailFields = (type) => {
       return invoiceDetailFields;
     case "Product":
       return productDetailFields;
+    case "Logs":
+      return logFields;
     case "Account":
       return userFields;
     default:

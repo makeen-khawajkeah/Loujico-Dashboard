@@ -42,14 +42,13 @@ const Home = () => {
         }
 
         const response = await axios
-          .get("http://192.168.1.107:7176/api/Dashbourd/GetDashboard", {
+          .get("http://192.168.1.111:7176/api/Dashbourd/GetDashboard", {
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
           })
           .then((res) => res.data);
-        console.log(response.data);
         setData(response.data);
       } catch (err) {
         console.error("Failed to fetch dashboard data:", err);
@@ -93,26 +92,26 @@ const Home = () => {
         <h1 className="text-3xl font-bold mb-6 text-gray-800">
           {t("home.dashboard")}
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-6">
           <MetricCard
             title={t("home.activeCustomers")}
             value={customer}
-            color="bg-[var(--main-color-lighter)] text-white"
+            color="bg-[var(--sub-color)] text-white"
           />
           <MetricCard
             title={t("home.activeProjects")}
             value={activeProjects}
-            color="bg-[var(--sub-color-lighter)] text-white"
+            color="bg-[var(--main-color)] text-white"
           />
           <MetricCard
             title={t("home.overdueInvoices")}
             value={overDueInvoices}
-            color="bg-[var(--main-color-lighter)] text-white"
+            color="bg-[var(--main-color)] text-white"
           />
           <MetricCard
             title={t("home.presentEmployees")}
             value={countActiveEmployee}
-            color="bg-[var(--sub-color-lighter)] text-white"
+            color="bg-[var(--sub-color)] text-white"
           />
         </div>
       </div>

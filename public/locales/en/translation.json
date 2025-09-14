@@ -55,11 +55,14 @@
     "title": "Logs",
     "search": "log"
   },
+  "history": {
+    "title": "History"
+  },
   "todoFile": {
     "associatedFiles": "Associated Files",
     "chooseFile": "Choose File :",
     "noFileChosen": "No file chosen",
-    "descriptionPlaceholder": "Description",
+    "fileTypePlaceholder": "File Type",
     "addButton": "Add"
   },
   "todoEmp": {
@@ -73,9 +76,10 @@
     "edit": "Edit",
     "cancel": "Cancel",
     "selectPlaceholder": "Select {{field}}",
+    "loadingData": "Loading Data...",
     "selectedFile": "Selected file",
     "validation": {
-      "required": "{field} is required",
+      "required": "{{field}} is required",
       "invalidEmail": "Invalid email format",
       "invalidPhone": "Invalid phone number",
       "invalidNumber": "Must enter a valid number",
@@ -97,7 +101,9 @@
       "lastVisit": "Last Visit",
       "isDeleted": "Status",
       "createdBy": "Created By",
-      "updatedBy": "Updated By"
+      "updatedBy": "Updated By",
+      "employees": "Employees",
+      "files": "Files"
     },
     "employee": {
       "id": "ID",
@@ -124,7 +130,8 @@
       "industry": "Industry Type",
       "serviceProvided": "Service Provided",
       "inquiry": "Inquiry Text",
-      "workDate": "Work Date"
+      "workDate": "Work Date",
+      "workDuration": "Work Duration"
     },
     "project": {
       "id": "ID",
@@ -136,6 +143,7 @@
       "price": "Price",
       "progress": "Progress",
       "status": "Project Status",
+      "customerId": "Customer Id",
       "fileName": "File Name",
       "filePath": "File Path",
       "fileType": "File Type",
@@ -155,6 +163,7 @@
       "id": "Invoice Number",
       "clientId": "Client ID",
       "projectId": "Project ID",
+      "title": "Title",
       "amount": "Amount",
       "issueDate": "Issue Date",
       "dueDate": "Due Date",
@@ -184,11 +193,22 @@
       "monthlySubscription": "Monthly Subscription",
       "isActive": "Status",
       "billingCycle": "Billing Cycle"
+    },
+    "history": {
+      "id": "ID",
+      "tableName": "Table Name",
+      "recordId": "Record ID",
+      "columnName": "Column Name",
+      "oldValue": "Old Value",
+      "newValue": "New Value",
+      "actionType": "Action Type",
+      "actionTime": "Action Time"
     }
   },
   "dashTable": {
     "searchPlaceholder": "Search for",
     "noData": "No Data",
+    "loading": "Loading data...",
     "buttons": {
       "add": "Add",
       "edit": "Edit",
@@ -248,6 +268,7 @@
       "endDate": "End Date",
       "status": "Project Status",
       "price": "Project Price",
+      "progress": "Project Progress",
       "fileName": "File Name",
       "filePath": "File Path",
       "fileType": "File Type"
@@ -271,6 +292,7 @@
     },
     "invoice": {
       "id": "Invoice Number",
+      "title": "Title",
       "clientId": "Client ID",
       "projectId": "Project ID",
       "amount": "Amount",
@@ -357,7 +379,7 @@
       "Customer": "Customer Details",
       "Product": "Product Details",
       "Project": "Project Details",
-      "Invoice": "Invoice Details",
+      "Invoices": "Invoice Details",
       "Account": "User Details"
     },
     "fetchError": "Failed to load details",

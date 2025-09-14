@@ -55,11 +55,14 @@
     "title": "السجلات",
     "search": "سجل"
   },
+  "history": {
+    "title": "السجل"
+  },
   "todoFile": {
     "associatedFiles": "الملفات المرتبطة",
     "chooseFile": "اختر ملف :",
     "noFileChosen": "لم يتم اختيار ملف",
-    "descriptionPlaceholder": "الوصف",
+    "fileTypePlaceholder": "نوع الملف",
     "addButton": "إضافة"
   },
   "todoEmp": {
@@ -73,9 +76,10 @@
     "edit": "تعديل",
     "cancel": "إلغاء",
     "selectPlaceholder": "اختر {{field}}",
+    "loadingData": "تحميل البيانات...",
     "selectedFile": "الملف المحدد",
     "validation": {
-      "required": "{field} مطلوب",
+      "required": "{{field}} مطلوب",
       "invalidEmail": "صيغة البريد الإلكتروني غير صحيحة",
       "invalidPhone": "رقم الهاتف غير صحيح",
       "invalidNumber": "يجب إدخال رقم صحيح",
@@ -97,7 +101,9 @@
       "lastVisit": "آخر زيارة",
       "isDeleted": "حالة الحذف",
       "createdBy": "تم الإنشاء بواسطة",
-      "updatedBy": "تم التحديث بواسطة"
+      "updatedBy": "تم التحديث بواسطة",
+      "employees": "الموظفون",
+      "files": "الملفات"
     },
     "employee": {
       "id": "المعرف",
@@ -124,7 +130,8 @@
       "industry": "نوع الصناعة",
       "serviceProvided": "الخدمة المقدمة",
       "inquiry": "نص الاستفسار",
-      "workDate": "تاريخ العمل"
+      "workDate": "تاريخ العمل",
+      "workDuration": "مدة العمل"
     },
     "project": {
       "id": "المعرف",
@@ -136,6 +143,7 @@
       "price": "السعر",
       "progress": "التقدم",
       "status": "حالة المشروع",
+      "customerId": "معرف العميل",
       "fileName": "اسم الملف",
       "filePath": "مسار الملف",
       "fileType": "نوع الملف",
@@ -155,6 +163,7 @@
       "id": "رقم الفاتورة",
       "clientId": "معرف العميل",
       "projectId": "معرف المشروع",
+      "title": "عنوان",
       "amount": "المبلغ",
       "issueDate": "تاريخ الإصدار",
       "dueDate": "تاريخ الاستحقاق",
@@ -175,7 +184,6 @@
       "role": "الدور",
       "firstName": "الأسم الأول",
       "lastName": "الأسم الأخير"
-
     },
     "product": {
       "id": "المعرف",
@@ -185,11 +193,22 @@
       "monthlySubscription": "الاشتراك الشهري",
       "isActive": "الحالة",
       "billingCycle": "دورة الفوترة"
+    },
+    "history": {
+      "id": "المعرف",
+      "tableName": "اسم الجدول",
+      "recordId": "معرف السجل",
+      "columnName": "اسم العمود",
+      "oldValue": "القيمة القديمة",
+      "newValue": "القيمة الجديدة",
+      "actionType": "نوع الفعل",
+      "actionTime": "وقت الفعل"
     }
   },
   "dashTable": {
     "searchPlaceholder": "ابحث عن",
     "noData": "لا يوجد بيانات",
+    "loading": "جاري تحميل البيانات...",
     "buttons": {
       "add": "إضافة",
       "edit": "تعديل",
@@ -248,6 +267,7 @@
       "startDate": "تاريخ البدء",
       "endDate": "تاريخ الانتهاء",
       "status": "حالة المشروع",
+      "progress": "تقدم المشروع",
       "price": "سعر المشروع",
       "fileName": "اسم الملف",
       "filePath": "مسار الملف",
@@ -268,10 +288,11 @@
       "isActive": "الحالة",
       "monthlySubscription": "الاشتراك الشهري",
       "description": "الوصف",
-      "billingCycle":"دورة الفوترة"
+      "billingCycle": "دورة الفوترة"
     },
     "invoice": {
       "id": "رقم الفاتورة",
+      "title": "عنوان",
       "clientId": "معرف العميل",
       "projectId": "معرف المشروع",
       "amount": "المبلغ",
@@ -291,7 +312,7 @@
       "name": "الاسم",
       "email": "البريد الإلكتروني",
       "role": "الدور",
-      "passWord":"كلمة المرور"
+      "passWord": "كلمة المرور"
     },
     "options": {
       "position": {
@@ -370,4 +391,3 @@
     "profileImage": "صورة الملف الشخصي"
   }
 }
-

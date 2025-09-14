@@ -1,18 +1,44 @@
 import { useState, useRef } from "react";
 import { FaTrash } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import axios from "axios";
 
-const ToDoFile = () => {
+const ToDoFile = ({ formData, setFormData, url }) => {
   const {
     t,
     i18n: { language },
   } = useTranslation();
-  const [todos, setTodos] = useState([]);
   const [data, setData] = useState({});
   const fileInputRef = useRef(null);
 
   const commonProps = {
     className: `px-3 py-2 bg-gray-200 rounded-md transition-colors hover:bg-gray-100 focus:bg-white focus-visible:outline-[var(--main-color)] w-full`,
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const token = localStorage.getItem("authToken");
+
+      if (!token) {
+        setError("No authentication token found");
+        return;
+      }
+
+      await axios.delete(
+        `http://192.168.1.111:7176/api${url}/DeleteFile/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    } catch (err) {
+      // console.error("Delete error:", errorMessage);
+      // setError(errorMessage);
+      // throw new Error(errorMessage);
+      console.error(err);
+    }
   };
 
   return (
@@ -23,7 +49,7 @@ const ToDoFile = () => {
           <input
             type="file"
             ref={fileInputRef}
-            onChange={(e) => setData({ ...data, file: e.target.files[0] })}
+            onChange={(e) => setData({ ...data, files: e.target.files[0] })}
             className="hidden"
             id="fileInput"
           />
@@ -35,15 +61,15 @@ const ToDoFile = () => {
               language === "ar" ? "pl-2" : "pr-2"
             }`}
           >
-            {data.file ? data.file.name : t("todoFile.noFileChosen")}
+            {data.files ? data.files.name : t("todoFile.noFileChosen")}
           </span>
         </div>
         <input
-          value={data.description || ""}
-          onChange={(e) => setData({ ...data, description: e.target.value })}
+          value={data.fileType || ""}
+          onChange={(e) => setData({ ...data, fileType: e.target.value })}
           {...commonProps}
           type="text"
-          placeholder={t("todoFile.descriptionPlaceholder")}
+          placeholder={t("todoFile.fileTypePlaceholder")}
         />
         <button
           type="button"
@@ -53,11 +79,15 @@ const ToDoFile = () => {
               if (!data[k]) {
                 return;
               }
+
               c++;
             }
 
             if (c === 2) {
-              setTodos([...todos, data]);
+              setFormData({
+                ...formData,
+                Data: [...(formData.Data || []), data],
+              });
               setData({});
               fileInputRef.current.value = "";
             }
@@ -68,19 +98,28 @@ const ToDoFile = () => {
         </button>
       </div>
       <div className="flex flex-col gap-2 mt-2">
-        {todos.map((todo, i) => {
+        {(formData.Data || []).map((file, i) => {
           return (
             <div
               key={i}
               className="flex justify-between items-center bg-gray-200 p-2 rounded-md"
             >
               <span>
-                {todo.file.name} / {todo.description}
+                {file.fileName || file.files.name} / {file.fileType}
               </span>
               <FaTrash
                 className="cursor-pointer"
                 onClick={() => {
-                  setTodos(todos.filter((e) => e.file !== todos[i].file));
+                  setFormData({
+                    ...formData,
+                    Data: formData.Data.filter(
+                      (e) => e.files !== formData.Data[i].files
+                    ),
+                  });
+
+                  if (file.id) {
+                    handleDelete(file.id);
+                  }
                 }}
               />
             </div>
