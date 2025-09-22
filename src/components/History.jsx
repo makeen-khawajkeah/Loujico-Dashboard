@@ -25,7 +25,7 @@ const History = ({ url, id }) => {
 
         const response = await axios
           .get(
-            `http://192.168.1.111:7176/api/${url}/EditHistory?page=${1}&count=${10}&id=${id}`,
+            `http://loujico.somee.com/api/${url}/EditHistory?page=${1}&count=${10}&id=${id}`,
             {
               //timeout: 5000,
               headers: {
@@ -48,10 +48,14 @@ const History = ({ url, id }) => {
     fetchData();
   }, []);
 
+  if (!history.length) {
+    return null;
+  }
+
   return (
     <DashTable
       title={t("history.title")}
-      searchPlaceHolder={t("history.search")}
+      searchPlaceHolder={""}
       url="/History"
       fields={historyFields}
       data={history}

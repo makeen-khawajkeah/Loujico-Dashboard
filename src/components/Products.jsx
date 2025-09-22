@@ -32,7 +32,7 @@ const Products = () => {
         if (search) {
           const response = await axios
             .get(
-              `http://192.168.1.111:7176/api/Product/Search?page=${page}&count=${count}&name=${search}`,
+              `http://loujico.somee.com/api/Product/Search?page=${page}&count=${count}&name=${search}`,
               {
                 //timeout: 5000,
                 headers: {
@@ -47,7 +47,7 @@ const Products = () => {
         } else {
           const response = await axios
             .get(
-              `http://192.168.1.111:7176/api/Product/GetAll?page=${page}&count=${count}`,
+              `http://loujico.somee.com/api/Product/GetAll?page=${page}&count=${count}`,
               {
                 //timeout: 5000,
                 headers: {
@@ -82,7 +82,7 @@ const Products = () => {
         }
 
         const response = await axios
-          .get(`http://192.168.1.111:7176/api/Product/GetCount`, {
+          .get(`http://loujico.somee.com/api/Product/GetCount`, {
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
@@ -107,6 +107,7 @@ const Products = () => {
     <DashTable
       title={t("product.title")}
       searchPlaceHolder={t("product.search")}
+      name={"product"}
       url="/Product"
       fields={productFields}
       data={products}

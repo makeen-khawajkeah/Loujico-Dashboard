@@ -373,7 +373,9 @@ const PopUp = ({
             </>
           ) : null}
 
-          <ToDoFile formData={formData} setFormData={setFormData} url={url} />
+          {["user", "مستخدم"].includes(title) ? null : (
+            <ToDoFile formData={formData} setFormData={setFormData} url={url} />
+          )}
 
           <div className="flex justify-end gap-3 pt-4">
             <button

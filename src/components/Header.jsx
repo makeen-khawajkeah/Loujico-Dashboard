@@ -1,19 +1,52 @@
 // src/components/Header.jsx
-import React, { useEffect, useRef, useState } from "react";
-import {
-  FaBell,
-  FaEnvelope,
-  FaSearch,
-  FaBars,
-  FaChevronDown,
-} from "react-icons/fa";
+import React, { useEffect, useRef, useState, useContext } from "react";
+import { FaBars, FaChevronDown, FaUserCircle, FaSpinner } from "react-icons/fa";
 import { AuthContext } from "../Context/AuthContext";
 import { useTranslation } from "react-i18next";
 
 const Header = ({ onToggleSidebar }) => {
   const {
-    i18n: { language, changeLanguage },
+    i18n: { language },
   } = useTranslation();
+
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const authContext = useContext(AuthContext);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        setLoading(true);
+        // افترض أن لديك endpoint API لجلب بيانات المستخدم
+        // يمكنك استخدام التوكن من السياق إذا لزم الأمر
+        const token = localStorage.getItem("authToken");
+
+        const response = await fetch(
+          "http://loujico.somee.com/api/Account/header",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error("فشل في جلب بيانات المستخدم");
+        }
+
+        const data = await response.json();
+        setUserData(data);
+      } catch (err) {
+        setError(err.message);
+        console.error("Error fetching user data:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [authContext.token]);
 
   return (
     <nav
@@ -25,47 +58,42 @@ const Header = ({ onToggleSidebar }) => {
       >
         <FaBars size={24} />
       </button>
+
       <div
         className={`flex items-center gap-6 cursor-pointer ${
           language === "en" ? "flex-row-reverse" : ""
         }`}
       >
-        <img
-          src="/public/assets/image/avatar-04.png"
-          alt="User Avatar"
-          className="h-10 w-10 rounded-full object-cover"
-        />
-        <div
-          className={`
-          } whitespace-nowrap`}
-        >
-          <span className="font-bold text-gray-700  block text-[16px]">
-            مكين خواجكيه
-          </span>
-          <span className="text-[14px]">مدير</span>
-        </div>
-        <div className="group relative text-[var(--text-color)]">
-          <div className="text-lg transition duration-300 font-bold flex gap-2 justify-between items-center cursor-pointer">
-            <span>{language === "en" ? "English" : "العربية"}</span>
-            <FaChevronDown className="ml-1 text-sm group-hover:rotate-180 transition-transform duration-300" />
+        {/* عرض حالة التحميل أو الخطأ أو البيانات */}
+        {loading ? (
+          <div className="flex items-center justify-center">
+            <FaSpinner className="animate-spin" size={20} />
           </div>
-          <div
-            className="absolute top-full right-1/2 translate-x-1/2
-              bg-white shadow-lg rounded-md cursor-pointer
-              opacity-0 group-hover:opacity-100
-              group-hover:visible invisible
-              transition-opacity duration-300 transform scale-95 group-hover:scale-100"
-          >
-            <span
-              onClick={() => {
-                changeLanguage(language === "ar" ? "en" : "ar");
-              }}
-              className="block px-6 py-3 whitespace-nowrap hover:bg-[#7899B2] hover:text-white transition duration-300 rounded-md"
+        ) : error ? (
+          <div className="text-red-500 text-sm">{error}</div>
+        ) : (
+          <>
+            {userData?.avatar ? (
+              <img
+                src={userData.avatar}
+                alt="User Avatar"
+                className="h-10 w-10 rounded-full object-cover"
+              />
+            ) : (
+              <FaUserCircle size={40} className="text-gray-400" />
+            )}
+
+            <div
+              className={`
+              } whitespace-nowrap`}
             >
-              {language === "ar" ? "الانجليزية" : "Arabic"}
-            </span>
-          </div>
-        </div>
+              <span className="font-bold text-gray-700  block text-[16px]">
+                {userData?.username || "user name "}
+              </span>
+              <span className="text-[14px]">{userData?.role || "role"}</span>
+            </div>
+          </>
+        )}
       </div>
     </nav>
   );

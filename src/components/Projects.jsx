@@ -32,7 +32,7 @@ const Projects = () => {
         if (search) {
           const response = await axios
             .get(
-              `http://192.168.1.111:7176/api/Project/Search?page=${page}&count=${count}&name=${search}`,
+              `http://loujico.somee.com/api/Project/Search?page=${page}&count=${count}&name=${search}`,
               {
                 //timeout: 5000,
                 headers: {
@@ -47,7 +47,7 @@ const Projects = () => {
         } else {
           const response = await axios
             .get(
-              `http://192.168.1.111:7176/api/Project/GetAll?page=${page}&count=${count}`,
+              `http://loujico.somee.com/api/Project/GetAll?page=${page}&count=${count}`,
               {
                 //timeout: 5000,
                 headers: {
@@ -82,7 +82,7 @@ const Projects = () => {
         }
 
         const response = await axios
-          .get(`http://192.168.1.111:7176/api/Project/GetCount`, {
+          .get(`http://loujico.somee.com/api/Project/GetCount`, {
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
@@ -107,6 +107,7 @@ const Projects = () => {
     <DashTable
       title={t("project.title")}
       searchPlaceHolder={t("project.search")}
+      name={"project"}
       url="/Project"
       fields={projectFields}
       data={projects}

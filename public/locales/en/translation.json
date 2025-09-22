@@ -122,7 +122,7 @@
     },
     "client": {
       "id": "ID",
-      "name": "Client Name",
+      "name": "Customer Name",
       "phone": "Phone Number",
       "email": "Email",
       "address": "Address",
@@ -137,7 +137,7 @@
       "id": "ID",
       "title": "Project Title",
       "description": "Project Description",
-      "clientId": "Associated Client",
+      "clientId": "Associated Customer",
       "startDate": "Start Date",
       "endDate": "End Date",
       "price": "Price",
@@ -161,7 +161,7 @@
     },
     "invoice": {
       "id": "Invoice Number",
-      "clientId": "Client ID",
+      "clientId": "Customer ID",
       "projectId": "Project ID",
       "title": "Title",
       "amount": "Amount",
@@ -191,7 +191,7 @@
       "description": "Description",
       "price": "Price",
       "monthlySubscription": "Monthly Subscription",
-      "isActive": "Status",
+      "isActive": "Is Active",
       "billingCycle": "Billing Cycle"
     },
     "history": {
@@ -248,7 +248,7 @@
     },
     "client": {
       "id": "ID",
-      "name": "Client Name",
+      "name": "Customer Name",
       "phone": "Phone Number",
       "email": "Email",
       "industry": "Industry Type",
@@ -256,14 +256,14 @@
       "companyDescription": "Company Description",
       "serviceProvided": "Service Provided",
       "serviceProvidedCompany": "Service Provided by Company",
-      "startDuration": "Work Duration",
-      "endDuration": "End Date"
+      "workDate": "Work Date",
+      "workDuration": "Work Duration"
     },
     "project": {
       "id": "ID",
       "title": "Project Title",
       "description": "Project Description",
-      "clientId": "Associated Client",
+      "clientId": "Associated Customer",
       "startDate": "Start Date",
       "endDate": "End Date",
       "status": "Project Status",
@@ -293,7 +293,7 @@
     "invoice": {
       "id": "Invoice Number",
       "title": "Title",
-      "clientId": "Client ID",
+      "clientId": "Customer ID",
       "projectId": "Project ID",
       "amount": "Amount",
       "issueDate": "Issue Date",
@@ -347,7 +347,7 @@
       },
       "targetTable": {
         "employees": "Employees",
-        "clients": "Clients",
+        "clients": "Customers",
         "projects": "Projects",
         "products": "Products"
       },
@@ -380,7 +380,8 @@
       "Product": "Product Details",
       "Project": "Project Details",
       "Invoices": "Invoice Details",
-      "Account": "User Details"
+      "Account": "User Details",
+      "Logs": "Logs"
     },
     "fetchError": "Failed to load details",
     "loading": "Loading details...",

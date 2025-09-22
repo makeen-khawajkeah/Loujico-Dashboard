@@ -7,11 +7,12 @@ import DetailView from "./DetailView";
 import { FaSearch } from "react-icons/fa";
 
 // API base URL should be configured globally, not hardcoded
-const API_BASE_URL = "http://192.168.1.111:7176";
+const API_BASE_URL = "http://loujico.somee.com";
 
 const DashTable = ({
   title,
   searchPlaceHolder,
+  name,
   url,
   loading,
   fields,
@@ -40,7 +41,6 @@ const DashTable = ({
   const [selectedId, setSelectedId] = useState(null);
   const [showDetail, setShowDetail] = useState(false);
   const token = localStorage.getItem("authToken");
-
   // Calculate pagination values
   const totalItems = total || data.length;
   const totalPages = Math.ceil(totalItems / count);
@@ -159,7 +159,7 @@ const DashTable = ({
 
       setInitialData({
         Data: response.data.files,
-        ...response.data[searchPlaceHolder],
+        ...response.data[name],
       });
 
       return response.data;
@@ -333,105 +333,114 @@ const DashTable = ({
   };
 
   return (
-    <div className="p-6 bg-gray-300 h-[calc(100%-80px)]">
+    <div
+      className={`${
+        url !== "/History" ? "h-[calc(100%-80px)] bg-gray-300 p-6" : ""
+      }`}
+    >
       {showDetail ? (
         <DetailView
           id={selectedId}
           fallBack={data.find(
             (e) => e.userid === selectedId || e.id === selectedId
           )}
-          name={searchPlaceHolder}
+          name={name}
           type={url.replace("/", "")}
           onClose={() => setShowDetail(false)}
         />
       ) : (
         <>
-          <div className="p-8 rounded-md bg-white">
-            <h1 className="text-3xl font-bold text-[var(--main-color)]">
+          <div
+            className={`${url !== "/History" ? "p-8" : ""} rounded-md bg-white`}
+          >
+            <h1
+              className={`text-3xl font-bold text-[var(--main-color)] ${
+                url === "/History" ? "mb-6" : ""
+              }`}
+            >
               {title}
             </h1>
 
             {error && (
               <div className="mt-4 p-3 bg-red-100 text-red-700 rounded-md">
-                <strong>{t("dashTable.errors.title")}:</strong>
-                <div className="mt-1 whitespace-pre-wrap">{error}</div>
+                {[...error.split(",")].map((e) => (
+                  <p key={e}>{e.trim()}</p>
+                ))}
               </div>
             )}
 
             {isLoading && (
               <div className="mt-4 p-3 bg-green-100 text-green-700 rounded-md">
-                <strong>{t("dashTable.loading")}</strong>
+                <p>{t("dashTable.loading")}</p>
               </div>
             )}
 
-            <div className="flex justify-between max-lg:justify-center items-center flex-wrap gap-3 mt-8 mb-5">
-              {["log", "سجل"].includes(searchPlaceHolder) ? (
-                <select
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="px-3 py-2.5 bg-gray-300 rounded-md w-96 transition-colors hover:bg-gray-200 focus-visible:outline-[var(--main-color)]"
-                >
-                  <option value="">Choose action type</option>
-                  <option value="error">Error</option>
-                  <option value="crud">Crud</option>
-                  <option value="logIn">LogIn</option>
-                </select>
-              ) : (
-                <>
-                  {["user", "مستخدم"].includes(searchPlaceHolder) ? null : (
-                    <div className="relative w-96">
-                      <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
-                      <input
-                        type="text"
-                        placeholder={`${t(
-                          "dashTable.searchPlaceholder"
-                        )} ${searchPlaceHolder}`}
-                        className={`pl-10 pr-5 py-2 bg-[#d9d9d9] rounded-md w-full transition-colors
-                                  hover:bg-gray-200 focus-visible:outline-[var(--main-color)] text-[#8a8a8a]
-                                    font-medium ${
-                                      title == t("history.title")
-                                        ? "hidden"
-                                        : "block"
-                                    }`}
-                        aria-label={t("dashTable.searchPlaceholder")}
-                        value={search}
-                        onChange={handleSearchChange}
-                      />
-                    </div>
-                  )}
-                  <div
-                    className={`flex flex-wrap gap-3 max-lg:justify-center ${
-                      title == t("history.title") ? "hidden" : "block"
-                    }`}
+            {url !== "/History" ? (
+              <div className="flex justify-between max-lg:justify-center items-center flex-wrap gap-3 mt-8 mb-5">
+                {["log", "سجل"].includes(searchPlaceHolder) ? (
+                  <select
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="px-3 py-2.5 bg-gray-300 rounded-md w-96 transition-colors hover:bg-gray-200 focus-visible:outline-[var(--main-color)]"
                   >
-                    {popUpFields.length > 0 && (
-                      <>
-                        <button
-                          onClick={handleAddClick}
-                          className="px-2 w-24 sm:px-5 sm:w-32 py-2 cursor-pointer rounded-md bg-[var(--main-color)]  text-white font-bold duration-300"
-                        >
-                          {t("dashTable.buttons.add")}
-                        </button>
-                        <button
-                          onClick={handleEditClick}
-                          disabled={checkedFields.length !== 1 || isLoading}
-                          className={`px-2 w-24 sm:px-5 sm:w-32 py-2 rounded-md cursor-pointer bg-[var(--sub-color)] text-white font-bold duration-300 disabled:opacity-50 disabled:cursor-not-allowed`}
-                        >
-                          {t("dashTable.buttons.edit")}
-                        </button>
-                      </>
+                    <option value="">Choose action type</option>
+                    <option value="error">Error</option>
+                    <option value="crud">Crud</option>
+                    <option value="logIn">LogIn</option>
+                  </select>
+                ) : (
+                  <>
+                    {["user", "مستخدم"].includes(searchPlaceHolder) ? null : (
+                      <div className="relative w-96">
+                        <FaSearch
+                          className={`absolute left-3 top-1/2 -translate-y-1/2 text-gray-500`}
+                        />
+                        <input
+                          type="text"
+                          placeholder={`${t(
+                            "dashTable.searchPlaceholder"
+                          )} ${searchPlaceHolder}`}
+                          className={`pl-10 pr-5 py-2 bg-[#eaecf0] rounded-md w-full transition-colors
+                                  hover:bg-gray-300 focus-visible:outline-[var(--main-color)] text-[#8a8a8a]
+                                    font-medium placeholder:text-gray-600`}
+                          aria-label={t("dashTable.searchPlaceholder")}
+                          value={search}
+                          onChange={handleSearchChange}
+                        />
+                      </div>
                     )}
-                    <button
-                      onClick={() => handleDelete(checkedFields)}
-                      disabled={checkedFields.length === 0 || isLoading}
-                      className={`px-2 w-24 sm:px-5 sm:w-32 py-2 rounded-md cursor-pointer bg-[var(--third-color)] text-white font-bold duration-300 disabled:opacity-50 disabled:cursor-not-allowed`}
+                    <div
+                      className={`flex flex-wrap gap-3 max-lg:justify-center`}
                     >
-                      {t("dashTable.buttons.delete")}
-                    </button>
-                  </div>
-                </>
-              )}
-            </div>
+                      {popUpFields.length > 0 && (
+                        <>
+                          <button
+                            onClick={handleAddClick}
+                            className="px-2 w-24 sm:px-5 sm:w-32 py-2 cursor-pointer rounded-md bg-[var(--main-color)]  text-white font-bold duration-300"
+                          >
+                            {t("dashTable.buttons.add")}
+                          </button>
+                          <button
+                            onClick={handleEditClick}
+                            disabled={checkedFields.length !== 1 || isLoading}
+                            className={`px-2 w-24 sm:px-5 sm:w-32 py-2 rounded-md cursor-pointer bg-[var(--sub-color)] text-white font-bold duration-300 disabled:opacity-50 disabled:cursor-not-allowed`}
+                          >
+                            {t("dashTable.buttons.edit")}
+                          </button>
+                        </>
+                      )}
+                      <button
+                        onClick={() => handleDelete(checkedFields)}
+                        disabled={checkedFields.length === 0 || isLoading}
+                        className={`px-2 w-24 sm:px-5 sm:w-32 py-2 rounded-md cursor-pointer bg-gray-600 text-white font-bold duration-300 disabled:opacity-50 disabled:cursor-not-allowed`}
+                      >
+                        {t("dashTable.buttons.delete")}
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            ) : null}
 
             <div className="overflow-x-auto">
               <table className="w-full border-collapse text-center bg-[#eaecf0] rounded-md">
@@ -496,7 +505,7 @@ const DashTable = ({
                         currentData.map((dataItem) => (
                           <tr
                             key={dataItem.id}
-                            className="transition-colors hover:bg-gray-200"
+                            className="transition-colors hover:bg-gray-300"
                             onClick={() => {
                               setSelectedId(dataItem.id || dataItem.userid);
                               setShowDetail(true);

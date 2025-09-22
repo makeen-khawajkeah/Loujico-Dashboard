@@ -34,21 +34,17 @@ const SideBar = ({ isOpen, onClose }) => {
       path: "/projects",
       icon: <FaProjectDiagram />,
     },
-    {
-      name: t("sideBar.invoices"),
-      path: "/invoices",
-      icon: <FaFileInvoiceDollar />,
-    },
+    // {
+    //   name: t("sideBar.invoices"),
+    //   path: "/invoices",
+    //   icon: <FaFileInvoiceDollar />,
+    // },
     { name: t("sideBar.products"), path: "/products", icon: <AiFillProduct /> },
     { name: t("sideBar.logs"), path: "/logs", icon: <HiDocumentText /> },
   ];
 
-  // if (!user) {
-  //     return null;
-  // }
-
   // تحديد اتجاه السايد بار بناءً على اللغة
-  const isRTL = language === "en";
+  const isRTL = language === "ar";
 
   return (
     <div
@@ -125,6 +121,32 @@ const SideBar = ({ isOpen, onClose }) => {
             </NavLink>
           );
         })}
+        <li
+          className={`group text-[var(--text-color)] relative flex items-center py-[18px]  w-full px-10 duration-300 font-bold justify-between ${
+            isRTL ? "flex-row" : "flex-row-reverse"
+          }`}
+        >
+          <div className="w-full transition duration-300 flex gap-2 justify-between items-center cursor-pointer">
+            <span>{language === "en" ? "English" : "العربية"}</span>
+            <FaChevronDown className="text-sm group-hover:rotate-180 transition-transform duration-300" />
+          </div>
+          <div
+            className="absolute w-10/12 top-full left-1/12
+                              bg-[#eaecf0] shadow-lg rounded-md cursor-pointer
+                              opacity-0 group-hover:opacity-100
+                              group-hover:visible invisible
+                              transition-opacity duration-300 transform scale-95 group-hover:scale-100"
+          >
+            <span
+              onClick={() => {
+                changeLanguage(language === "ar" ? "en" : "ar");
+              }}
+              className="block px-6 py-3 whitespace-nowrap hover:bg-[var(--main-color)] hover:text-white transition duration-300 rounded-md"
+            >
+              {language === "ar" ? "الانجليزية" : "Arabic"}
+            </span>
+          </div>
+        </li>
       </ul>
     </div>
   );

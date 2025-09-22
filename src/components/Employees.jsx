@@ -32,7 +32,7 @@ const Employees = () => {
         if (search) {
           const response = await axios
             .get(
-              `http://192.168.1.111:7176/api/Emp/Search?page=${page}&count=${count}&name=${search}`,
+              `http://loujico.somee.com/api/Emp/Search?page=${page}&count=${count}&name=${search}`,
               {
                 // //timeout: 5000,
                 headers: {
@@ -47,7 +47,7 @@ const Employees = () => {
         } else {
           const response = await axios
             .get(
-              `http://192.168.1.111:7176/api/Emp/GetAll?page=${page}&count=${count}`,
+              `http://loujico.somee.com/api/Emp/GetAll?page=${page}&count=${count}`,
               {
                 //timeout: 5000,
                 headers: {
@@ -84,7 +84,7 @@ const Employees = () => {
         }
 
         const response = await axios
-          .get(`http://192.168.1.111:7176/api/Emp/GetCount`, {
+          .get(`http://loujico.somee.com/api/Emp/GetCount`, {
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
@@ -109,6 +109,7 @@ const Employees = () => {
     <DashTable
       title={t("employee.title")}
       searchPlaceHolder={t("employee.search")}
+      name={"employee"}
       url="/Emp"
       fields={employeeFields}
       data={employees}

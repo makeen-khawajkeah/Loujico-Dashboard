@@ -4,6 +4,8 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../Context/AuthContext";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa6";
 
 const Login = () => {
   // 1. حالات إدارة المدخلات، الأخطاء، وحالة التحميل
@@ -13,6 +15,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
+  const [show, setShow] = useState(false);
 
   // 2. دالة التعامل مع عملية تسجيل الدخول
   const handleLogin = async (e) => {
@@ -31,7 +34,7 @@ const Login = () => {
       // 3. هنا يتم استدعاء الـ API
       // **هام:** استبدل 'YOUR_API_ENDPOINT/login' بمسار الـ API الحقيقي لتسجيل الدخول.
       const response = await axios.post(
-        "http://192.168.1.111:7176/api/Account/Login",
+        "http://loujico.somee.com/api/Account/Login",
         {
           Email,
           Password,
@@ -67,7 +70,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
+    <div className="flex justify-center items-center h-screen bg-gradient-to-b from-[var(--main-color)] to-[var(--sub-color)]">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-lg">
         <div className="text-center">
           <img
@@ -94,7 +97,7 @@ const Login = () => {
               Email address
             </label>
             <input
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[var(--main-color)] focus:border-[var(--main-color)]"
+              className="mt-1 bg-[#E8F0FE]  block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[var(--main-color)] focus:border-[var(--main-color)]"
               id="Email"
               name="Email"
               type="Email"
@@ -111,16 +114,29 @@ const Login = () => {
             >
               Password
             </label>
-            <input
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[var(--main-color)] focus:border-[var(--main-color)]"
-              id="Password"
-              name="Password"
-              type="Password"
-              autoComplete="current-Password"
-              value={Password}
-              onChange={(e) => setPassword(e.target.value)}
-              disabled={loading} // تعطيل الحقل أثناء التحميل
-            />
+            <div className="flex items-center mt-1 w-full px-4 py-2 border bg-[#E8F0FE] border-gray-300 rounded-md shadow-sm focus:ring-[var(--main-color)] focus:border-[var(--main-color)]">
+              <input
+                className="w-full outline-none"
+                id="Password"
+                name="Password"
+                type={show ? "text" : "Password"}
+                autoComplete="current-Password"
+                value={Password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={loading} // تعطيل الحقل أثناء التحميل
+              />
+              {show ? (
+                <FaEye
+                  onClick={() => setShow(false)}
+                  className="cursor-pointer"
+                />
+              ) : (
+                <FaEyeSlash
+                  onClick={() => setShow(true)}
+                  className="cursor-pointer"
+                />
+              )}
+            </div>
           </div>
           <div className="flex items-center justify-between">
             <div className="text-sm">
@@ -134,7 +150,9 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[var(--main-color)] hover:bg-[var(--main-color-lighter)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--main-color)]"
+            className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[var(--main-color)] hover:bg-[var(--main-color-lighter)] disabled:bg-[var(--main-color-lighter)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--main-color)] ${
+              loading ? "cursor-no-drop" : "cursor-pointer"
+            }`}
             disabled={loading} // تعطيل الزر أثناء التحميل لمنع الإرسال المتعدد
           >
             {loading ? "Signing in..." : "Sign In"}

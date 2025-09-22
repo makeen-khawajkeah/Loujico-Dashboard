@@ -10,7 +10,7 @@ import Users from "./components/Users";
 import Clients from "./components/Clients";
 import Employees from "./components/Employees";
 import Projects from "./components/Projects";
-import Invoices from "./components/Invoices";
+// import Invoices from "./components/Invoices";
 import SideBar from "./components/SideBar";
 import Products from "./components/Products";
 import Logs from "./components/Logs";
@@ -40,7 +40,7 @@ const App = () => {
             <Route path="/customers" element={<Clients />} />
             <Route path="/employees" element={<Employees />} />
             <Route path="/projects" element={<Projects />} />
-            <Route path="/invoices" element={<Invoices />} />
+            {/* <Route path="/invoices" element={<Invoices />} /> */}
             <Route path="/products" element={<Products />} />
             <Route path="/logs" element={<Logs />} />
           </Routes>

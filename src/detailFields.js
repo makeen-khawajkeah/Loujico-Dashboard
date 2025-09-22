@@ -7,25 +7,12 @@ export const employeeDetailFields = [
   { name: "lastName", title: "fields.employee.lastName" },
   { name: "phone", title: "fields.employee.phone" },
   { name: "email", title: "fields.employee.email" },
-  {
-    name: "employeesAddress",
-    title: "fields.employee.address",
-  },
+  { name: "employeesAddress", title: "fields.employee.address" },
   { name: "position", title: "fields.employee.position" },
   { name: "age", title: "fields.employee.age" },
-  {
-    name: "profileImage",
-    title: "fields.employee.profileImage",
-  },
   { name: "isPresent", title: "fields.employee.isPresent" },
-  {
-    name: "employeesDescription",
-    title: "fields.employee.description",
-  },
-  {
-    name: "serviceDuration",
-    title: "fields.employee.serviceDuration",
-  },
+  { name: "employeesDescription", title: "fields.employee.description" },
+  { name: "serviceDuration", title: "fields.employee.serviceDuration" },
   { name: "salary", title: "fields.employee.salary" },
   { name: "files", title: "fields.common.files" },
   { name: "createdAt", title: "fields.common.createdAt" },
@@ -54,7 +41,7 @@ export const clientDetailFields = [
   { name: "files", title: "fields.common.files" },
   { name: "createdAt", title: "fields.common.createdAt" },
   { name: "updatedAt", title: "fields.common.updatedAt" },
-  { name: "lastVisit", title: "fields.common.lastVisit" },
+  // { name: "lastVisit", title: "fields.common.lastVisit" },
   { name: "isDeleted", title: "fields.common.isDeleted" },
 ];
 export const projectDetailFields = [
@@ -64,7 +51,7 @@ export const projectDetailFields = [
   { name: "endDate", title: "fields.project.endDate" },
   { name: "progress", title: "fields.project.progress" },
   { name: "price", title: "fields.project.price" },
-  { name: "status", title: "fields.project.status" },
+  // { name: "status", title: "fields.project.status" },
   { name: "customerId", title: "fields.project.customerId" },
   { name: "employees", title: "fields.common.employees" },
   { name: "files", title: "fields.common.files" },
@@ -81,7 +68,7 @@ export const productDetailFields = [
   { name: "isActive", title: "fields.product.isActive" },
   { name: "employees", title: "fields.common.employees" },
   { name: "files", title: "fields.common.files" },
-  { name: "isDeleted", title: "fields.common.isDeleted" },
+  // { name: "isDeleted", title: "fields.common.isDeleted" },
   { name: "createdAt", title: "fields.common.createdAt" },
   { name: "updatedAt", title: "fields.common.updatedAt" },
   { name: "createdBy", title: "fields.common.createdBy" },
@@ -90,7 +77,8 @@ export const productDetailFields = [
 export const invoiceDetailFields = [
   { name: "id", title: "fields.invoice.id" },
   {
-    name: "title", title: "fields.invoice.title",
+    name: "title",
+    title: "fields.invoice.title",
   },
   { name: "customerId", title: "fields.invoice.clientId" },
   { name: "projectId", title: "fields.invoice.projectId" },
@@ -100,7 +88,7 @@ export const invoiceDetailFields = [
   { name: "isDeleted", title: "fields.common.isDeleted" },
   { name: "createdAt", title: "fields.common.createdAt" },
   { name: "updatedAt", title: "fields.common.updatedAt" },
-  { name: "lastVisit", title: "fields.invoice.lastViewed" },
+  // { name: "lastVisit", title: "fields.invoice.lastViewed" },
   { name: "createdBy", title: "fields.common.createdBy" },
   { name: "updatedBy", title: "fields.common.updatedBy" },
 ];

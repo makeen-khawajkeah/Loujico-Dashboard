@@ -139,14 +139,14 @@ export const clientFields = [
     type: "text",
   },
   {
-    name: "startDuration",
-    title: "popupFields.client.startDuration",
+    name: "workDuration",
+    title: "popupFields.client.workDuration",
     type: "text",
   },
   {
-    name: "endDuration",
-    title: "popupFields.client.endDuration",
-    type: "text",
+    name: "workDate",
+    title: "popupFields.client.workDate",
+    type: "date",
   },
 ];
 
@@ -166,7 +166,7 @@ export const projectFields = [
     name: "customerId",
     title: "popupFields.project.clientId",
     type: "select",
-    api: "http://192.168.1.111:7176/api/Customer/GetAllId",
+    api: "http://loujico.somee.com/api/Customer/GetAllId",
     required: true,
   },
   {
@@ -261,19 +261,19 @@ export const invoiceFields = [
   {
     name: "title",
     title: "popupFields.invoice.title",
-    type: "text"
+    type: "text",
   },
   {
     name: "clientId",
     title: "popupFields.invoice.clientId",
     type: "select",
-    api: "http://192.168.1.111:7176/api/Customer/GetAllId",
+    api: "http://loujico.somee.com/api/Customer/GetAllId",
   },
   {
     name: "projectId",
     title: "popupFields.invoice.projectId",
     type: "select",
-    api: "http://192.168.1.111:7176/api/Project/GetAllId",
+    api: "http://loujico.somee.com/api/Project/GetAllId",
   },
   {
     name: "amount",
@@ -338,8 +338,8 @@ export const userFields = [
     type: "select",
     options: [
       { value: "Admin", label: "popupFields.options.userRole.admin" },
-      { value: "User", label: "popupFields.options.userRole.user" },
-      { value: "Viewer", label: "popupFields.options.userRole.viewer" },
+      // { value: "User", label: "popupFields.options.userRole.user" },
+      // { value: "Viewer", label: "popupFields.options.userRole.viewer" },
     ],
     required: true,
   },

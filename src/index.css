@@ -18,8 +18,38 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
+/* For webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
 *::-webkit-scrollbar {
   display: none;
+}
+
+/* Track */
+table::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+table::-webkit-scrollbar-thumb {
+  background: var(--main-color);
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+
+/* Handle on hover */
+table::-webkit-scrollbar-thumb:hover {
+  background: var(--main-color-lighter);
+}
+
+/* Buttons (arrows) */
+table::-webkit-scrollbar-button {
+  background: var(--main-color);
+  border: 1px solid #ccc;
+  border-radius: 2px;
 }
 
 .dir-ltr {

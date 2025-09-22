@@ -7,7 +7,6 @@ const ToDoEmp = ({ formData, setFormData }) => {
   const { t } = useTranslation();
   const [data, setData] = useState({});
   const [employees, setEmployees] = useState([]);
-  const [empToShow, setEmpToShow] = useState([]);
   const [name, setName] = useState("");
   const [error, setError] = useState("");
 
@@ -27,7 +26,7 @@ const ToDoEmp = ({ formData, setFormData }) => {
         }
 
         const response = await axios
-          .get("http://192.168.1.111:7176/api/Emp/GetAllId", {
+          .get("http://loujico.somee.com/api/Emp/GetAllId", {
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
@@ -39,12 +38,34 @@ const ToDoEmp = ({ formData, setFormData }) => {
       } catch (err) {
         console.error("Failed to fetch employees data:", err);
         setError(t("home.dashboardError"));
-        setLoading(false);
       }
     };
 
     fetchData();
   }, []);
+
+  // دالة للحصول على اسم الموظف من الـ ID
+  const getEmployeeName = (employeeId) => {
+    const employee = employees.find((emp) => emp.id === employeeId);
+    return employee
+      ? `${employee.firstName} ${employee.lastName}`
+      : "Unknown Employee";
+  };
+
+  // دالة لتحضير البيانات للعرض (للموظفين المضافين مسبقاً)
+  const prepareEmployeesForDisplay = () => {
+    return (formData.employees || []).map((emp) => {
+      // إذا كان الاسم موجوداً بالفعل في البيانات (في حالة الإضافة الجديدة)
+      if (emp.name) {
+        return emp;
+      }
+      // إذا كان الاسم غير موجود (في حالة التعديل) نضيف الاسم من القائمة
+      return {
+        ...emp,
+        name: getEmployeeName(emp.employeeId),
+      };
+    });
+  };
 
   return (
     <div className="flex flex-col gap-2">
@@ -54,7 +75,7 @@ const ToDoEmp = ({ formData, setFormData }) => {
       <div className="flex justify-between items-center gap-4">
         <select
           {...commonProps}
-          value={data.employeeId + " " + name || ""}
+          value={data.employeeId || ""}
           onChange={(e) => {
             const [employeeId, firstName, lastName] = e.target.value.split(" ");
             setData({
@@ -86,21 +107,18 @@ const ToDoEmp = ({ formData, setFormData }) => {
         <button
           type="button"
           onClick={() => {
-            let c = 0;
-            for (let k in data) {
-              if (!data[k]) {
-                return;
-              }
+            if (data.employeeId && data.roleOnProject && name) {
+              const newEmployee = {
+                employeeId: data.employeeId,
+                roleOnProject: data.roleOnProject,
+                name: name, // حفظ الاسم مع البيانات
+              };
 
-              c++;
-            }
-
-            if (c === 2) {
               setFormData({
                 ...formData,
-                employees: [...(formData.employees || []), data],
+                employees: [...(formData.employees || []), newEmployee],
               });
-              setEmpToShow([...empToShow, { ...data, name }]);
+
               setData({});
               setName("");
             }
@@ -111,10 +129,10 @@ const ToDoEmp = ({ formData, setFormData }) => {
         </button>
       </div>
       <div className="flex flex-col gap-2 mt-2">
-        {empToShow.map((emp) => {
+        {prepareEmployeesForDisplay().map((emp, index) => {
           return (
             <div
-              key={emp.employeeId}
+              key={emp.employeeId || index}
               className="flex justify-between items-center bg-gray-200 p-2 rounded-md"
             >
               <span>
@@ -129,9 +147,6 @@ const ToDoEmp = ({ formData, setFormData }) => {
                       (e) => e.employeeId !== emp.employeeId
                     ),
                   });
-                  setEmpToShow(
-                    empToShow.filter((e) => e.employeeId !== emp.employeeId)
-                  );
                 }}
               />
             </div>
@@ -141,4 +156,5 @@ const ToDoEmp = ({ formData, setFormData }) => {
     </div>
   );
 };
+
 export default ToDoEmp;

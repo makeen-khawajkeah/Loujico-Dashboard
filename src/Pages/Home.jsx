@@ -42,7 +42,7 @@ const Home = () => {
         }
 
         const response = await axios
-          .get("http://192.168.1.111:7176/api/Dashbourd/GetDashboard", {
+          .get("http://loujico.somee.com/api/Dashbourd/GetDashboard", {
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
@@ -78,17 +78,18 @@ const Home = () => {
     );
   }
 
-  if (error) {
-    return (
-      <div className="p-6 text-center text-red-500">
-        {t("home.error")}: {error}
-      </div>
-    );
-  }
-
   return (
     <div className="p-6 bg-gray-300 min-h-[calc(100vh-80px)]">
       <div className="p-8 rounded-md bg-white">
+        {error ? (
+          <div className="my-4 p-3 bg-red-100 text-red-700 rounded-md">
+            <p>
+              {t("home.error")}: {error}
+            </p>
+          </div>
+        ) : (
+          ""
+        )}
         <h1 className="text-3xl font-bold mb-6 text-gray-800">
           {t("home.dashboard")}
         </h1>

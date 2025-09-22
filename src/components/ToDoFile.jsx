@@ -25,7 +25,7 @@ const ToDoFile = ({ formData, setFormData, url }) => {
       }
 
       await axios.delete(
-        `http://192.168.1.111:7176/api${url}/DeleteFile/${id}`,
+        `http://loujico.somee.com/api${url}/DeleteFile/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -112,9 +112,13 @@ const ToDoFile = ({ formData, setFormData, url }) => {
                 onClick={() => {
                   setFormData({
                     ...formData,
-                    Data: formData.Data.filter(
-                      (e) => e.files !== formData.Data[i].files
-                    ),
+                    Data: formData.Data.filter((e) => {
+                      if (e.id) {
+                        return e.id !== file.id;
+                      } else {
+                        return e.files !== formData.Data[i].files;
+                      }
+                    }),
                   });
 
                   if (file.id) {

@@ -28,7 +28,7 @@ const Users = () => {
         }
 
         const response = await axios
-          .get(`http://192.168.1.111:7176/api/Account/UserList`, {
+          .get(`http://loujico.somee.com/api/Account/UserList`, {
             //timeout: 5000,
             headers: {
               Authorization: `Bearer ${token}`,

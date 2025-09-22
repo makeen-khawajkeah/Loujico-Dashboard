@@ -256,8 +256,8 @@
       "companyDescription": "وصف الشركة",
       "serviceProvided": "الخدمة المقدمة",
       "serviceProvidedCompany": "الخدمة المقدمة من قبل الشركة",
-      "startDuration": "مدة العمل",
-      "endDuration": "تاريخ الانتهاء"
+      "workDate": "تاريخ العمل",
+      "workDuration": "مدة العمل"
     },
     "project": {
       "id": "المعرف",
@@ -380,7 +380,8 @@
       "Product": "تفاصيل المنتج",
       "Project": "تفاصيل المشروع",
       "Invoice": "تفاصيل الفاتورة",
-      "Account": "تفاصيل المستخدم"
+      "Account": "تفاصيل المستخدم",
+      "Logs": "تفاصيل السجلات"
     },
     "fetchError": "فشل تحميل التفاصيل",
     "loading": "جاري تحميل التفاصيل...",

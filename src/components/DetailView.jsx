@@ -26,7 +26,7 @@ const DetailView = ({ id, fallBack, name, type, onClose }) => {
         }
 
         const response = await axios
-          .get(`http://192.168.1.111:7176/api/${type}/GetById/${id}`, {
+          .get(`http://loujico.somee.com/api/${type}/GetById/${id}`, {
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
@@ -79,7 +79,8 @@ const DetailView = ({ id, fallBack, name, type, onClose }) => {
       return value.map((emp) => {
         return (
           <div key={emp.employeeId}>
-            {emp.firstName} {emp.lastName} / {emp.roleOnProject}
+            {emp.firstName} {emp.lastName} /{" "}
+            {emp.roleOnProject || emp.roleOnProduct}
           </div>
         );
       });
@@ -87,7 +88,9 @@ const DetailView = ({ id, fallBack, name, type, onClose }) => {
       return value.map((file) => (
         <a
           key={file.entityId}
-          href={`http://192.168.1.111:7176/upload/Projects/${file.fileName}`}
+          href={`http://loujico.somee.com/upload/${
+            type === "Emp" ? "Employee" : type
+          }s/${file.fileName}`}
           target="_blank"
         >
           {file.fileName}
@@ -134,6 +137,10 @@ const DetailView = ({ id, fallBack, name, type, onClose }) => {
             })}
           </div>
 
+          {["Account", "Logs"].includes(type) ? null : (
+            <History id={id} url={type} />
+          )}
+
           <div className="flex justify-end pt-6 border-t border-gray-200 mt-10">
             <button
               onClick={onClose}
@@ -144,7 +151,6 @@ const DetailView = ({ id, fallBack, name, type, onClose }) => {
           </div>
         </div>
       </div>
-      <History id={id} url={type} />
     </>
   );
 };
