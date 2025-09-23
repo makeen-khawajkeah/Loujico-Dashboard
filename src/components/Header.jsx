@@ -59,11 +59,7 @@ const Header = ({ onToggleSidebar }) => {
         <FaBars size={24} />
       </button>
 
-      <div
-        className={`flex items-center gap-6 cursor-pointer ${
-          language === "en" ? "flex-row-reverse" : ""
-        }`}
-      >
+      <div className={`flex items-center gap-6 cursor-pointer`}>
         {/* عرض حالة التحميل أو الخطأ أو البيانات */}
         {loading ? (
           <div className="flex items-center justify-center">

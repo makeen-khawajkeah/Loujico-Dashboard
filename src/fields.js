@@ -19,7 +19,33 @@ export const employeeFields = [
   // { name: "createdBy", title: "fields.common.createdBy", width: 150 },
   // { name: "updatedBy", title: "fields.common.updatedBy", width: 150 },
 ];
-
+export const companyFields = [
+  {
+    name: "id",
+    title: "fields.company.id",
+    width: 80,
+  },
+  {
+    name: "Name",
+    title: "fields.company.Name",
+    width: 150,
+  },
+  {
+    name: "Comm_No",
+    title: "fields.company.Comm_No",
+    width: 150,
+  },
+  {
+    name: "Tax_No",
+    title: "fields.company.Tax_No",
+    width: 150,
+  },
+  {
+    name: "Found_Date",
+    title: "fields.company.Found_Date",
+    width: 180,
+  },
+];
 export const clientFields = [
   {
     name: "id",
@@ -72,7 +98,6 @@ export const clientFields = [
     width: 120,
   },
 ];
-
 export const projectFields = [
   {
     name: "id",
@@ -143,7 +168,6 @@ export const logFields = [
   //     width: 160
   // }
 ];
-
 export const invoiceFields = [
   {
     name: "id",

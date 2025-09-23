@@ -149,7 +149,131 @@ export const clientFields = [
     type: "date",
   },
 ];
-
+export const companyDetailFields = [
+  {
+    name: "name",
+    title: "fields.companyDetailFields.company.name",
+    type: "text",
+  },
+  {
+    name: "comm_No",
+    title: "fields.companyDetailFields.company.commNo",
+    type: "text",
+  },
+  {
+    name: "tax_No",
+    title: "fields.companyDetailFields.company.taxNo",
+    type: "text",
+  },
+  {
+    name: "found_Date",
+    title: "fields.companyDetailFields.company.foundDate",
+    type: "date",
+  },
+  {
+    name: "companyDescription",
+    title: "fields.companyDetailFields.company.description",
+    type: "text",
+  },
+];
+export const companyAddressesFields = [
+  {
+    name: "countryId",
+    title: "fields.companyAddressFields.address.country",
+    type: "select",
+  },
+  {
+    name: "stateId",
+    title: "fields.companyAddressFields.address.state",
+    type: "select",
+  },
+  {
+    name: "cityId",
+    title: "fields.companyAddressFields.address.city",
+    type: "select",
+  },
+  {
+    name: "addressLine",
+    title: "fields.companyAddressFields.address.addressLine",
+    type: "text",
+  },
+];
+export const companyContactFields = [
+  {
+    name: "contactTypeId",
+    title: "fields.companyContactFields.contact.type",
+    type: "select",
+  },
+  {
+    name: "name",
+    title: "fields.companyContactFields.contact.name",
+    type: "text",
+  },
+];
+export const companyLegalFields = [
+  {
+    name: "legalInfo",
+    title: "fields.companyContactFields.legal.info",
+    type: "text",
+  },
+];
+export const companyActivitiesFields = [
+  {
+    name: "name",
+    title: "fields.companyActivityFields.activity.name",
+    type: "text",
+  },
+  {
+    name: "industryId",
+    title: "fields.companyActivityFields.activity.industry",
+    type: "select",
+  },
+];
+export const companyEmployeesFields = [
+  {
+    name: "firstName",
+    title: "fields.companyEmployeeFields.employee.firstName",
+    type: "text",
+  },
+  {
+    name: "lastName",
+    title: "fields.companyEmployeeFields.employee.lastName",
+    type: "text",
+  },
+  {
+    name: "position",
+    title: "fields.companyEmployeeFields.employee.position",
+    type: "text",
+  },
+  {
+    name: "phone",
+    title: "fields.companyEmployeeFields.employee.phone",
+    type: "text",
+  },
+  {
+    name: "email",
+    title: "fields.companyEmployeeFields.employee.email",
+    type: "email",
+  },
+  {
+    name: "notes",
+    title: "fields.companyEmployeeFields.employee.notes",
+    type: "text",
+  },
+  {
+    name: "department",
+    title: "fields.companyEmployeeFields.employee.department",
+    type: "text",
+  },
+];
+export const companyAllFields = {
+  company: companyDetailFields,
+  addresses: companyAddressesFields,
+  activities: companyActivitiesFields,
+  contacts: companyContactFields,
+  legals: companyLegalFields,
+  employees: companyEmployeesFields,
+};
 export const projectFields = [
   {
     name: "id",

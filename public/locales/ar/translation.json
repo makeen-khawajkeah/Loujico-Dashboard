@@ -4,6 +4,7 @@
     "users": "المستخدمون",
     "customers": "العملاء",
     "employees": "الموظفون",
+    "companies": "الشركات",
     "projects": "المشاريع",
     "invoices": "الفواتير",
     "products": "المنتجات",
@@ -30,6 +31,10 @@
       "noToken": "لم يتم العثور على رمز المصادقة",
       "connectionFailed": "تعذر الاتصال بالخادم. يتم استخدام بيانات تجريبية."
     }
+  },
+  "company": {
+    "title": "الشركات",
+    "search": "شركة"
   },
   "user": {
     "title": "المستخدمون",
@@ -69,6 +74,9 @@
     "associatedEmployees": "الموظفون المرتبطون",
     "chooseEmployee": "اختر موظف",
     "rolePlaceholder": "الدور",
+    "addButton": "إضافة"
+  },
+  "todoCountry": {
     "addButton": "إضافة"
   },
   "popup": {
@@ -119,6 +127,99 @@
       "description": "الوصف",
       "profileImage": "الصورة الشخصية",
       "isPresent": "حالة التواجد"
+    },
+    "company": {
+      "id": "المعرف",
+      "Name": "اسم الشركة",
+      "Comm_No": "السجل التجاري",
+      "Tax_No": "السجل الضريبي",
+      "Found_Date": "تاريخ الإنشاء",
+      "companyDescription": "وصف الشركة",
+      "industry": "نوع الصناعة",
+      "serviceProvided": "الخدمة المقدمة",
+      "inquiry": "نص الاستفسار",
+      "workDate": "تاريخ العمل",
+      "workDuration": "مدة العمل"
+    },
+    "companyDetailFields": {
+      "company": {
+        "id": "المعرف",
+        "name": "اسم الشركة",
+        "commNo": "رقم السجل التجاري",
+        "taxNo": "الرقم الضريبي",
+        "foundDate": "تاريخ التأسيس",
+        "description": "وصف الشركة"
+      },
+      "common": {
+        "createdAt": "تاريخ الإنشاء",
+        "updatedAt": "تاريخ التحديث",
+        "lastVisit": "آخر زيارة",
+        "isDeleted": "محذوف",
+        "createdBy": "تم الإنشاء بواسطة",
+        "updatedBy": "تم التحديث بواسطة"
+      }
+    },
+    "companyAddressFields": {
+      "address": {
+        "id": "معرف العنوان",
+        "addressLine": " العنوان",
+        "country": "الدولة",
+        "state": " المحافظة",
+        "city": " المدينة"
+      }
+    },
+    "companyActivityFields": {
+      "activity": {
+        "id": "معرف النشاط",
+        "name": "اسم النشاط",
+        "industry": "الصناعة",
+        "industryName": "اسم الصناعة"
+      }
+    },
+    "companyContactFields": {
+      "contact": {
+        "id": "معرف جهة الاتصال",
+        "name": "اسم جهة الاتصال",
+        "type": "نوع جهة الاتصال",
+        "typeName": "اسم النوع"
+      },
+      "legal": {
+        "id": "المعرف القانوني",
+        "info": "المعلومات القانونية"
+      }
+    },
+    "companyEmployeeFields": {
+      "employee": {
+        "id": "معرف الموظف",
+        "firstName": "الاسم الأول",
+        "lastName": "الاسم الأخير",
+        "position": "المنصب",
+        "department": "القسم",
+        "phone": "رقم الهاتف",
+        "email": "البريد الإلكتروني",
+        "notes": "ملاحظات"
+      }
+    },
+    "companyFileFields": {
+      "file": {
+        "id": "معرف الملف",
+        "fileName": "اسم الملف",
+        "fileType": "نوع الملف",
+        "uploadedAt": "تاريخ الرفع",
+        "uploadedBy": "تم الرفع بواسطة",
+        "isDeleted": "محذوف"
+      }
+    },
+    "address": {
+      "country": "الدولة",
+      "state": "المحافظة",
+      "city": "المدينة"
+    },
+    "contact": {
+      "type": "النوع"
+    },
+    "file": {
+      "id": "معرف الملف"
     },
     "client": {
       "id": "المعرف",

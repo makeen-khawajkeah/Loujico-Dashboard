@@ -4,6 +4,7 @@ import { FaTimes } from "react-icons/fa";
 import ToDoEmp from "./ToDoEmp";
 import ToDoFile from "./ToDoFile";
 import Select from "./Select";
+import ToDoCountry from "./ToDoCountry";
 
 const PopUp = ({
   url,
@@ -377,6 +378,7 @@ const PopUp = ({
             <ToDoFile formData={formData} setFormData={setFormData} url={url} />
           )}
 
+          <ToDoCountry />
           <div className="flex justify-end gap-3 pt-4">
             <button
               type="button"

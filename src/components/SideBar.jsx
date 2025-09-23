@@ -27,7 +27,7 @@ const SideBar = ({ isOpen, onClose }) => {
   const sideBarItems = [
     { name: t("sideBar.dashboard"), path: "/dashboard", icon: <FaHome /> },
     { name: t("sideBar.users"), path: "/users", icon: <FaUserAlt /> },
-    { name: t("sideBar.customers"), path: "/customers", icon: <FaHandshake /> },
+    { name: t("sideBar.companies"), path: "/companies", icon: <FaHandshake /> },
     { name: t("sideBar.employees"), path: "/employees", icon: <FaUserTie /> },
     {
       name: t("sideBar.projects"),

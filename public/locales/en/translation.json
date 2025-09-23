@@ -9,7 +9,8 @@
     "products": "Products",
     "logs": "Logs",
     "settings": "Settings",
-    "logoAlt": "logo image"
+    "logoAlt": "logo image",
+    "companies": "Companies"
   },
   "home": {
     "dashboard": "Dashboard",
@@ -34,6 +35,10 @@
   "user": {
     "title": "Users",
     "search": "user"
+  },
+  "company": {
+    "title": "Companies",
+    "search": "company"
   },
   "customer": {
     "title": "Customers",
@@ -69,6 +74,9 @@
     "associatedEmployees": "Associated Employees",
     "chooseEmployee": "choose employee",
     "rolePlaceholder": "role",
+    "addButton": "Add"
+  },
+  "todoCountry": {
     "addButton": "Add"
   },
   "popup": {
@@ -119,6 +127,99 @@
       "description": "Description",
       "profileImage": "Profile Image",
       "isPresent": "Presence Status"
+    },
+    "company": {
+      "id": "ID",
+      "Name": "Company Name",
+      "Comm_No": "Commercial Register",
+      "Tax_No": "Tax Registry",
+      "Found_Date": "Found Date",
+      "companyDescription": "وصف الشركة",
+      "industry": "نوع الصناعة",
+      "serviceProvided": "الخدمة المقدمة",
+      "inquiry": "نص الاستفسار",
+      "workDate": "تاريخ العمل",
+      "workDuration": "مدة العمل"
+    },
+    "companyDetailFields": {
+      "company": {
+        "id": "ID",
+        "name": "Company Name",
+        "commNo": "Commercial Number",
+        "taxNo": "Tax Number",
+        "foundDate": "Foundation Date",
+        "description": "Company Description"
+      },
+      "common": {
+        "createdAt": "Created At",
+        "updatedAt": "Updated At",
+        "lastVisit": "Last Visit",
+        "isDeleted": "Is Deleted",
+        "createdBy": "Created By",
+        "updatedBy": "Updated By"
+      }
+    },
+    "companyAddressFields": {
+      "address": {
+        "id": "Address ID",
+        "addressLine": "Address Line",
+        "country": "Country Name",
+        "state": "State Name",
+        "city": "City Name"
+      }
+    },
+    "companyActivityFields": {
+      "activity": {
+        "id": "Activity ID",
+        "name": "Activity Name",
+        "industry": "Industry",
+        "industryName": "Industry Name"
+      }
+    },
+    "companyContactFields": {
+      "contact": {
+        "id": "Contact ID",
+        "name": "Contact Name",
+        "type": "Contact Type",
+        "typeName": "Type Name"
+      },
+      "legal": {
+        "id": "Legal ID",
+        "info": "Legal Information"
+      }
+    },
+    "companyEmployeeFields": {
+      "employee": {
+        "id": "Employee ID",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "position": "Position",
+        "department": "Department",
+        "phone": "Phone Number",
+        "email": "Email",
+        "notes": "Notes"
+      }
+    },
+    "companyFileFields": {
+      "file": {
+        "id": "File ID",
+        "fileName": "File Name",
+        "fileType": "File Type",
+        "uploadedAt": "Uploaded At",
+        "uploadedBy": "Uploaded By",
+        "isDeleted": "Is Deleted"
+      }
+    },
+    "address": {
+      "country": "Country",
+      "state": "State",
+      "city": "City"
+    },
+    "contact": {
+      "type": "Type"
+    },
+    "file": {
+      "id": "File ID"
     },
     "client": {
       "id": "ID",

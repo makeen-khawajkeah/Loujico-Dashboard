@@ -14,6 +14,7 @@ import Projects from "./components/Projects";
 import SideBar from "./components/SideBar";
 import Products from "./components/Products";
 import Logs from "./components/Logs";
+import Companies from "./components/Companies";
 
 const App = () => {
   const location = useLocation();
@@ -38,6 +39,7 @@ const App = () => {
             <Route path="/dashboard" element={<Home />} />
             <Route path="/users" element={<Users />} />
             <Route path="/customers" element={<Clients />} />
+            <Route path="/companies" element={<Companies />} />
             <Route path="/employees" element={<Employees />} />
             <Route path="/projects" element={<Projects />} />
             {/* <Route path="/invoices" element={<Invoices />} /> */}
